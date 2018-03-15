@@ -3,6 +3,6 @@
 Tämä on **README-tiedosto** *OTM-harjoitustyötä* varten.
 
 https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt - automatic!
-[GitHub](https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt) 
+[GitHub](http://github.com)
 https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt - automatic!
-[GitHub](https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+[GitHub](http://github.com)
