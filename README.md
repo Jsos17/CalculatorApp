@@ -2,7 +2,7 @@
 
 Tämä on **README-tiedosto** *OTM-harjoitustyötä* varten.
 
-https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt - automatic!
+http://github.com - komentorivi.txt
 [GitHub](http://github.com)
-https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt - automatic!
+http://github.com - gitlog.txt
 [GitHub](http://github.com)
