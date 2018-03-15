@@ -6,3 +6,5 @@ Tässä on kuvaus otm-harjoitustyöstä.
 [komentorivi.txt](https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
 [gitlog.txt](https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+
+Lisää kuvaavaa tekstiä.
