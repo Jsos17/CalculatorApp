@@ -8,6 +8,6 @@ Some descriptions of the the project and its additional exercises:
 
 [gitlog.txt](https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
-[documentation] 
+[vaativuusmaarittely.md](https://github.com/Jsos17/otm-harjoitustyo/blob/master/documentation/vaativuusmaarittely.md)
 
 To be added
