@@ -2,5 +2,5 @@
 
 | day   | time | what I did |  
 | :----:|:-----| :-----|										
-| 25.3. |      | software requirement spesification preliminary version | 
+| 25.3. |      | software requirement specification preliminary version | 
  
