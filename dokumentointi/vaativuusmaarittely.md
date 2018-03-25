@@ -1,4 +1,4 @@
-# Software requirement specification for CalculatorApp (Vaativuusmäärittely)
+# Software requirement specification for CalculatorApp (Vaatimusmäärittely)
 
 ## The purpose of the application
 
