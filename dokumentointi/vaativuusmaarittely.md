@@ -37,7 +37,7 @@ The application should have the basic arithmetic operations visible to the user 
 
 ## Possibilities for expansion
 
-* Visualizing the behaviour of a fucntion when it approaches its limit, e.g. *lim (1 + 1/n)^n -> e when n -> infinity*
+* Visualizing the behaviour of a function when it approaches its limit, e.g. *lim (1 + 1/n)^n -> e when n -> infinity*
 
 * The ability to toggle between fractional and decimal representation of numbers and results
 
