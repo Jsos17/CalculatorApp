@@ -1,10 +1,13 @@
-# OTM-harjoitustyö
+# OTM project work
 
-Tämä on **README-tiedosto** *OTM-harjoitustyötä* varten.
-Tässä on kuvaus otm-harjoitustyöstä.
+Here is the **README-file** for the project work of the course *Ohjelmistotekniikan menetelmät (Software engineering)*
+
+Some descriptions of the the project and its additional exercises:
 
 [komentorivi.txt](https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
 [gitlog.txt](https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
-Lisää kuvaavaa tekstiä.
+[documentation] 
+
+To be added
