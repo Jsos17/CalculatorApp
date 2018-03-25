@@ -8,7 +8,7 @@ Some descriptions of the the project and its additional exercises:
 
 [gitlog.txt](https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
-[Vaatimusmäärittely](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/vaativuusmaarittely.md)
+[Vaatimusmäärittely](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
 
 [Työaikakirjanpito](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
 
