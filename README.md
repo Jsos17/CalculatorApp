@@ -10,6 +10,6 @@ Some descriptions of the the project and its additional exercises:
 
 [Vaativuusmäärittely](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/vaativuusmaarittely.md)
 
-[Työaikakirjanpito] (https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
+[Työaikakirjanpito](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
 
 Todo 
