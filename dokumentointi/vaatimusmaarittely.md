@@ -2,7 +2,7 @@
 
 ## The purpose of the application
 
-The application provides all the basic arithmetic operations (+, -, *, /, mod) and also trigonometric functions, exponentiation, square-root, logarithmic, factorial and so on. 
+The application provides all the basic arithmetic operations (+, -, *, /, mod) and also trigonometric functions, exponentiation, square-root, logarithm, factorial and so on. 
 
 Additionally, it serves as a graphics calculator, providing the ability to visualize simple functions and examine their behaviour. 
 
@@ -16,7 +16,7 @@ At first the application does not provide any login feature, so users are not sp
 
 ## User interface outline
 
-The application should have the basic arithmetic operations visible to the user at all times while the application is running, and an additional window should open when the user wishes to use the graphical calculation feature.
+The application should have the basic arithmetic operations visible to the user at all times while the application is running, and an additional window should open when the user wishes to use the graphics calculator feature.
 
 ## Planned features for the basic version
 
