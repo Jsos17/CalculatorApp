@@ -1,4 +1,4 @@
-# OTM project work
+# OTM project work CalculatorApp
 
 Here is the **README-file** for the project work of the course *Ohjelmistotekniikan menetelmät (Software engineering)*
 
