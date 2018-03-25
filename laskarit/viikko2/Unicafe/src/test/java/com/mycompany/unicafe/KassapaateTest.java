@@ -22,10 +22,7 @@ public class KassapaateTest {
     private Maksukortti kortti;
     private Maksukortti edullinenEiTarpeeksi;
     private Maksukortti maukasEiTarpeeksi;
-    
-    public KassapaateTest() {
-    }
-   
+  
     @Before
     public void setUp() {
         kassapaate = new Kassapaate();
@@ -224,6 +221,5 @@ public class KassapaateTest {
     public void negatiivistaSaldoaEiVoiLadataKortti() {
         kassapaate.lataaRahaaKortille(kortti, -1000);
         assertEquals(1000, kortti.saldo());
-    }
-            
+    }      
 }
