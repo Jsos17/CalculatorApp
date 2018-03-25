@@ -32,14 +32,16 @@ The ability of the user to modify what mathematical operations he/she has in his
 
 * At least simple functions can be created, edited, saved and deleted by the user
 
-* These simple functions can then be examined graphically through the graphical calculator feature
+* These simple functions can then be examined graphically through the graphics calculator feature
 
-* function creation should have detailed instructions and error handling
+* Thus function creation should have detailed instructions and error handling
 
 
 ## Possibilities for expansion
 
 * Visualizing the behaviour of a fucntion when it approaches its limit, e.g. lim (1 + 1/n)^n -> e when n -> infinity
 
-* The ability to toggle between fractional and decimal representation of numbers and results 
+* The ability to toggle between fractional and decimal representation of numbers and results
+
+* If a login-feature exists, the ability for users to make public some of their functions for other users to use
 

@@ -1,6 +1,6 @@
-# OTM project work CalculatorApp
+# Ohjelmistotekniikan menetelmät project work: CalculatorApp (working title)
 
-Here is the **README-file** for the project work of the course *Ohjelmistotekniikan menetelmät (Software engineering)*
+Here is the **README-file** for the project work **CalculatorApp** (working title). This project is part of the course *Ohjelmistotekniikan menetelmät (Software engineering methods (unofficial translation))*
 
 Some descriptions of the the project and its additional exercises:
 
@@ -10,4 +10,4 @@ Some descriptions of the the project and its additional exercises:
 
 [vaativuusmaarittely.md](https://github.com/Jsos17/otm-harjoitustyo/blob/master/documentation/vaativuusmaarittely.md)
 
-To be added
+Todo 
