@@ -4,7 +4,7 @@
 
 The application provides all the basic arithmetic operations (+, -, *, /, mod) and also trigonometric functions, exponentiation, square-root, logarithmic, factorial and so on. 
 
-Additionally it serves as a graphics calculator, providing the ability to visualize simple functions and examine their behaviour. 
+Additionally, it serves as a graphics calculator, providing the ability to visualize simple functions and examine their behaviour. 
 
 The application should also provide some means to save functions into a database, hence the user does not need to write the functions all over again every time he/she has closed the application. Additionally the user can also edit and delete his/her personally made functions.
 
