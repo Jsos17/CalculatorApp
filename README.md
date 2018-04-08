@@ -4,10 +4,6 @@ Here is the **README-file** for the project work **CalculatorApp** (working titl
 
 Some descriptions of the the project and its additional exercises:
 
-[komentorivi.txt](https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
-
-[gitlog.txt](https://github.com/Jsos17/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
-
 [Vaatimusmäärittely](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
 
 [Työaikakirjanpito](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
