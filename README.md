@@ -7,5 +7,3 @@ Some descriptions of the the project and its additional exercises:
 [Vaatimusmäärittely](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
 
 [Työaikakirjanpito](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
-
-Todo 
