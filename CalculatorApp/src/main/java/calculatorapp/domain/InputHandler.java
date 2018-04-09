@@ -35,7 +35,7 @@ public class InputHandler {
                 }
             }
         }
-        
+
         for (int i = 0; i < operators.size(); i++) {
             result = callTheRightFunction(operators.get(i), Double.parseDouble(operands[i]), Double.parseDouble(operands[i + 1]));
             operands[i + 1] = "" + result;
@@ -105,45 +105,19 @@ public class InputHandler {
         return false;
     }
 
-    private boolean isAMathOperator(char character) {
-        switch (character) {
-            case '+':
-                return true;
-            case '-':
-                return true;
-            case '*':
-                return true;
-            case '/':
-                return true;
-            default:
-                return false;
+    private boolean isAMathOperator(char c) {
+        if (c == '+' || c == '-' || c == '*' || c == '/') {
+            return true;
+        } else {
+            return false;
         }
     }
 
-    private boolean isANumber(char character) {
-        switch (character) {
-            case '0':
-                return true;
-            case '1':
-                return true;
-            case '2':
-                return true;
-            case '3':
-                return true;
-            case '4':
-                return true;
-            case '5':
-                return true;
-            case '6':
-                return true;
-            case '7':
-                return true;
-            case '8':
-                return true;
-            case '9':
-                return true;
-            default:
-                return false;
+    private boolean isANumber(char c) {
+        if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' | c == '6' || c == '7' || c == '8' || c == '9') {
+            return true;
+        } else {
+            return false;
         }
     }
 }
