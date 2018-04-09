@@ -85,10 +85,13 @@ public class CalculatorAppUi extends Application {
 //        mathOperators.get(5).setOnMouseClicked((event) -> expression.setText(expression.getText() + "mod"));
         
         otherOperators.get(0).setOnMouseClicked((event) -> {
+            String s = expression.getText();
+            if (s.length() != 0) {expression.setText(expression.getText().substring(0, expression.getText().length()-1));}
+        });
+        otherOperators.get(1).setOnMouseClicked((event) -> {
             expression.setText("");
             result.setText("");
         });
-        otherOperators.get(1).setOnMouseClicked((event) -> expression.setText(""));
 //        otherOperators.get(2).setOnMouseClicked((event) -> expression.setText((expression.getText() + ".")));
         otherOperators.get(3).setOnMouseClicked((event) -> {
             result.setText("" + inHandl.evaluateExpressionDouble(expression.getText()));
