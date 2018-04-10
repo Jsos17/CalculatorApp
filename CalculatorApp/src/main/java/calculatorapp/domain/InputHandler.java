@@ -1,6 +1,6 @@
 package calculatorapp.domain;
 
-import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.Stack;
 
 /**
@@ -8,44 +8,93 @@ import java.util.Stack;
  * @author jpssilve
  */
 public class InputHandler {
-
     private CalculatorService calculator;
 
     public InputHandler(CalculatorService calculator) {
         this.calculator = calculator;
     }
+    // @Djikstra ja wikipedian mukaan toteutus, olisi tietysti kannattanut käyttää kirjastoa tähän
+    private ArrayDeque<String> shuntingYard(String expression) {
+        ArrayDeque<String> output = new ArrayDeque();
+        Stack<Character> stack = new Stack();
 
-    public double evaluateExpressionDouble(String expression) {
-        String[] operands = new String[expression.length()];
-        ArrayList<Character> operators = new ArrayList<>();
-        int k = 0;
-        int j = 0;
-        double result = 0;
-        if (correctBracketing(expression) && correctOperatorPlacement(expression)) {
-            for (int i = 0; i < expression.length(); i++) {
-                char character = expression.charAt(i);
-                if (isAMathOperator(character)) {
-                    operators.add(character);
-                    operands[k] = (expression.substring(j, i));
-                    k++;
-                    j = i + 1;
-                } else if (i == expression.length() - 1) {
-                    operands[k] = (expression.substring(j));
-                    k++;
+        int i = 0;
+        int index = 0;
+        while (i < expression.length()) {
+            char character = expression.charAt(i);
+            if (isANumber(character)) {
+                index = i;
+                while (i < expression.length() && (isANumber(expression.charAt(i)) || expression.charAt(i) == '.')) {
+                    i++;
+                }
+                output.addLast(expression.substring(index, i));
+                continue;
+                
+            } else if (isAMathOperator(character)) {
+                while (!stack.empty() && hasHigherPrecedence(stack.peek(), character) && stack.peek() != '(')  {
+                    output.addLast(Character.toString(stack.pop()));
+                }
+                stack.push(character);
+                
+            } else if (character == '(') {
+                stack.push(character);
+                
+            } else if (character == ')') {
+                while (!stack.empty()) {
+                    if (stack.peek() == '(') {
+                        stack.pop();
+                        break;
+                    }
+                    output.addLast(Character.toString(stack.pop()));
+                }
+            }
+            
+            i++;
+        }
+        
+        while (!stack.empty()) {
+            output.addLast(Character.toString(stack.pop()));
+        }
+        
+        return output;
+    }
+    
+    // wikipedia mukaan toteutus, tiedetään että olisi varmaan kannattanut käyttää valmista kirjastoa
+    private double postfixEvaluator(ArrayDeque<String> queue) {
+        Stack<Double> values = new Stack();
+        
+        while (!queue.isEmpty()) {
+            String mathObject = queue.pollFirst();
+            
+            if (stringIsANumber(mathObject)) {
+                values.push(Double.parseDouble(mathObject));
+            } else if (stringIsAMathOperator(mathObject)) {
+                char operator = mathObject.charAt(0);
+                if (values.size() >= 2) {
+                    double x1 = values.pop();
+                    double x2 = values.pop();
+                    double value = callTheRightFunction(operator, x2, x1);
+                    values.push(value);
+                } else {
+                    return Double.NaN;
                 }
             }
         }
-
-        for (int i = 0; i < operators.size(); i++) {
-            result = callTheRightFunction(operators.get(i), Double.parseDouble(operands[i]), Double.parseDouble(operands[i + 1]));
-            operands[i + 1] = "" + result;
+        
+        if (!values.empty()) {
+            return values.pop();
+        } else {
+            return Double.NaN;
         }
-
-        return result;
     }
 
-    public long evaluateExpressionLong(String expression) {
-        return 0l;
+    public double expressionEvaluation(String expression) {
+        if (correctBracketing(expression) && correctOperatorAndDotPlacement(expression)) {
+            ArrayDeque<String> queue = shuntingYard(expression);
+            return postfixEvaluator(queue);
+        } else {
+            return Double.NaN;
+        }
     }
 
     public boolean correctBracketing(String expression) {
@@ -63,21 +112,41 @@ public class InputHandler {
                 }
             }
         }
+        
+        for (int i = 0; i < expression.length() - 1; i++) {
+            char c1 = expression.charAt(i);
+            char c2 = expression.charAt(i + 1);
+            
+            if (c1 == '(' && c2 == ')') {
+                return false;
+            } else if (isANumber(c1) && c2 == '(') {
+                return false;
+            } else if (c1 == ')' && isANumber(c2)) {
+                return false;
+            }
+        }
 
         return stack.empty();
     }
 
-    public boolean correctOperatorPlacement(String expression) {
+    public boolean correctOperatorAndDotPlacement(String expression) {
         for (int i = 0; i < expression.length(); i++) {
+            char character = expression.charAt(i);
+            boolean mathOp = isAMathOperator(character);
+            boolean isDot = (character == '.');
 
-            if (isAMathOperator(expression.charAt(i))) {
+            if (mathOp || isDot) {
                 if (i == 0 || i == expression.length() - 1) {
                     return false;
                 }
 
                 char before = expression.charAt(i - 1);
                 char after = expression.charAt(i + 1);
-                if (!isANumber(before) || !isANumber(after)) {
+                if (mathOp && ((!isANumber(before) && before != ')') || (!isANumber(after) && after != '('))) {
+                    return false;
+                }
+
+                if (isDot && (before == '.' || after == '.')) {
                     return false;
                 }
             }
@@ -89,24 +158,22 @@ public class InputHandler {
     private double callTheRightFunction(char operator, double x1, double x2) {
         switch (operator) {
             case '+':
-                return calculator.addDouble(x1, x2);
+                return this.calculator.addDouble(x1, x2);
             case '-':
-                return calculator.subtractDouble(x1, x2);
+                return this.calculator.subtractDouble(x1, x2);
             case '*':
-                return calculator.multiplyDouble(x1, x2);
+                return this.calculator.multiplyDouble(x1, x2);
             case '/':
-                return calculator.divideDouble(x1, x2);
+                return this.calculator.divideDouble(x1, x2);
+            case '^':
+                return this.calculator.exp(x1, x2);
             default:
                 return Double.NaN;
         }
     }
 
-    public boolean isAFunction(String expression) {
-        return false;
-    }
-
     private boolean isAMathOperator(char c) {
-        if (c == '+' || c == '-' || c == '*' || c == '/') {
+        if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
             return true;
         } else {
             return false;
@@ -115,6 +182,34 @@ public class InputHandler {
 
     private boolean isANumber(char c) {
         if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' | c == '6' || c == '7' || c == '8' || c == '9') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    private boolean stringIsAMathOperator(String candidate) {
+        if (candidate.length() == 1) {
+            return isAMathOperator(candidate.charAt(0));
+        } else {
+            return false;
+        }
+    }
+    private boolean stringIsANumber(String candidate) {
+        try {
+            Double.parseDouble(candidate);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    public boolean hasHigherPrecedence(char c1, char c2) {
+        if (c1 == '^' && c2 != '^') {
+            return true;
+        } else if ((c1 == '*' || c1 == '/') && c2 != '^') {
+            return true;
+        } else if ((c1 == '+' || c1 == '-') && (c2 == '+' || c2 == '-')) {
             return true;
         } else {
             return false;

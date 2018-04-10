@@ -34,9 +34,9 @@ public class CalculatorService {
         return x * y;
     }
     
-    public double divideDouble(double x, double y) throws IllegalArgumentException {
+    public double divideDouble(double x, double y) {
         if (y == 0) {
-            throw new  IllegalArgumentException("Divide by zero");
+            return Double.NaN;
         } else {
             return  x / y;
         }
@@ -50,19 +50,31 @@ public class CalculatorService {
         return x % y;
     }
     
-    public double naturalLog(long x) throws IllegalArgumentException {
+    public double naturalLog(long x) {
         if (x <= 0) {
-            throw new IllegalArgumentException();
+            return Double.NaN;
         } else {
             return Math.log(x);
         }
     }
     
-    public double base10log(long x) throws IllegalArgumentException {
+    public double base10log(long x) {
         if (x <= 0) {
-            throw new IllegalArgumentException();
+            return Double.NaN;
         } else {
             return Math.log10(x);
+        }
+    }
+    
+    public double abs(double x) {
+        return Math.abs(x);
+    }
+    
+    public double exp(double base, double exponent) {
+        if (base == 0 && exponent == 0) {
+            return Double.NaN;
+        } else {
+            return Math.pow(base, exponent);
         }
     }
 }

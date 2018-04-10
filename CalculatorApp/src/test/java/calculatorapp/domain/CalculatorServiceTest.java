@@ -40,32 +40,32 @@ public class CalculatorServiceTest {
     
     @Test
     public void addDoubleIsCorrect() {
-        assertEquals(4.9257, calcServ.addDouble(1.2765, 3.6492), 0.000_000_1);
+        assertEquals(4.9257, calcServ.addDouble(1.2765, 3.6492), 0.0001);
     }
     
     @Test
     public void subtractDoubleIsCorrect() {
-        assertEquals(-2.3727, calcServ.subtractDouble(1.2765, 3.6492), 0.000_000_1);
+        assertEquals(-2.3727, calcServ.subtractDouble(1.2765, 3.6492), 0.0001);
     }
     
     @Test
     public void multiplyDoubleIsCorrect() {
-        assertEquals(39.20180351, calcServ.multiplyDouble(5.49717, 7.13127), 0.000_000_1);
+        assertEquals(39.20180351, calcServ.multiplyDouble(5.49717, 7.13127), 0.0001);
     }
     
     @Test
     public void divideDoubleIsCorrect() {
-        assertEquals(0.95192568, calcServ.divideDouble(6.78149, 7.12397), 0.000_000_1);
+        assertEquals(0.95192568, calcServ.divideDouble(6.78149, 7.12397), 0.0001);
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void cannotDivideByZero() {
-        calcServ.divideDouble(5.0, 0);
+        assertEquals(Double.NaN, calcServ.divideDouble(5.0, 0), 0.001);
     }
     
     @Test
     public void percentageIsCorrect() {
-        assertEquals(42.0, calcServ.percent(0.42), 0.000_000_1);
+        assertEquals(42.0, calcServ.percent(0.42), 0.0001);
     }
     
     @Test
@@ -73,23 +73,28 @@ public class CalculatorServiceTest {
         assertEquals(44, calcServ.modulo(101, 57));
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void naturalLogNonPositiverArgumentsNotAllowed() {
-        calcServ.naturalLog(-1);
+        assertEquals(Double.NaN, calcServ.naturalLog(-1), 0.001);
     }
     
     @Test
     public void naturaLogIsCorrect() {
-        assertEquals(4.5217886, calcServ.naturalLog(92), 0.000_000_1);
+        assertEquals(4.5217886, calcServ.naturalLog(92), 0.001);
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void base10LogNonPositiveArgumentsNotAllowed() {
-        calcServ.base10log(-10);
+        assertEquals(Double.NaN, calcServ.base10log(-10), 0.001);
     }
     
     @Test
     public void base10LogIsCorrect() {
-        assertEquals(3, calcServ.base10log(1000), 0.000_000_1);
+        assertEquals(3, calcServ.base10log(1000), 0.0001);
+    }
+    
+    @Test
+    public void absIsCorrect() {
+        assertEquals(3.4, calcServ.abs(-3.4), 0.00001);
     }
 }
