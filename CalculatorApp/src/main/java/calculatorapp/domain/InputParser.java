@@ -61,7 +61,7 @@ public class InputParser {
         return output;
     }
 
-    // wikipedia pseudo-codeas basis for implementation
+    // wikipedia pseudo-code as basis for implementation
     private double postfixEvaluator(ArrayDeque<String> queue) {
         Stack<Double> values = new Stack();
 
