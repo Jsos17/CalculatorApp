@@ -135,7 +135,9 @@ public class InputParser {
     }
 
     public boolean correctOperatorAndDotPlacement(String expression) {
-        for (int i = 0; i < expression.length(); i++) {
+        int index = 0;
+        int i = 0;
+        while (i < expression.length()) {
             char character = expression.charAt(i);
             boolean mathOp = isAMathOperator(character);
             boolean isDot = (character == '.');
@@ -154,7 +156,20 @@ public class InputParser {
                 if (isDot && (before == '.' || after == '.')) {
                     return false;
                 }
+            } else if (isANumber(character)) {
+                index = i;
+                while (i < expression.length() && (isANumber(expression.charAt(i)) || expression.charAt(i) == '.')) {
+                    i++;
+                }
+
+                if (stringIsANumber(expression.substring(index, i))) {
+                    continue;
+                } else {
+                    return false;
+                }
             }
+
+            i++;
         }
 
         return true;
@@ -186,7 +201,8 @@ public class InputParser {
     }
 
     private boolean isANumber(char c) {
-        if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' | c == '6' || c == '7' || c == '8' || c == '9') {
+        if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4'
+                || c == '5' | c == '6' || c == '7' || c == '8' || c == '9') {
             return true;
         } else {
             return false;
@@ -202,11 +218,15 @@ public class InputParser {
     }
 
     private boolean stringIsANumber(String candidate) {
-        try {
-            Double.parseDouble(candidate);
-            return true;
-        } catch (Exception e) {
+        if (candidate.length() == 0 || candidate.charAt(candidate.length() - 1) == '.') {
             return false;
+        } else {
+            try {
+                Double.parseDouble(candidate);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
         }
     }
 

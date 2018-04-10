@@ -138,6 +138,12 @@ public class InputParserTest {
     }
     
     @Test
+    public void checksDotPlacementCorrectly6() {
+        String expression = "9.9.9";
+        assertFalse(inParser.correctOperatorAndDotPlacement(expression));
+    }
+
+    @Test
     public void expressionEvaluationWorksCorrectly1() {
         String expression = "8*9-15+3/20";
         assertEquals(57.15, inParser.expressionEvaluation(expression), 0.0001);
