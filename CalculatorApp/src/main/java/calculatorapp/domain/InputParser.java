@@ -212,7 +212,7 @@ public class InputParser {
         }
     }
 
-    public boolean hasHigherPrecedence(char c1, char c2) {
+    private boolean hasHigherPrecedence(char c1, char c2) {
         if (c1 == '^' && c2 != '^') {
             return true;
         } else if ((c1 == '*' || c1 == '/') && c2 != '^') {
