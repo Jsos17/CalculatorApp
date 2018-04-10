@@ -65,6 +65,12 @@ public class InputParserTest {
         assertTrue(inParser.numbersAndBracketsCorrect(expression));
     }
     
+     @Test
+    public void  numbersBracketsCheckedCorrectly3() {
+        String expression = "(42)(42)";
+        assertFalse(inParser.numbersAndBracketsCorrect(expression));
+    }
+
     @Test
     public void checksOperatorPlacementCorrectly1() {
         String expression = "6+5-7";

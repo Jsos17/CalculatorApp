@@ -124,11 +124,9 @@ public class InputParser {
             char c1 = expression.charAt(i);
             char c2 = expression.charAt(i + 1);
 
-            if (c1 == '(' && c2 == ')') {
+            if ((c1 == '(' && c2 == ')') || (c1 == ')' && c2 == '(')) {
                 return false;
-            } else if (isANumber(c1) && c2 == '(') {
-                return false;
-            } else if (c1 == ')' && isANumber(c2)) {
+            } else if ((isANumber(c1) && c2 == '(') || c1 == ')' && isANumber(c2)) {
                 return false;
             }
         }
