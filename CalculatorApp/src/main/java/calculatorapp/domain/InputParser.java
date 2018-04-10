@@ -7,13 +7,15 @@ import java.util.Stack;
  *
  * @author jpssilve
  */
-public class InputHandler {
+public class InputParser {
+
     private CalculatorService calculator;
 
-    public InputHandler(CalculatorService calculator) {
+    public InputParser(CalculatorService calculator) {
         this.calculator = calculator;
     }
-    // @Djikstra ja wikipedian mukaan toteutus, olisi tietysti kannattanut käyttää kirjastoa tähän
+
+    // @Djikstra as source and wikipedia pseudo-code as basis for implementation
     private ArrayDeque<String> shuntingYard(String expression) {
         ArrayDeque<String> output = new ArrayDeque();
         Stack<Character> stack = new Stack();
@@ -29,16 +31,16 @@ public class InputHandler {
                 }
                 output.addLast(expression.substring(index, i));
                 continue;
-                
+
             } else if (isAMathOperator(character)) {
-                while (!stack.empty() && hasHigherPrecedence(stack.peek(), character) && stack.peek() != '(')  {
+                while (!stack.empty() && hasHigherPrecedence(stack.peek(), character) && stack.peek() != '(') {
                     output.addLast(Character.toString(stack.pop()));
                 }
                 stack.push(character);
-                
+
             } else if (character == '(') {
                 stack.push(character);
-                
+
             } else if (character == ')') {
                 while (!stack.empty()) {
                     if (stack.peek() == '(') {
@@ -48,24 +50,24 @@ public class InputHandler {
                     output.addLast(Character.toString(stack.pop()));
                 }
             }
-            
+
             i++;
         }
-        
+
         while (!stack.empty()) {
             output.addLast(Character.toString(stack.pop()));
         }
-        
+
         return output;
     }
-    
-    // wikipedia mukaan toteutus, tiedetään että olisi varmaan kannattanut käyttää valmista kirjastoa
+
+    // wikipedia pseudo-codeas basis for implementation
     private double postfixEvaluator(ArrayDeque<String> queue) {
         Stack<Double> values = new Stack();
-        
+
         while (!queue.isEmpty()) {
             String mathObject = queue.pollFirst();
-            
+
             if (stringIsANumber(mathObject)) {
                 values.push(Double.parseDouble(mathObject));
             } else if (stringIsAMathOperator(mathObject)) {
@@ -80,7 +82,7 @@ public class InputHandler {
                 }
             }
         }
-        
+
         if (!values.empty()) {
             return values.pop();
         } else {
@@ -89,7 +91,8 @@ public class InputHandler {
     }
 
     public double expressionEvaluation(String expression) {
-        if (correctBracketing(expression) && correctOperatorAndDotPlacement(expression)) {
+        if (bracketingEquals(expression) && numbersAndBracketsCorrect(expression)
+                && correctOperatorAndDotPlacement(expression)) {
             ArrayDeque<String> queue = shuntingYard(expression);
             return postfixEvaluator(queue);
         } else {
@@ -97,7 +100,7 @@ public class InputHandler {
         }
     }
 
-    public boolean correctBracketing(String expression) {
+    public boolean bracketingEquals(String expression) {
         Stack<Character> stack = new Stack();
 
         for (int i = 0; i < expression.length(); i++) {
@@ -112,11 +115,15 @@ public class InputHandler {
                 }
             }
         }
-        
+
+        return stack.empty();
+    }
+
+    public boolean numbersAndBracketsCorrect(String expression) {
         for (int i = 0; i < expression.length() - 1; i++) {
             char c1 = expression.charAt(i);
             char c2 = expression.charAt(i + 1);
-            
+
             if (c1 == '(' && c2 == ')') {
                 return false;
             } else if (isANumber(c1) && c2 == '(') {
@@ -126,7 +133,7 @@ public class InputHandler {
             }
         }
 
-        return stack.empty();
+        return true;
     }
 
     public boolean correctOperatorAndDotPlacement(String expression) {
@@ -187,7 +194,7 @@ public class InputHandler {
             return false;
         }
     }
-    
+
     private boolean stringIsAMathOperator(String candidate) {
         if (candidate.length() == 1) {
             return isAMathOperator(candidate.charAt(0));
@@ -195,6 +202,7 @@ public class InputHandler {
             return false;
         }
     }
+
     private boolean stringIsANumber(String candidate) {
         try {
             Double.parseDouble(candidate);
@@ -203,7 +211,7 @@ public class InputHandler {
             return false;
         }
     }
-    
+
     public boolean hasHigherPrecedence(char c1, char c2) {
         if (c1 == '^' && c2 != '^') {
             return true;

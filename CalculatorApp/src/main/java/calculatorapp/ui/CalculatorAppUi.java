@@ -2,7 +2,7 @@
 package calculatorapp.ui;
 
 import calculatorapp.domain.CalculatorService;
-import calculatorapp.domain.InputHandler;
+import calculatorapp.domain.InputParser;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -23,7 +23,7 @@ public class CalculatorAppUi extends Application {
     private ArrayList<Button> mathOperators;
     private ArrayList<Button> otherOperators;
     private CalculatorService calc;
-    private InputHandler inputHandlr;
+    private InputParser inputParser;
     private int width;
     private int height;
     /**
@@ -36,7 +36,7 @@ public class CalculatorAppUi extends Application {
     @Override
     public void init() throws Exception {
         calc = new CalculatorService();
-        inputHandlr = new InputHandler(calc);
+        inputParser = new InputParser(calc);
     }
 
     @Override
@@ -133,7 +133,7 @@ public class CalculatorAppUi extends Application {
         });
         otherOperators.get(2).setOnMouseClicked((event) -> input.setText((input.getText() + ".")));
         otherOperators.get(3).setOnMouseClicked((event) -> {
-            Double res = inputHandlr.expressionEvaluation(input.getText());
+            Double res = inputParser.expressionEvaluation(input.getText());
             if (res.equals(Double.NaN)) {
                 instruction.setText("Is not a valid expression, press delete to fix the expression and try again");
             } else {
