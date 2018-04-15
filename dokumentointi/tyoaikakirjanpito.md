@@ -7,3 +7,4 @@
 | 8.4.  | 4       | created functionality for evaluating expressions as Strings, some tests for the class, and development of the gui |
 | 9.4.  | 10	  | implemented shuntingYard-algorithm, and algorithm for evaluating postfix-expressions in order to facilitate more complex calculator functionality |
 | 10.4. | 6       | added some tests, a modest database outline, some modifications for the gui, refactoring |
+| cumulative | 32 |              |
