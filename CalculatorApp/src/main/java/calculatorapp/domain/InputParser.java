@@ -62,11 +62,11 @@ public class InputParser {
     }
 
     // wikipedia pseudo-code as basis for implementation
-    private double postfixEvaluator(ArrayDeque<String> queue) {
+    private double postfixEvaluator(ArrayDeque<String> output) {
         Stack<Double> values = new Stack();
 
-        while (!queue.isEmpty()) {
-            String mathObject = queue.pollFirst();
+        while (!output.isEmpty()) {
+            String mathObject = output.pollFirst();
 
             if (stringIsANumber(mathObject)) {
                 values.push(Double.parseDouble(mathObject));
@@ -75,7 +75,7 @@ public class InputParser {
                 if (values.size() >= 2) {
                     double x1 = values.pop();
                     double x2 = values.pop();
-                    double value = callTheRightFunction(operator, x2, x1);
+                    double value = executeTheRightOperation(operator, x2, x1);
                     values.push(value);
                 } else {
                     return Double.NaN;
@@ -175,7 +175,7 @@ public class InputParser {
         return true;
     }
 
-    private double callTheRightFunction(char operator, double x1, double x2) {
+    private double executeTheRightOperation(char operator, double x1, double x2) {
         switch (operator) {
             case '+':
                 return this.calculator.addDouble(x1, x2);
@@ -224,7 +224,7 @@ public class InputParser {
             try {
                 Double.parseDouble(candidate);
                 return true;
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 return false;
             }
         }

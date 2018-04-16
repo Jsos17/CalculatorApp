@@ -5,6 +5,7 @@
  */
 package calculatorapp.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -13,14 +14,12 @@ import java.util.List;
  */
 public interface ExpressionDao {
     
-    boolean save(String expression);
+    boolean save(String expression) throws SQLException;
     
-    List<String> findAll();
+    List<String> findAll() throws SQLException;
     
-    boolean deleteLast(String expression);
+    boolean deleteLast(String expression) throws SQLException;
     
-    boolean deleteAll();
-    
-    int countExpressionsInDatabase();
+    boolean deleteAll() throws SQLException;
     
 }

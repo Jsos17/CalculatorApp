@@ -35,8 +35,8 @@ public class ExpressionDatabase {
                 st.executeUpdate(sqliteExpression);
             }
 
-        } catch (Throwable t) {
-            System.out.println("Database exists already " + t.getMessage());
+        } catch (Throwable thrown) {
+            System.out.println(thrown.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class ExpressionDatabase {
     
     private List<String> sqliteCreateExpressions() {
         ArrayList<String> list = new ArrayList<>();
-        list.add("CREATE TABLE IF NOT EXISTS Expression (id integer PRIMARY KEY, expression varchar(1000), count integer);");
+        list.add("CREATE TABLE IF NOT EXISTS Expression (id integer PRIMARY KEY, formula varchar(2000));");
         return list;
     }
 }
