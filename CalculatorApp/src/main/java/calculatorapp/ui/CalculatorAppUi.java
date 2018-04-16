@@ -129,9 +129,8 @@ public class CalculatorAppUi extends Application {
         Label recentExpressions = new Label("Recently used");
         recentExpressions.setPrefHeight(h2);
 
-        ListView<String> memoryList = new ListView();
-        ObservableList<String> items = exprMem.getMemExpressions();
-        memoryList.setItems(items);
+        ListView<String> memoryList = new ListView<>();
+        memoryList.setItems(exprMem.getMemExpressions());
 
 //        ChoiceBox choicebox = new ChoiceBox();
 //        choicebox.setPrefSize(100, 30);
