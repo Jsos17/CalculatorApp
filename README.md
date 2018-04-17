@@ -8,4 +8,4 @@ Here is the **README-file** for the project work **CalculatorApp** (working titl
 
 [Työaikakirjanpito/Work log](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
 
-[Arkkitehtuuri](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
+[Arkkitehtuuri/Software architecture](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
