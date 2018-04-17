@@ -7,3 +7,5 @@ Here is the **README-file** for the project work **CalculatorApp** (working titl
 [Vaatimusmäärittely/Software requirement specification](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
 
 [Työaikakirjanpito/Work log](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
+
+[Arkkitehtuuri](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
