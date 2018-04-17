@@ -10,6 +10,19 @@ Here is the **README-file** for the project work **CalculatorApp** (working titl
 
 [Arkkitehtuuri/Software architecture](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
 
+**Command line**
+
+**Testing**
+
+Tests can be run with the command:
+
+    mvn test
+
+Test coverage report can be run with the command:
+
+    mvn jacoco:report
+
+
 **Checkstyle**
 
 Style checks that are specified in the file [checkstyle.xml](https://github.com/Jsos17/otm-harjoitustyo/blob/master/CalculatorApp/checkstyle.xml) can be run with the command:
