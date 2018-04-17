@@ -69,15 +69,15 @@ public class ExpressionDatabaseDao implements ExpressionDao {
 
         try (Connection conn = exprDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Expression WHERE expression LIKE ?")) {
-                stmt.setString(1, "%" + partialExpression + "%");
+            stmt.setString(1, "%" + partialExpression + "%");
 
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        foundExpressions.add(rs.getString("expression"));
-                    }
-                } catch (SQLException e) {
-                    throw new SQLException();
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    foundExpressions.add(rs.getString("expression"));
                 }
+            } catch (SQLException e) {
+                throw new SQLException();
+            }
         }
 
         return foundExpressions;

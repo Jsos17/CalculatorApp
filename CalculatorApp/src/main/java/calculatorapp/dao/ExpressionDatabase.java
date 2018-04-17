@@ -17,19 +17,19 @@ import java.util.List;
  * @author jpssilve
  */
 public class ExpressionDatabase {
-    
+
     private String databaseAddress;
 
     public ExpressionDatabase(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
     }
-    
+
     public void init() {
         List<String> createExpressions = sqliteCreateExpressions();
 
         try (Connection conn = getConnection()) {
             Statement st = conn.createStatement();
-            
+
             for (int i = 0; i < createExpressions.size(); i++) {
                 String sqliteExpression = createExpressions.get(i);
                 st.executeUpdate(sqliteExpression);
@@ -43,7 +43,7 @@ public class ExpressionDatabase {
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(this.databaseAddress);
     }
-    
+
     private List<String> sqliteCreateExpressions() {
         ArrayList<String> list = new ArrayList<>();
         list.add("CREATE TABLE IF NOT EXISTS Expression (id integer PRIMARY KEY, formula varchar(2000));");

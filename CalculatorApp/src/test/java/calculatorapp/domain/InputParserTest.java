@@ -109,6 +109,18 @@ public class InputParserTest {
     }
     
     @Test
+    public void checksOperatorPlacementCorrectly7() {
+         String expression = "6*(6...7+7...)-(.8+9)/(8)";
+         assertFalse(inParser.correctOperatorAndDotPlacement(expression));
+    }
+    
+    @Test
+    public void checksOperatorPlacementCorrectly8() {
+         String expression = "6*(67+7)-(+9)/(8)";
+         assertFalse(inParser.correctOperatorAndDotPlacement(expression));
+    }
+    
+    @Test
     public void checksDotPlacementCorrectly1() {
         String expression = "6.5+0.6-9.6*9.6";
         assertTrue(inParser.correctOperatorAndDotPlacement(expression));
@@ -141,6 +153,12 @@ public class InputParserTest {
     public void checksDotPlacementCorrectly6() {
         String expression = "9.9.9";
         assertFalse(inParser.correctOperatorAndDotPlacement(expression));
+    }
+    
+    @Test
+    public void checksDotPlacementCorrectly7() {
+         String expression = "6*(..67+7...)-(.8+9)/(8)";
+         assertFalse(inParser.correctOperatorAndDotPlacement(expression));
     }
 
     @Test
@@ -224,5 +242,23 @@ public class InputParserTest {
     public void expressionEvaluationWorksCorrectly14() {
         String expression = "(8+2^5)-7+(8*5)^2";
         assertEquals(1633.0, inParser.expressionEvaluation(expression), 0.0001);
+    }
+    
+    @Test
+    public void expressionEvaluationWorksCorrectly15() {
+        String expression = "2^2^2^2";
+        assertEquals(65536.0, inParser.expressionEvaluation(expression), 0.0001);
+    }
+    
+    @Test
+    public void expressionEvaluationWorksCorrectly16() {
+        String expression = "2^(2+3^2)";
+        assertEquals(2048.0, inParser.expressionEvaluation(expression), 0.0001);
+    }
+    
+    @Test
+    public void expressionEvaluationWorksCorrectly17() {
+        String expression = "((2-67)*3^(2-0)+((100*3)-100))*(0-1)";
+        assertEquals(385.0, inParser.expressionEvaluation(expression), 0.0001);
     }
 }

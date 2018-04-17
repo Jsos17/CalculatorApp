@@ -64,18 +64,15 @@ public class InputParser {
     // wikipedia pseudo-code as basis for implementation
     private double postfixEvaluator(ArrayDeque<String> output) {
         Stack<Double> values = new Stack();
-
         while (!output.isEmpty()) {
             String mathObject = output.pollFirst();
-
             if (stringIsANumber(mathObject)) {
                 values.push(Double.parseDouble(mathObject));
             } else if (stringIsAMathOperator(mathObject)) {
-                char operator = mathObject.charAt(0);
                 if (values.size() >= 2) {
                     double x1 = values.pop();
                     double x2 = values.pop();
-                    double value = executeTheRightOperation(operator, x2, x1);
+                    double value = executeTheRightOperation(mathObject.charAt(0), x2, x1);
                     values.push(value);
                 } else {
                     return Double.NaN;
