@@ -9,4 +9,5 @@
 | 10.4. | 6       | added some tests, a modest database outline, some modifications for the gui, refactoring |
 | 15.4. | 1       | refactoring Buttons for the gui |
 | 16.4. | 4       | database work, mods to gui, added memory to the calculator and with its help showing recent expressions  |
-| cumulative | 37 |              |
+| 17.4  | 5       | refactoring, configuring checkstyle, test coverage, creating class/package diagram |
+| cumulative | 42 |              |

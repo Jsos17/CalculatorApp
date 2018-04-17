@@ -1,17 +1,15 @@
 
 package calculatorapp.ui;
 
-import calculatorapp.domain.CalculatorService;
-import calculatorapp.domain.ExpressionMemory;
-import calculatorapp.domain.InputParser;
+import calculatorapp.logic.CalculatorService;
+import calculatorapp.logic.ExpressionMemory;
+import calculatorapp.logic.InputParser;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -40,7 +38,7 @@ public class CalculatorAppUi extends Application {
     private Button answer;
     private Button leftBracket;
     private Button rightBracket;
-    private Button absolute;
+    private Button absValue;
     private ArrayList<Button> mainGridButtons;
     private ArrayList<Button> auxGridButtons;
 
@@ -86,7 +84,7 @@ public class CalculatorAppUi extends Application {
         GridPane auxGrid = new GridPane();
         auxGrid.addColumn(0, exponent, modulo);
         auxGrid.addColumn(1, leftBracket, rightBracket);
-        auxGrid.addColumn(2, absolute);
+        auxGrid.addColumn(2, absValue);
 
         int h2 = 30;
         Label inputLabel = new Label("Input: ");
@@ -130,7 +128,8 @@ public class CalculatorAppUi extends Application {
         recentExpressions.setPrefHeight(h2);
 
         ListView<String> memoryList = new ListView<>();
-        memoryList.setItems(exprMem.getMemExpressions());
+        ObservableList<String> items = FXCollections.observableArrayList();
+        memoryList.setItems(items);
 
 //        ChoiceBox choicebox = new ChoiceBox();
 //        choicebox.setPrefSize(100, 30);
@@ -181,7 +180,8 @@ public class CalculatorAppUi extends Application {
                 instruction.setText("Is not a valid expression, press delete to fix the expression and try again");
             } else {
                 formula.setText(input.getText());
-                exprMem.addToMemory(input.getText());
+//                exprMem.addToMemory(input.getText());
+                items.add(input.getText());
                 input.setText("");
                 result.setText("" + res);
                 instruction.setText("");
@@ -190,8 +190,7 @@ public class CalculatorAppUi extends Application {
         answer.setOnMouseClicked((event) ->  input.setText((input.getText() + result.getText())));
         leftBracket.setOnMouseClicked((event) ->  input.setText((input.getText() + "(")));
         rightBracket.setOnMouseClicked((event) ->  input.setText((input.getText() + ")")));
-        
-        
+
         Scene scene = new Scene(hbox);
         stage.setTitle("CalculatorApp");
         stage.setScene(scene);
@@ -242,8 +241,7 @@ public class CalculatorAppUi extends Application {
         answer = new Button("Ans");
         leftBracket = new Button("(");
         rightBracket = new Button(")");
-        absolute = new Button("abs");
-
+        absValue = new Button("abs");
 
         mainGridButtons.add(delete);
         mainGridButtons.add(clear);
@@ -253,6 +251,6 @@ public class CalculatorAppUi extends Application {
 
         auxGridButtons.add(leftBracket);
         auxGridButtons.add(rightBracket);
-        auxGridButtons.add(absolute);
+        auxGridButtons.add(absValue);
     }
 }

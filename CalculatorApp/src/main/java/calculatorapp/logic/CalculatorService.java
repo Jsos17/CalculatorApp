@@ -1,5 +1,5 @@
 
-package calculatorapp.domain;
+package calculatorapp.logic;
 
 /**
  *

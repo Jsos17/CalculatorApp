@@ -1,4 +1,4 @@
-package calculatorapp.domain;
+package calculatorapp.logic;
 
 import java.util.ArrayDeque;
 import java.util.Stack;
@@ -31,16 +31,13 @@ public class InputParser {
                 }
                 output.addLast(expression.substring(index, i));
                 continue;
-
             } else if (isAMathOperator(character)) {
                 while (!stack.empty() && hasHigherPrecedence(stack.peek(), character) && stack.peek() != '(') {
                     output.addLast(Character.toString(stack.pop()));
                 }
                 stack.push(character);
-
             } else if (character == '(') {
                 stack.push(character);
-
             } else if (character == ')') {
                 while (!stack.empty()) {
                     if (stack.peek() == '(') {
@@ -80,6 +77,10 @@ public class InputParser {
             }
         }
 
+        return postfixStackChecker(values);
+    }
+
+    private double postfixStackChecker(Stack<Double> values) {
         if (!values.empty()) {
             return values.pop();
         } else {
@@ -136,21 +137,10 @@ public class InputParser {
         int i = 0;
         while (i < expression.length()) {
             char character = expression.charAt(i);
-            boolean mathOp = isAMathOperator(character);
-            boolean isDot = (character == '.');
-
-            if (mathOp || isDot) {
+            if (isAMathOperator(character) || character == '.') {
                 if (i == 0 || i == expression.length() - 1) {
                     return false;
-                }
-
-                char before = expression.charAt(i - 1);
-                char after = expression.charAt(i + 1);
-                if (mathOp && ((!isANumber(before) && before != ')') || (!isANumber(after) && after != '('))) {
-                    return false;
-                }
-
-                if (isDot && (before == '.' || after == '.')) {
+                } else if (!dotAndOperatorHelper(isAMathOperator(character), character == '.', expression.charAt(i - 1), expression.charAt(i + 1))) {
                     return false;
                 }
             } else if (isANumber(character)) {
@@ -167,6 +157,18 @@ public class InputParser {
             }
 
             i++;
+        }
+
+        return true;
+    }
+
+    private boolean dotAndOperatorHelper(boolean mathOp, boolean isDot, char before, char after) {
+        if (mathOp && ((!isANumber(before) && before != ')') || (!isANumber(after) && after != '('))) {
+            return false;
+        }
+
+        if (isDot && (before == '.' || after == '.')) {
+            return false;
         }
 
         return true;

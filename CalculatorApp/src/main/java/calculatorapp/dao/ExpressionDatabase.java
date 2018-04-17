@@ -36,7 +36,6 @@ public class ExpressionDatabase {
             }
 
         } catch (Throwable thrown) {
-            System.out.println(thrown.getMessage());
         }
     }
 
