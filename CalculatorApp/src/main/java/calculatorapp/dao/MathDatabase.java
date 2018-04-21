@@ -16,11 +16,11 @@ import java.util.List;
  *
  * @author jpssilve
  */
-public class ExpressionDatabase {
+public class MathDatabase {
 
     private String databaseAddress;
 
-    public ExpressionDatabase(String databaseAddress) throws ClassNotFoundException {
+    public MathDatabase(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
     }
 

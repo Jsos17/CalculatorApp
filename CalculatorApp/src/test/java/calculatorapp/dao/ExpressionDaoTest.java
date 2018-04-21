@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author jpssilve
  */
-public class ExpressionDatabaseDaoTest {
+public class ExpressionDaoTest {
     
-    public ExpressionDatabaseDaoTest() {
+    public ExpressionDaoTest() {
     }
     
     @BeforeClass

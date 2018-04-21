@@ -1,7 +1,7 @@
 
 package calculatorapp.ui;
 
-import calculatorapp.dao.ExpressionDatabase;
+import calculatorapp.dao.MathDatabase;
 import calculatorapp.logic.CalculatorService;
 import calculatorapp.logic.ExpressionMemory;
 import calculatorapp.logic.InputParser;
@@ -80,11 +80,11 @@ public class CalculatorAppUi extends Application {
         Properties properties = new Properties();
         properties.load(new FileInputStream("config.properties"));
         
-        String databaseAddress = properties.getProperty("expressionDatabase");
-        ExpressionDatabase  exprDB = new ExpressionDatabase("jdbc:sqlite:" + databaseAddress);
+        String databaseAddress = properties.getProperty("mathDatabase");
+        MathDatabase  math = new MathDatabase("jdbc:sqlite:" + databaseAddress);
         
-        try (Connection conn = exprDB.getConnection()) {
-            exprDB.init();
+        try (Connection conn = math.getConnection()) {
+            math.init();
             System.out.println("Success");
         } catch (SQLException e) {
             System.out.println("Failure " + e.getMessage());

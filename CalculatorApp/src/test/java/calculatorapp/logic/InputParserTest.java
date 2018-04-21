@@ -281,10 +281,10 @@ public class InputParserTest {
     }
     
     @Test
-    public void stringIsAmathOperatorCornerCase() {
+    public void stringIsAmathOperatorCornerCase1() {
         assertFalse(inParser.stringIsAMathOperator("++"));
     }
-    
+
     @Test
     public void stringIsANumberCornerCase1() {
         assertFalse(inParser.stringIsANumber(""));
@@ -321,6 +321,13 @@ public class InputParserTest {
         ArrayDeque<String> output = new ArrayDeque<>();
         output.addLast("7");
         assertEquals(7.0, inParser.postfixEvaluator(output), 0.001);
+    }
+    
+    @Test
+    public void postfixEvaluatorCornerCase5() {
+        ArrayDeque<String> output = new ArrayDeque<>();
+        output.addLast("(");
+        assertEquals(Double.NaN, inParser.postfixEvaluator(output), 0.001);
     }
     
     @Test

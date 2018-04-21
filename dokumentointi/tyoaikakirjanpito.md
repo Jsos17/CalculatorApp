@@ -10,5 +10,5 @@
 | 15.4. | 1       | refactoring Buttons for the gui |
 | 16.4. | 4       | database work, mods to gui, added memory to the calculator and with its help showing recent expressions  |
 | 17.4. | 7       | refactoring, configuring checkstyle, test coverage configuration, creating class/package diagrams |
-| 21.4. | 6       | database work, added tests for memory class and for the corner cases of inputParser |
-| cumulative | 50 |              |
+| 21.4. | 8       | database work, added tests for memory class and for the corner cases of inputParser |
+| cumulative | 52 |              |

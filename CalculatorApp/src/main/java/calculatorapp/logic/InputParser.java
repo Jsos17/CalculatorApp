@@ -51,6 +51,10 @@ public class InputParser {
             i++;
         }
 
+        return shuntingYardHelper(output, stack);
+    }
+
+    private ArrayDeque<String> shuntingYardHelper(ArrayDeque<String> output, Stack<Character> stack) {
         while (!stack.empty()) {
             output.addLast(Character.toString(stack.pop()));
         }
@@ -63,6 +67,7 @@ public class InputParser {
         Stack<Double> values = new Stack();
         while (!output.isEmpty()) {
             String mathObject = output.pollFirst();
+            
             if (stringIsANumber(mathObject)) {
                 values.push(Double.parseDouble(mathObject));
             } else if (stringIsAMathOperator(mathObject)) {
@@ -146,7 +151,7 @@ public class InputParser {
                 while (i < expression.length() && (isANumber(expression.charAt(i)) || expression.charAt(i) == '.')) {
                     i++;
                 }
-
+                
                 if (stringIsANumber(expression.substring(index, i))) {
                     continue;
                 } else {
