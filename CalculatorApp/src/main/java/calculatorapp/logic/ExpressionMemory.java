@@ -27,10 +27,11 @@ public class ExpressionMemory {
     }
     
     public void addToMemory(String expression) {
-        if (this.inParser.expressionEvaluation(expression) != Double.NaN) {
-            this.memExpressions.add(expression);
+        if (Double.isNaN(this.inParser.expressionEvaluation(expression))) {
+            return;
         }
         
+        this.memExpressions.add(expression);
         if (this.memExpressions.size() > this.memoryLimit) {
             this.memExpressions.remove(0);
         }

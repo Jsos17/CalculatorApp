@@ -25,21 +25,21 @@ public class ExpressionDatabaseDao implements ExpressionDao {
     }
 
     @Override
-    public boolean save(String expression) throws SQLException {
+    public boolean save(String symbolicExpression) throws SQLException {
         try (Connection conn = exprDB.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("INSERT INTO Expression (expression) VALUES (?)")) {
-            stmt.setString(1, expression);
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO Expression (symbols) VALUES (?)")) {
+            stmt.setString(1, symbolicExpression);
             stmt.executeUpdate();
 
             return true;
         }
     }
 
-    public boolean saveAll(List<String> expressions) throws SQLException {
+    public boolean saveAll(List<String> symbolicExpressions) throws SQLException {
         try (Connection conn = exprDB.getConnection()) {
-            for (int i = 0; i < expressions.size(); i++) {
-                try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO Expression (expression) VALUES (?)")) {
-                    stmt.setString(1, expressions.get(i));
+            for (int i = 0; i < symbolicExpressions.size(); i++) {
+                try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO Expression (symbols) VALUES (?)")) {
+                    stmt.setString(1, symbolicExpressions.get(i));
                     stmt.executeUpdate();
                 } catch (SQLException e) {
                     throw new SQLException();
@@ -51,7 +51,7 @@ public class ExpressionDatabaseDao implements ExpressionDao {
     }
 
     @Override
-    public boolean deleteLast(String expression) throws SQLException {
+    public boolean delete(Integer id) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -68,12 +68,12 @@ public class ExpressionDatabaseDao implements ExpressionDao {
         ArrayList<String> foundExpressions = new ArrayList<>();
 
         try (Connection conn = exprDB.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Expression WHERE expression LIKE ?")) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Expression WHERE symbols LIKE ?")) {
             stmt.setString(1, "%" + partialExpression + "%");
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    foundExpressions.add(rs.getString("expression"));
+                    foundExpressions.add(rs.getString("symbols"));
                 }
             } catch (SQLException e) {
                 throw new SQLException();
@@ -85,16 +85,16 @@ public class ExpressionDatabaseDao implements ExpressionDao {
 
     @Override
     public ArrayList<String> findAll() throws SQLException {
-        ArrayList<String> expressions = new ArrayList<>();
+        ArrayList<String> symbolicExpressions = new ArrayList<>();
         try (Connection conn = exprDB.getConnection();
                 ResultSet rs = conn.prepareStatement("SELECT * FROM Expression").executeQuery()) {
 
             while (rs.next()) {
-                expressions.add(rs.getString("expression"));
+                symbolicExpressions.add(rs.getString("symbols"));
             }
         }
 
-        return expressions;
+        return symbolicExpressions;
     }
 
     public int countExpressionsInDatabase() throws SQLException {

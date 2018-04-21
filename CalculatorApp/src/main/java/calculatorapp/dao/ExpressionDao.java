@@ -18,7 +18,7 @@ public interface ExpressionDao {
     
     List<String> findAll() throws SQLException;
     
-    boolean deleteLast(String expression) throws SQLException;
+    boolean delete(Integer id) throws SQLException;
     
     boolean deleteAll() throws SQLException;
     

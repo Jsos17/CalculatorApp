@@ -113,4 +113,14 @@ public class CalculatorServiceTest {
     public void exponentiationIsCorrect2() {
         assertEquals(1520.301258, calcServ.exp(3.7, 5.6), 0.0001);
     }
+    
+    @Test
+    public void exponentiationIsCorrect3() {
+        assertEquals(Double.NaN, calcServ.exp(0, 0), 0.0001);
+    }
+    
+    @Test
+    public void exponentiationIsCorrect4() {
+        assertEquals(Double.NaN, calcServ.exp(0.0000, 0.0000), 0.0001);
+    }
 }

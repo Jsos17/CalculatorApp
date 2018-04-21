@@ -5,8 +5,7 @@
  */
 package calculatorapp.logic;
 
-import calculatorapp.logic.CalculatorService;
-import calculatorapp.logic.InputParser;
+import java.util.ArrayDeque;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -135,7 +134,7 @@ public class InputParserTest {
     }
     @Test
     public void checksDotPlacementCorrectly3() {
-        String expression = "9.+9";
+        String expression = "..9.+9";
         assertFalse(inParser.correctOperatorAndDotPlacement(expression));
     }
     
@@ -153,7 +152,7 @@ public class InputParserTest {
     
     @Test
     public void checksDotPlacementCorrectly6() {
-        String expression = "9.9.9";
+        String expression = "9..9";
         assertFalse(inParser.correctOperatorAndDotPlacement(expression));
     }
     
@@ -262,5 +261,120 @@ public class InputParserTest {
     public void expressionEvaluationWorksCorrectly17() {
         String expression = "((2-67)*3^(2-0)+((100*3)-100))*(0-1)";
         assertEquals(385.0, inParser.expressionEvaluation(expression), 0.0001);
+    }
+    
+    @Test
+    public void expressionEvaluationWorksCorrectly18() {
+        String expression = "(1/5)^2+46";
+        assertEquals(46.04, inParser.expressionEvaluation(expression), 0.0001);
+    }
+    
+    @Test
+    public void expressionEvaluationWorksCorrectly19() {
+        String expression = "()^2++46";
+        assertEquals(Double.NaN, inParser.expressionEvaluation(expression), 0.0001);
+    }
+    
+    @Test 
+    public void executeTheRightOperationCornerCase() {
+        assertEquals(Double.NaN, inParser.executeTheRightOperation('?', 0, 0), 0.0001);
+    }
+    
+    @Test
+    public void stringIsAmathOperatorCornerCase() {
+        assertFalse(inParser.stringIsAMathOperator("++"));
+    }
+    
+    @Test
+    public void stringIsANumberCornerCase1() {
+        assertFalse(inParser.stringIsANumber(""));
+    }
+    
+    @Test
+    public void stringIsANumberCornerCase2() {
+        assertFalse(inParser.stringIsANumber("6876."));
+    }
+    
+    @Test
+    public void postfixEvaluatorCornerCase1() {
+        ArrayDeque<String> output = new ArrayDeque<>();
+        assertEquals(Double.NaN, inParser.postfixEvaluator(output), 0.001);
+    }
+    
+    @Test
+    public void postfixEvaluatorCornerCase2() {
+        ArrayDeque<String> output = new ArrayDeque<>();
+        output.addLast("9");
+        output.addLast("+");
+        assertEquals(9.0, inParser.postfixEvaluator(output), 0.001);
+    }
+    
+    @Test
+    public void postfixEvaluatorCornerCase3() {
+        ArrayDeque<String> output = new ArrayDeque<>();
+        output.addLast("^");
+        assertEquals(Double.NaN, inParser.postfixEvaluator(output), 0.001);
+    }
+    
+    @Test
+    public void postfixEvaluatorCornerCase4() {
+        ArrayDeque<String> output = new ArrayDeque<>();
+        output.addLast("7");
+        assertEquals(7.0, inParser.postfixEvaluator(output), 0.001);
+    }
+    
+    @Test
+    public void expressionEvaluationCornerCase1() {
+        assertEquals(Double.NaN, inParser.expressionEvaluation("8(+6"), 0.001);
+    }
+    
+    @Test
+    public void expressionEvaluationCornerCase2() {
+        assertEquals(Double.NaN, inParser.expressionEvaluation("8(+6)"), 0.001);
+    }
+    
+    @Test
+    public void numbersAndBrackecketsCorrectCornerCase1() {
+        assertFalse(inParser.numbersAndBracketsCorrect("8(+8"));
+    }
+    
+    @Test
+    public void numbersAndBrackecketsCorrectCornerCase2() {
+        assertFalse(inParser.numbersAndBracketsCorrect(")8"));
+    }
+    
+    @Test
+    public void numbersAndBrackecketsCorrectCornerCase3() {
+        assertFalse(inParser.numbersAndBracketsCorrect("7()8"));
+    }
+    
+    @Test
+    public void dotAndOperatorHelperCornerCase1() {
+        assertFalse(inParser.dotAndOperatorHelper(true, false, '+', '*'));
+    }
+    
+    @Test
+    public void dotAndOperatorHelperCornerCase2() {
+        assertFalse(inParser.dotAndOperatorHelper(true, false, '8', '*'));
+    }
+    
+    @Test
+    public void dotAndOperatorHelperCornerCase3() {
+        assertFalse(inParser.dotAndOperatorHelper(true, false, '/', '6'));
+    }
+    
+    @Test
+    public void dotAndOperatorHelperCornerCase4() {
+        assertFalse(inParser.dotAndOperatorHelper(false, true, '.', '.'));
+    }
+    
+    @Test
+    public void dotAndOperatorHelperImpossibleCase() {
+        assertTrue(inParser.dotAndOperatorHelper(true, true, '8', '8'));
+    }
+    
+    @Test
+    public void shuntingYardCornerCase1() {
+        
     }
 }

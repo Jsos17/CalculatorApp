@@ -16,7 +16,7 @@ public class InputParser {
     }
 
     // @Djikstra as source and wikipedia pseudo-code as basis for implementation
-    private ArrayDeque<String> shuntingYard(String expression) {
+    protected ArrayDeque<String> shuntingYard(String expression) {
         ArrayDeque<String> output = new ArrayDeque();
         Stack<Character> stack = new Stack();
 
@@ -59,7 +59,7 @@ public class InputParser {
     }
 
     // wikipedia pseudo-code as basis for implementation
-    private double postfixEvaluator(ArrayDeque<String> output) {
+    protected double postfixEvaluator(ArrayDeque<String> output) {
         Stack<Double> values = new Stack();
         while (!output.isEmpty()) {
             String mathObject = output.pollFirst();
@@ -71,8 +71,6 @@ public class InputParser {
                     double x2 = values.pop();
                     double value = executeTheRightOperation(mathObject.charAt(0), x2, x1);
                     values.push(value);
-                } else {
-                    return Double.NaN;
                 }
             }
         }
@@ -81,7 +79,7 @@ public class InputParser {
     }
 
     private double postfixStackChecker(Stack<Double> values) {
-        if (!values.empty()) {
+        if (values.size() == 1) {
             return values.pop();
         } else {
             return Double.NaN;
@@ -98,7 +96,7 @@ public class InputParser {
         }
     }
 
-    public boolean bracketingEquals(String expression) {
+    protected boolean bracketingEquals(String expression) {
         Stack<Character> stack = new Stack();
 
         for (int i = 0; i < expression.length(); i++) {
@@ -117,7 +115,7 @@ public class InputParser {
         return stack.empty();
     }
 
-    public boolean numbersAndBracketsCorrect(String expression) {
+    protected boolean numbersAndBracketsCorrect(String expression) {
         for (int i = 0; i < expression.length() - 1; i++) {
             char c1 = expression.charAt(i);
             char c2 = expression.charAt(i + 1);
@@ -132,7 +130,7 @@ public class InputParser {
         return true;
     }
 
-    public boolean correctOperatorAndDotPlacement(String expression) {
+    protected boolean correctOperatorAndDotPlacement(String expression) {
         int index = 0;
         int i = 0;
         while (i < expression.length()) {
@@ -162,7 +160,7 @@ public class InputParser {
         return true;
     }
 
-    private boolean dotAndOperatorHelper(boolean mathOp, boolean isDot, char before, char after) {
+    protected boolean dotAndOperatorHelper(boolean mathOp, boolean isDot, char before, char after) {
         if (mathOp && ((!isANumber(before) && before != ')') || (!isANumber(after) && after != '('))) {
             return false;
         }
@@ -174,7 +172,7 @@ public class InputParser {
         return true;
     }
 
-    private double executeTheRightOperation(char operator, double x1, double x2) {
+    protected double executeTheRightOperation(char operator, double x1, double x2) {
         switch (operator) {
             case '+':
                 return this.calculator.addDouble(x1, x2);
@@ -208,7 +206,7 @@ public class InputParser {
         }
     }
 
-    private boolean stringIsAMathOperator(String candidate) {
+    protected boolean stringIsAMathOperator(String candidate) {
         if (candidate.length() == 1) {
             return isAMathOperator(candidate.charAt(0));
         } else {
@@ -216,7 +214,7 @@ public class InputParser {
         }
     }
 
-    private boolean stringIsANumber(String candidate) {
+    protected boolean stringIsANumber(String candidate) {
         if (candidate.length() == 0 || candidate.charAt(candidate.length() - 1) == '.') {
             return false;
         } else {

@@ -1,11 +1,19 @@
 
 package calculatorapp.ui;
 
+import calculatorapp.dao.ExpressionDatabase;
 import calculatorapp.logic.CalculatorService;
 import calculatorapp.logic.ExpressionMemory;
 import calculatorapp.logic.InputParser;
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 import javafx.application.Application;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -41,6 +49,19 @@ public class CalculatorAppUi extends Application {
     private Button absValue;
     private ArrayList<Button> mainGridButtons;
     private ArrayList<Button> auxGridButtons;
+    
+    private Button setMemoryLimit;
+    private Button clearMemory;
+    private Button saveExpession;
+    private Button saveAllExpressions;
+    private Button getAllSavedExpressions;
+    private Button searchAnExpression;
+    private Button deleteAnExpressionn;
+    private Button deleteAllExpressions;
+    
+    private Button closeButton;
+    private Button yesButton;
+    private Button noButton;
 
     private CalculatorService calc;
     private InputParser inputParser;
@@ -56,9 +77,22 @@ public class CalculatorAppUi extends Application {
     
     @Override
     public void init() throws Exception {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("config.properties"));
+        
+        String databaseAddress = properties.getProperty("expressionDatabase");
+        ExpressionDatabase  exprDB = new ExpressionDatabase("jdbc:sqlite:" + databaseAddress);
+        
+        try (Connection conn = exprDB.getConnection()) {
+            exprDB.init();
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println("Failure " + e.getMessage());
+        }
+        
         calc = new CalculatorService();
         inputParser = new InputParser(calc);
-        exprMem = new ExpressionMemory(inputParser, 10);
+        exprMem = new ExpressionMemory(inputParser, 20);
     }
 
     @Override
@@ -128,9 +162,10 @@ public class CalculatorAppUi extends Application {
         recentExpressions.setPrefHeight(h2);
 
         ListView<String> memoryList = new ListView<>();
-        ObservableList<String> items = FXCollections.observableArrayList();
-        memoryList.setItems(items);
-
+        ListProperty<String> listProperty = new SimpleListProperty<>();
+        memoryList.itemsProperty().bind(listProperty);
+        listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
+        
 //        ChoiceBox choicebox = new ChoiceBox();
 //        choicebox.setPrefSize(100, 30);
 //        choicebox.setItems(exprMem.getMemExpressions());
@@ -180,8 +215,8 @@ public class CalculatorAppUi extends Application {
                 instruction.setText("Is not a valid expression, press delete to fix the expression and try again");
             } else {
                 formula.setText(input.getText());
-//                exprMem.addToMemory(input.getText());
-                items.add(input.getText());
+                exprMem.addToMemory(input.getText());
+                listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
                 input.setText("");
                 result.setText("" + res);
                 instruction.setText("");
@@ -252,5 +287,23 @@ public class CalculatorAppUi extends Application {
         auxGridButtons.add(leftBracket);
         auxGridButtons.add(rightBracket);
         auxGridButtons.add(absValue);
+    }
+    
+    private void createMemoryANdDataBaseButtons() {
+        setMemoryLimit = new Button("Set memory limit");
+        clearMemory = new Button("Clear memory");
+        
+        saveExpession = new Button("Save the expression");
+        saveAllExpressions = new Button("Save all expressions in memory");
+        getAllSavedExpressions = new Button("Retrieve all saved expressions");
+        searchAnExpression = new Button("Search for an expression");
+        deleteAnExpressionn = new Button("Delete the saved expression");
+        deleteAllExpressions = new Button("Delete all saved expressions");
+    }
+    
+    private void createProgramFunctionalityButtons() {
+        closeButton = new Button("Close the application");
+        yesButton = new Button("Yes");
+        noButton = new Button("No");
     }
 }
