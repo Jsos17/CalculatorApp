@@ -11,4 +11,5 @@
 | 16.4. | 4       | database work, mods to gui, added memory to the calculator and with its help showing recent expressions  |
 | 17.4. | 7       | refactoring, configuring checkstyle, test coverage configuration, creating class/package diagrams |
 | 21.4. | 8       | database work, added tests for memory class and for the corner cases of inputParser |
-| cumulative | 52 |              |
+| 23.4. | 4       | covered tests for database functionality, added memory setting and clearing feature to gui |
+| cumulative | 56 |              |

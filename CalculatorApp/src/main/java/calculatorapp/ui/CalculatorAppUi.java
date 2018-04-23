@@ -14,12 +14,15 @@ import java.util.Properties;
 import javafx.application.Application;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -52,11 +55,14 @@ public class CalculatorAppUi extends Application {
     
     private Button setMemoryLimit;
     private Button clearMemory;
+    private Label setMemoryLabel;
+    private Slider memLimitSlider;
+    
     private Button saveExpession;
     private Button saveAllExpressions;
     private Button getAllSavedExpressions;
-    private Button searchAnExpression;
-    private Button deleteAnExpressionn;
+    private Button searchExpression;
+    private Button deleteExpressionn;
     private Button deleteAllExpressions;
     
     private Button closeButton;
@@ -84,7 +90,7 @@ public class CalculatorAppUi extends Application {
         MathDatabase  math = new MathDatabase("jdbc:sqlite:" + databaseAddress);
         
         try (Connection conn = math.getConnection()) {
-            math.init();
+            math.initDatabase();
             System.out.println("Success");
         } catch (SQLException e) {
             System.out.println("Failure " + e.getMessage());
@@ -92,7 +98,7 @@ public class CalculatorAppUi extends Application {
         
         calc = new CalculatorService();
         inputParser = new InputParser(calc);
-        exprMem = new ExpressionMemory(inputParser, 20);
+        exprMem = new ExpressionMemory(inputParser, 10);
     }
 
     @Override
@@ -100,11 +106,8 @@ public class CalculatorAppUi extends Application {
         width = 500;
         height = 500;
         
-        mainGridButtons = new ArrayList<>();
-        auxGridButtons = new ArrayList<>();
-        createNumberButtons();
-        createMathOperatorButtons();
-        createOtherButtons();
+        createAllButtons();
+        
         int divider = 7;
         setButtonSize(mainGridButtons,  divider);
         setButtonSize(auxGridButtons, divider);
@@ -119,6 +122,9 @@ public class CalculatorAppUi extends Application {
         auxGrid.addColumn(0, exponent, modulo);
         auxGrid.addColumn(1, leftBracket, rightBracket);
         auxGrid.addColumn(2, absValue);
+        
+        GridPane controlGrid = new GridPane();
+        
 
         int h2 = 30;
         Label inputLabel = new Label("Input: ");
@@ -174,9 +180,18 @@ public class CalculatorAppUi extends Application {
         vBoxRight.getChildren().add(0, recentExpressions);
         vBoxRight.getChildren().add(1, memoryList);
         
+        createMemoryLimitSetSlider();
+        
+        VBox vBoxRightest = new VBox();
+        vBoxRightest.getChildren().add(0, setMemoryLabel);
+        vBoxRightest.getChildren().add(1, memLimitSlider);
+        vBoxRightest.getChildren().add(2, setMemoryLimit);
+        vBoxRightest.getChildren().add(3, clearMemory);
+        
+        
         
         HBox hbox = new HBox();
-        hbox.getChildren().addAll(vBoxLeft, vBoxCenter, vBoxRight);
+        hbox.getChildren().addAll(vBoxLeft, vBoxCenter, vBoxRight, vBoxRightest);
         
         numbers.get(0).setOnMouseClicked((event) -> input.setText(input.getText() + "0"));
         numbers.get(1).setOnMouseClicked((event) -> input.setText(input.getText() + "1"));
@@ -225,6 +240,15 @@ public class CalculatorAppUi extends Application {
         answer.setOnMouseClicked((event) ->  input.setText((input.getText() + result.getText())));
         leftBracket.setOnMouseClicked((event) ->  input.setText((input.getText() + "(")));
         rightBracket.setOnMouseClicked((event) ->  input.setText((input.getText() + ")")));
+        
+        setMemoryLimit.setOnMouseClicked((event) -> {
+            exprMem.setMemoryLimit((int) memLimitSlider.getValue());
+            listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
+        });
+        clearMemory.setOnMouseClicked((event) -> {
+            exprMem.clearMemory();
+            listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
+        });
 
         Scene scene = new Scene(hbox);
         stage.setTitle("CalculatorApp");
@@ -235,6 +259,37 @@ public class CalculatorAppUi extends Application {
     @Override
     public void stop() {
         System.out.println("Closing the CalculatorApp...");
+    }
+    
+    private void createMemoryLimitSetSlider() {
+        setMemoryLabel = new Label("Set memory limit using the slider");
+        memLimitSlider = new Slider();
+        memLimitSlider.setMin(0);
+        memLimitSlider.setMax(25);
+        memLimitSlider.setValue(10);
+        memLimitSlider.setShowTickLabels(true);
+        memLimitSlider.setShowTickMarks(true);
+        memLimitSlider.setSnapToTicks(true);
+        memLimitSlider.setMajorTickUnit(5);
+        memLimitSlider.setMinorTickCount(1);
+        memLimitSlider.setBlockIncrement(1);
+        
+//        memLimitSlider.valueProperty().addListener(new ChangeListener<Number>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Number> ov,
+//                Number old_val, Number new_val) {
+//            }
+//        });
+    }
+    
+    private void createAllButtons() {
+        mainGridButtons = new ArrayList<>();
+        auxGridButtons = new ArrayList<>();
+        createNumberButtons();
+        createMathOperatorButtons();
+        createOtherButtons();
+        createMemoryANdDataBaseButtons();
+        createProgramFunctionalityButtons();
     }
     
     private void setButtonSize(ArrayList<Button> buttons, int divider) {
@@ -296,8 +351,8 @@ public class CalculatorAppUi extends Application {
         saveExpession = new Button("Save the expression");
         saveAllExpressions = new Button("Save all expressions in memory");
         getAllSavedExpressions = new Button("Retrieve all saved expressions");
-        searchAnExpression = new Button("Search for an expression");
-        deleteAnExpressionn = new Button("Delete the saved expression");
+        searchExpression = new Button("Search for an expression");
+        deleteExpressionn = new Button("Delete the saved expression");
         deleteAllExpressions = new Button("Delete all saved expressions");
     }
     

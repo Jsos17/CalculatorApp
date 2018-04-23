@@ -39,6 +39,17 @@ public class ExpressionMemoryTest {
     }
     
     @Test
+    public void setMemoryDownSizesListIfLimitISmallerThanCurrentSize1() {
+       exprMem.setMemoryLimit(50);
+       for (int i = 1; i <= 20; i++) {
+            exprMem.addToMemory("" + i * 2);
+        }
+       assertEquals(20, exprMem.getMemExpressionsArrayList().size());
+       exprMem.setMemoryLimit(10);
+       assertEquals(10, exprMem.getMemExpressionsArrayList().size());
+    }
+    
+    @Test
     public void addToMemoryAddsToListSize1() {
         exprMem.addToMemory("56");
         assertEquals(1, exprMem.getMemExpressionsArrayList().size());

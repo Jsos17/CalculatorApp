@@ -5,12 +5,20 @@
  */
 package calculatorapp.dao;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.TemporaryFolder;
 
 /**
  *
@@ -18,28 +26,123 @@ import static org.junit.Assert.*;
  */
 public class ExpressionDaoTest {
     
-    public ExpressionDaoTest() {
-    }
+    @Rule
+    public TemporaryFolder testFolder = new TemporaryFolder();
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
+    File dbFile;
+    MathDatabase mathDB;
+    ExpressionDao eDao;
+    ArrayList<String> es;
     
     @Before
-    public void setUp() {
+    public void setUp() throws IOException, SQLException, ClassNotFoundException {
+        dbFile = testFolder.newFile("mathTest.db");
+        mathDB = new MathDatabase("jdbc:sqlite:" + dbFile.getAbsolutePath());
+        
+        try (Connection conn = mathDB.getConnection()) {
+            mathDB.initDatabase();
+        }
+        
+        eDao = new ExpressionDao(mathDB);
+        es = new ArrayList<>();
+        es.add("75*4+(34-27)^2");
+        es.add("(1-3)^2");
+        es.add("10000*0.56+56/2");
+        es.add("1*2*3*4*5*6*7");
+    }
+    
+    @Test
+    public void saveWorks1() throws SQLException {
+        eDao.save("75*4+(34-27)^2");
+        
+        try (Connection conn  = DriverManager.getConnection("jdbc:sqlite:" + dbFile.getAbsolutePath());
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Expression")) {
+            ResultSet rs = stmt.executeQuery();
+            assertEquals("75*4+(34-27)^2", rs.getString("symbols"));
+        }
+    }
+    
+    @Test
+    public void saveWorks2() throws SQLException {
+        eDao.save("75*4+(34-27)^2");
+        assertEquals("75*4+(34-27)^2", eDao.findAll().get(0));
+    }
+    
+    @Test
+    public void saveAllWorks1() throws SQLException {
+        eDao.saveAll(es);
+        
+        try (Connection conn  = DriverManager.getConnection("jdbc:sqlite:" + dbFile.getAbsolutePath());
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Expression");
+                ResultSet rs = stmt.executeQuery();) {
+            ArrayList<String> testEs = new ArrayList<>();
+            
+            while (rs.next()) {
+                testEs.add(rs.getString("symbols"));
+            }
+            
+            for (int i = 0; i < testEs.size(); i++) {
+                assertEquals(es.get(i), testEs.get(i));
+            }
+        }
+    }
+    
+    @Test
+    public void findAllWorks() throws SQLException {
+        eDao.saveAll(es);
+        ArrayList<String> found = new ArrayList<>();
+        found.addAll(eDao.findAll());
+        
+        for (int i = 0; i < found.size(); i++) {
+            assertEquals(es.get(i), found.get(i));
+        }
+    }
+    
+    @Test
+    public void saveAllWorks2() throws SQLException {
+        eDao.saveAll(es);
+        ArrayList<String> test = eDao.findAll();
+           
+        for (int i = 0; i < test.size(); i++) {
+            assertEquals(es.get(i), test.get(i));
+        } 
+    }
+    
+    @Test
+    public void deleteWorks() throws SQLException {
+        eDao.saveAll(es);
+        eDao.delete(1);
+        eDao.delete(3);
+        
+        assertEquals(2, eDao.findAll().size());
+    }
+    
+    @Test
+    public void findPartialExpressionWorks() throws SQLException {
+        eDao.saveAll(es);
+        eDao.save("5/6");
+        eDao.save("77/5");
+        ArrayList<String> found = new ArrayList<>();
+        found.addAll(eDao.findMatches("/"));
+        
+        assertEquals("10000*0.56+56/2", found.get(0));
+        assertEquals("5/6", found.get(1));
+        assertEquals("77/5", found.get(2));
+    }
+    
+    @Test
+    public void countExpressionsInDatabaseWorks() throws SQLException {
+        eDao.saveAll(es);
+        eDao.saveAll(es);
+        eDao.saveAll(es);
+        eDao.save("8^42");
+        eDao.save("100*42");
+        
+        assertEquals(14, eDao.countExpressionsInDatabase());
     }
     
     @After
     public void tearDown() {
+        dbFile.delete();
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

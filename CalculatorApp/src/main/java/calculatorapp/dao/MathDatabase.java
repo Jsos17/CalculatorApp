@@ -24,7 +24,7 @@ public class MathDatabase {
         this.databaseAddress = databaseAddress;
     }
 
-    public void init() {
+    public void initDatabase() {
         List<String> createExpressions = sqliteCreateExpressions();
 
         try (Connection conn = getConnection()) {

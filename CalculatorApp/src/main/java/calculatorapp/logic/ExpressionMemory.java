@@ -12,10 +12,11 @@ import java.util.ArrayList;
  * @author jpssilve
  */
 public class ExpressionMemory {
+
     private ArrayList<String> memExpressions;
     private InputParser inParser;
     private int memoryLimit;
-    
+
     public ExpressionMemory(InputParser inParser, int memoryLimit) {
         this.memExpressions = new ArrayList<>();
         this.inParser = inParser;
@@ -25,18 +26,18 @@ public class ExpressionMemory {
     public ArrayList<String> getMemExpressionsArrayList() {
         return this.memExpressions;
     }
-    
+
     public void addToMemory(String expression) {
         if (Double.isNaN(this.inParser.expressionEvaluation(expression))) {
             return;
         }
-        
+
         this.memExpressions.add(expression);
         if (this.memExpressions.size() > this.memoryLimit) {
             this.memExpressions.remove(0);
         }
     }
-    
+
     public void clearMemory() {
         this.memExpressions.clear();
     }
@@ -44,10 +45,14 @@ public class ExpressionMemory {
     public int getMemoryLimit() {
         return this.memoryLimit;
     }
-    
+
     public void setMemoryLimit(int value) {
         if (value >= 0) {
             this.memoryLimit = value;
+        }
+
+        while (this.memExpressions.size() > this.memoryLimit) {
+            this.memExpressions.remove(0);
         }
     }
 }
