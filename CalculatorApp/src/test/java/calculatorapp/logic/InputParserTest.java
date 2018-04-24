@@ -275,6 +275,28 @@ public class InputParserTest {
         assertEquals(Double.NaN, inParser.expressionEvaluation(expression), 0.0001);
     }
     
+    @Test
+    public void expressionEvaluationWorksCorrectly20() {
+        String expression = "((8.105+5.7)*2/3+8^3.9-6*(27/127)*45-10000+1.4^2-67^0.1+6/4.8+1011.76^1.2+56-56/0.123+3456)*0.45-6";
+        assertEquals(162.529, inParser.expressionEvaluation(expression), 0.001);
+    }
+    
+    @Test
+    public void expressionEvaluationWorksCorrectly21() {
+        String expression = "((5.175+5.7)*2/3+8^3.2-6*(27/127)*45-20000+1.4^2-32^0.2+9/4.8+1011.76^1.2+42-56/0.42-45+56)*1.34+2^2.5-5-100+663/123*544*6/1002+((8.105+5.7)*2/3+8^3.9-6*(27/127)*45-10000+1.4^2-67^0.1+6/4.8+1011.76^1.2+56-56/0.123+3456)*0.45-6";
+        assertEquals(-20441.737, inParser.expressionEvaluation(expression), 0.01);
+    }
+    
+     @Test
+    public void expressionEvaluationWorksCorrectly22() {
+        String tooLong = ""; 
+        for (int i = 1; i <= 200; i++) {
+            tooLong += "1234567890";
+        }
+        
+        assertTrue(Double.isInfinite(inParser.expressionEvaluation(tooLong)));
+    }
+   
     @Test 
     public void executeTheRightOperationCornerCase() {
         assertEquals(Double.NaN, inParser.executeTheRightOperation('?', 0, 0), 0.0001);
@@ -337,7 +359,7 @@ public class InputParserTest {
     
     @Test
     public void expressionEvaluationCornerCase2() {
-        assertEquals(Double.NaN, inParser.expressionEvaluation("8(+6)"), 0.001);
+        assertEquals(Double.NaN, inParser.expressionEvaluation(")8(+6"), 0.001);
     }
     
     @Test

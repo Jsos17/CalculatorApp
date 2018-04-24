@@ -5,7 +5,6 @@
  */
 package calculatorapp.logic;
 
-import calculatorapp.logic.CalculatorService;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

@@ -5,6 +5,7 @@
  */
 package calculatorapp.dao;
 
+import calculatorapp.logic.Expression;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,12 +27,16 @@ public class ExpressionDao implements MathDao {
 
     @Override
     public boolean save(String symbolicExpression) throws SQLException {
-        try (Connection conn = mathDB.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("INSERT INTO Expression (symbols) VALUES (?)")) {
-            stmt.setString(1, symbolicExpression);
-            stmt.executeUpdate();
+        if (symbolicExpression.length() <= 1000) {
+            try (Connection conn = mathDB.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement("INSERT INTO Expression (symbols) VALUES (?)")) {
+                stmt.setString(1, symbolicExpression);
+                stmt.executeUpdate();
 
-            return true;
+                return true;
+            }
+        } else {
+            return false;
         }
     }
 
@@ -39,8 +44,11 @@ public class ExpressionDao implements MathDao {
         try (Connection conn = mathDB.getConnection()) {
             for (int i = 0; i < symbolicExpressions.size(); i++) {
                 try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO Expression (symbols) VALUES (?)")) {
-                    stmt.setString(1, symbolicExpressions.get(i));
-                    stmt.executeUpdate();
+                    String s = symbolicExpressions.get(i);
+                    if (s.length() <= 1000) {
+                        stmt.setString(1, s);
+                        stmt.executeUpdate();
+                    }
                 } catch (SQLException e) {
                     throw new SQLException();
                 }
@@ -69,8 +77,8 @@ public class ExpressionDao implements MathDao {
 //        }
 //    }
 
-    public ArrayList<String> findMatches(String partialExpression) throws SQLException {
-        ArrayList<String> foundExpressions = new ArrayList<>();
+    public ArrayList<Expression> findMatches(String partialExpression) throws SQLException {
+        ArrayList<Expression> foundExpressions = new ArrayList<>();
 
         try (Connection conn = mathDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Expression WHERE symbols LIKE ?")) {
@@ -78,7 +86,7 @@ public class ExpressionDao implements MathDao {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    foundExpressions.add(rs.getString("symbols"));
+                    foundExpressions.add(new Expression(rs.getInt("id"), rs.getString("symbols")));
                 }
             } catch (SQLException e) {
                 throw new SQLException();
@@ -89,17 +97,17 @@ public class ExpressionDao implements MathDao {
     }
 
     @Override
-    public ArrayList<String> findAll() throws SQLException {
-        ArrayList<String> symbolicExpressions = new ArrayList<>();
+    public ArrayList<Expression> findAll() throws SQLException {
+        ArrayList<Expression> expressions = new ArrayList<>();
         try (Connection conn = mathDB.getConnection();
                 ResultSet rs = conn.prepareStatement("SELECT * FROM Expression").executeQuery()) {
 
             while (rs.next()) {
-                symbolicExpressions.add(rs.getString("symbols"));
+                expressions.add(new Expression(rs.getInt("id"), rs.getString("symbols")));
             }
         }
 
-        return symbolicExpressions;
+        return expressions;
     }
 
     public int countExpressionsInDatabase() throws SQLException {

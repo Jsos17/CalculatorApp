@@ -92,7 +92,9 @@ public class InputParser {
     }
 
     public double expressionEvaluation(String expression) {
-        if (bracketingEquals(expression) && numbersAndBracketsCorrect(expression)
+        if (expression.length() > 1000) {
+            return Double.POSITIVE_INFINITY;
+        } else if (bracketingEquals(expression) && numbersAndBracketsCorrect(expression)
                 && correctOperatorAndDotPlacement(expression)) {
             ArrayDeque<String> queue = shuntingYard(expression);
             return postfixEvaluator(queue);

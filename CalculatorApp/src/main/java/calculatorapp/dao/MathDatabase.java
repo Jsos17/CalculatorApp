@@ -45,7 +45,7 @@ public class MathDatabase {
 
     private List<String> sqliteCreateExpressions() {
         ArrayList<String> list = new ArrayList<>();
-        list.add("CREATE TABLE IF NOT EXISTS Expression (id integer PRIMARY KEY, symbols varchar(2000));");
+        list.add("CREATE TABLE IF NOT EXISTS Expression (id integer PRIMARY KEY, symbols varchar(1000));");
         return list;
     }
 }

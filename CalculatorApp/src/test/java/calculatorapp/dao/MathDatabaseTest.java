@@ -41,7 +41,7 @@ public class MathDatabaseTest {
         try (Connection conn = mathDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement("SELECT * FROM sqlite_master");
                 ResultSet rs = stmt.executeQuery()) {
-            assertEquals("CREATE TABLE Expression (id integer PRIMARY KEY, symbols varchar(2000))",rs.getString("sql"));
+            assertEquals("CREATE TABLE Expression (id integer PRIMARY KEY, symbols varchar(1000))",rs.getString("sql"));
         }
     }
     

@@ -5,7 +5,6 @@ import calculatorapp.dao.MathDatabase;
 import calculatorapp.logic.CalculatorService;
 import calculatorapp.logic.ExpressionMemory;
 import calculatorapp.logic.InputParser;
-import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,10 +13,7 @@ import java.util.Properties;
 import javafx.application.Application;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -55,14 +51,16 @@ public class CalculatorAppUi extends Application {
     
     private Button setMemoryLimit;
     private Button clearMemory;
-    private Label setMemoryLabel;
+    private Label currentMemLimit;
+    private Label setMemoryLabel;   
     private Slider memLimitSlider;
     
-    private Button saveExpession;
+    private Label databaseLabel;
+    private Button saveExpression;
     private Button saveAllExpressions;
     private Button getAllSavedExpressions;
     private Button searchExpression;
-    private Button deleteExpressionn;
+    private Button deleteExpression;
     private Button deleteAllExpressions;
     
     private Button closeButton;
@@ -91,9 +89,9 @@ public class CalculatorAppUi extends Application {
         
         try (Connection conn = math.getConnection()) {
             math.initDatabase();
-            System.out.println("Success");
+            System.out.println("Database initialization success");
         } catch (SQLException e) {
-            System.out.println("Failure " + e.getMessage());
+            System.out.println("Database initialization failure " + e.getMessage());
         }
         
         calc = new CalculatorService();
@@ -107,7 +105,6 @@ public class CalculatorAppUi extends Application {
         height = 500;
         
         createAllButtons();
-        
         int divider = 7;
         setButtonSize(mainGridButtons,  divider);
         setButtonSize(auxGridButtons, divider);
@@ -123,9 +120,6 @@ public class CalculatorAppUi extends Application {
         auxGrid.addColumn(1, leftBracket, rightBracket);
         auxGrid.addColumn(2, absValue);
         
-        GridPane controlGrid = new GridPane();
-        
-
         int h2 = 30;
         Label inputLabel = new Label("Input: ");
         inputLabel.setPrefHeight(h2);
@@ -171,24 +165,26 @@ public class CalculatorAppUi extends Application {
         ListProperty<String> listProperty = new SimpleListProperty<>();
         memoryList.itemsProperty().bind(listProperty);
         listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
-        
-//        ChoiceBox choicebox = new ChoiceBox();
-//        choicebox.setPrefSize(100, 30);
-//        choicebox.setItems(exprMem.getMemExpressions());
-
+      
         VBox vBoxRight = new VBox();
         vBoxRight.getChildren().add(0, recentExpressions);
         vBoxRight.getChildren().add(1, memoryList);
         
-        createMemoryLimitSetSlider();
-        
+        createSetMemoryLimitSlider();
         VBox vBoxRightest = new VBox();
-        vBoxRightest.getChildren().add(0, setMemoryLabel);
-        vBoxRightest.getChildren().add(1, memLimitSlider);
-        vBoxRightest.getChildren().add(2, setMemoryLimit);
-        vBoxRightest.getChildren().add(3, clearMemory);
+        vBoxRightest.getChildren().add(0, currentMemLimit);
+        vBoxRightest.getChildren().add(1, setMemoryLabel);
+        vBoxRightest.getChildren().add(2, memLimitSlider);
+        vBoxRightest.getChildren().add(3, setMemoryLimit);
+        vBoxRightest.getChildren().add(4, clearMemory);
         
-        
+        vBoxRightest.getChildren().add(5, databaseLabel);
+        vBoxRightest.getChildren().add(6, saveExpression);
+        vBoxRightest.getChildren().add(7, saveAllExpressions);
+        vBoxRightest.getChildren().add(8, getAllSavedExpressions);
+        vBoxRightest.getChildren().add(9, searchExpression);
+        vBoxRightest.getChildren().add(10, deleteExpression);
+        vBoxRightest.getChildren().add(11, deleteAllExpressions);
         
         HBox hbox = new HBox();
         hbox.getChildren().addAll(vBoxLeft, vBoxCenter, vBoxRight, vBoxRightest);
@@ -228,6 +224,8 @@ public class CalculatorAppUi extends Application {
             Double res = inputParser.expressionEvaluation(input.getText());
             if (res.equals(Double.NaN)) {
                 instruction.setText("Is not a valid expression, press delete to fix the expression and try again");
+            } else if (Double.isInfinite(res)) {
+                instruction.setText("The expression is too long");
             } else {
                 formula.setText(input.getText());
                 exprMem.addToMemory(input.getText());
@@ -243,6 +241,7 @@ public class CalculatorAppUi extends Application {
         
         setMemoryLimit.setOnMouseClicked((event) -> {
             exprMem.setMemoryLimit((int) memLimitSlider.getValue());
+            currentMemLimit.setText("The memory limit is: "  + exprMem.getMemoryLimit());
             listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
         });
         clearMemory.setOnMouseClicked((event) -> {
@@ -260,8 +259,9 @@ public class CalculatorAppUi extends Application {
     public void stop() {
         System.out.println("Closing the CalculatorApp...");
     }
-    
-    private void createMemoryLimitSetSlider() {
+
+    private void createSetMemoryLimitSlider() {
+        currentMemLimit = new Label("The memory limit is: "  + exprMem.getMemoryLimit());
         setMemoryLabel = new Label("Set memory limit using the slider");
         memLimitSlider = new Slider();
         memLimitSlider.setMin(0);
@@ -270,9 +270,9 @@ public class CalculatorAppUi extends Application {
         memLimitSlider.setShowTickLabels(true);
         memLimitSlider.setShowTickMarks(true);
         memLimitSlider.setSnapToTicks(true);
-        memLimitSlider.setMajorTickUnit(5);
-        memLimitSlider.setMinorTickCount(1);
-        memLimitSlider.setBlockIncrement(1);
+        memLimitSlider.setMajorTickUnit(1);
+//        memLimitSlider.setMinorTickCount(1);
+//        memLimitSlider.setBlockIncrement(1);
         
 //        memLimitSlider.valueProperty().addListener(new ChangeListener<Number>() {
 //            @Override
@@ -348,11 +348,13 @@ public class CalculatorAppUi extends Application {
         setMemoryLimit = new Button("Set memory limit");
         clearMemory = new Button("Clear memory");
         
-        saveExpession = new Button("Save the expression");
+        databaseLabel = new Label("Expressions in the database:");
+        databaseLabel.setPrefHeight(30);
+        saveExpression = new Button("Save the expression");
         saveAllExpressions = new Button("Save all expressions in memory");
         getAllSavedExpressions = new Button("Retrieve all saved expressions");
         searchExpression = new Button("Search for an expression");
-        deleteExpressionn = new Button("Delete the saved expression");
+        deleteExpression = new Button("Delete the saved expression");
         deleteAllExpressions = new Button("Delete all saved expressions");
     }
     
