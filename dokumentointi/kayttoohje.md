@@ -20,7 +20,7 @@ The program can be run with the command
 
 ## Using the CalculatorApp
 
-The user can input any expression by using the provided buttons, and if the expression can be parsed (i.e. brackets, operators, dots etc are placed correctly) provides the result as a double value. If the input cannot be parsed, then the user is notified and is asked to correct the expression.
+The user can input any expression by using the provided buttons, and if the expression can be parsed (i.e. brackets, operators, dots etc are placed correctly) provides the result as a double value. If the input cannot be parsed, then the user is notified and asked to correct the expression.
 
 Maximum size for exression is currently set at 1000 characters, which cannot be exceeded.
 
