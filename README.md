@@ -20,7 +20,7 @@ The app also shows recently used expressions, and the user can change how many, 
 
 ## Releases
 
-[Viikko 5]
+[Viikko 5](https://github.com/Jsos17/CalculatorApp/releases)
 
 ## Command line
 
