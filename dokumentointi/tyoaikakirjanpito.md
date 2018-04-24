@@ -12,4 +12,6 @@
 | 17.4. | 7       | refactoring, configuring checkstyle, test coverage configuration, creating class/package diagrams |
 | 21.4. | 8       | database work, added tests for memory class and for the corner cases of inputParser |
 | 23.4. | 4       | covered tests for database functionality, added memory setting and clearing feature to gui |
-| cumulative | 56 |              |
+| 24.4. | 3       | gui development, preliminary database integration into the gui, drafting documents etc |
+| cumulative | 59 |              |
+

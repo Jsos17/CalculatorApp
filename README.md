@@ -1,6 +1,6 @@
-# Ohjelmistotekniikan menetelmät project work: CalculatorApp (working title)
+# Ohjelmistotekniikan menetelmät project work: CalculatorApp
 
-Here is the **README-file** for the project work **CalculatorApp** (working title). This project is part of the course *Ohjelmistotekniikan menetelmät (Software engineering methods (unofficial translation))*
+Here is the **README-file** for the project work **CalculatorApp**. This project is part of the course *Ohjelmistotekniikan menetelmät (Software engineering methods (unofficial translation))*
 
 **Documentation**
 
@@ -10,7 +10,9 @@ Here is the **README-file** for the project work **CalculatorApp** (working titl
 
 [Arkkitehtuuri/Software architecture](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
 
-**Command line**
+[Käyttöohje/User manual](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/kayttoohje.md)
+
+## Command line
 
 **Testing**
 
