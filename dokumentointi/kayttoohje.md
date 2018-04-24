@@ -16,7 +16,7 @@ The format of the file is the following:
 
 The program can be run with the command
 
-    java -jar CalculatorApp-1.0.jar
+    java -jar CalculatorApp-v1.0.jar
 
 ## Using the CalculatorApp
 
