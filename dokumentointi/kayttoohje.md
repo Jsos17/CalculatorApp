@@ -1,6 +1,6 @@
 # User manual/Käyttöohje
 
-Download file [CalculatorApp-1.0.jar]
+Download file [CalculatorApp-v1.0.jar](https://github.com/Jsos17/CalculatorApp/releases)
 
 ## Configuration
 
