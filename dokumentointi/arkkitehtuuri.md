@@ -9,5 +9,5 @@
 
 **Sequence diagrams**
 
-![Expression evaluation]
+![Expression evaluation](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/Expression%20evaluation%20sequence.png)
 
