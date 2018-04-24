@@ -22,9 +22,11 @@ The program can be run with the command
 
 The user can input any expression by using the provided buttons, and if the expression can be parsed (i.e. brackets, operators, dots etc are placed correctly) provides the result as a double value. If the input cannot be parsed, then the user is notified and asked to correct the expression.
 
+Currently the buttons (+, -, *, /, ^, ., Ans, Delete, =, numbers, Set Memory limit, Clear Memory) are activated and operational. 
+Others are currently deactivated on purpose: (mod, %, abs and buttons regarding database functionality). 
+
 Maximum size for exression is currently set at 1000 characters, which cannot be exceeded.
 
 The app also shows recently used expressions, and the user can change how many, if any, expressions are kept in memory. Note if new memory size is set smaller than current list size of recently used expressions, then expressions will be removed until the list size matches the given memory limit.
 
 The user can also clear the memory list which removes all recently used expressions from the list.
-
