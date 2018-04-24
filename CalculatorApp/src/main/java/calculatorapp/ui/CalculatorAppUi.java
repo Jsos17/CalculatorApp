@@ -85,7 +85,7 @@ public class CalculatorAppUi extends Application {
         properties.load(new FileInputStream("config.properties"));
         
         String databaseAddress = properties.getProperty("mathDatabase");
-        MathDatabase  math = new MathDatabase("jdbc:sqlite:" + databaseAddress);
+        MathDatabase math = new MathDatabase("jdbc:sqlite:" + databaseAddress);
         
         try (Connection conn = math.getConnection()) {
             math.initDatabase();
