@@ -8,28 +8,45 @@ package calculatorapp.logic;
 import java.util.ArrayList;
 
 /**
- *
+ * The class functions as the memory for CalculatorApp.
  * @author jpssilve
+ * 
  */
 public class ExpressionMemory {
 
     private ArrayList<String> memExpressions;
     private InputParser inParser;
     private int memoryLimit;
-
+    
+    /**
+     * The constructor gets an InputParser and an int value as parameters. 
+     * MemoryLimit tells how many expressions are kept in memory and thus shown to the user.
+     * @param inParser
+     * @param memoryLimit 
+     */
     public ExpressionMemory(InputParser inParser, int memoryLimit) {
         this.memExpressions = new ArrayList<>();
         this.inParser = inParser;
         this.memoryLimit = memoryLimit;
     }
 
+    /**
+     * 
+     * @return all expressions in memory as Strings 
+     */
     public ArrayList<String> getMemExpressionsArrayList() {
         return this.memExpressions;
     }
-
+    
+    /**
+     * The method adds the expression it gets as a parameter into the 
+     * ArrayList that represents the memory.
+     * 
+     * @param expression 
+     */
     public void addToMemory(String expression) {
-        if (Double.isNaN(this.inParser.expressionEvaluation(expression))  ||
-                Double.isInfinite(this.inParser.expressionEvaluation(expression))) {
+        Double result = this.inParser.expressionEvaluation(expression);
+        if (Double.isNaN(result) || Double.isInfinite(result)) {
             return;
         }
 
@@ -39,14 +56,25 @@ public class ExpressionMemory {
         }
     }
 
+    /**
+     * Removes all entries from the ArrayList.
+     */
     public void clearMemory() {
         this.memExpressions.clear();
     }
 
+    /**
+     * Returns current limit for how many expressions are kept in memory.
+     * @return 
+     */
     public int getMemoryLimit() {
         return this.memoryLimit;
     }
 
+    /**
+     * Sets the desired size for how many expressions are kept in memory.
+     * @param value 
+     */
     public void setMemoryLimit(int value) {
         if (value >= 0) {
             this.memoryLimit = value;

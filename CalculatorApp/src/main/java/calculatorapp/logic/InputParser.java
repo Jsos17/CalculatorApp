@@ -4,13 +4,20 @@ import java.util.ArrayDeque;
 import java.util.Stack;
 
 /**
- *
+ * The class InputParser is responsible for the evaluation of mathematical
+ * expressions in String form.
+ * 
  * @author jpssilve
  */
 public class InputParser {
 
     private CalculatorService calculator;
 
+    /**
+     * The constructor takes a CalculatorService as a parameter
+     * 
+     * @param calculator 
+     */
     public InputParser(CalculatorService calculator) {
         this.calculator = calculator;
     }
@@ -91,6 +98,17 @@ public class InputParser {
         }
     }
 
+    /**
+     * The method evaluates a mathematical expression in String form if it can be
+     * parsed.
+     * 
+     * The method calls several methods of the same class.
+     * 
+     * @param expression
+     * 
+     * @return Double.NaN if the expression cannot be parsed, positive infinity if the expression is too long 
+     * and a double value if the expression can be parsed
+     */
     public double expressionEvaluation(String expression) {
         if (expression.length() > 1000) {
             return Double.POSITIVE_INFINITY;
@@ -190,7 +208,7 @@ public class InputParser {
             case '/':
                 return this.calculator.divideDouble(x1, x2);
             case '^':
-                return this.calculator.exp(x1, x2);
+                return this.calculator.exponentiation(x1, x2);
             default:
                 return Double.NaN;
         }

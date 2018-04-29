@@ -13,17 +13,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author jpssilve
  */
 public class MathDatabase {
 
     private String databaseAddress;
 
+    /**
+     * A database address is required for the constructor.
+     * 
+     * @param databaseAddress
+     * @throws ClassNotFoundException 
+     */
     public MathDatabase(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
     }
 
+    /**
+     * Creates table Expression if it does not already exist by calling
+     * sqliteCreateExpressions.
+     * 
+     * @see #sqliteCreateExpressions
+     */
     public void initDatabase() {
         List<String> createExpressions = sqliteCreateExpressions();
 
@@ -39,6 +51,12 @@ public class MathDatabase {
         }
     }
 
+    /**
+     * Returns a connection to the underlying SQLite database.
+     * 
+     * @return
+     * @throws SQLException 
+     */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(this.databaseAddress);
     }

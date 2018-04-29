@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- *
+ * This is the graphcical user interface for the CalculatorApp. 
  * @author jpssilve
  */
 public class CalculatorAppUi extends Application {
@@ -93,6 +93,13 @@ public class CalculatorAppUi extends Application {
         launch(CalculatorAppUi.class);
     }
 
+    /**
+     * Creates a database if it does not already exist, by establishing a connection
+     * to a SQLite database. 
+     * 
+     * The name of the database is retrieved from a file config.properties which the user must create.
+     * @throws Exception 
+     */
     @Override
     public void init() throws Exception {
         Properties properties = new Properties();
@@ -207,11 +214,20 @@ public class CalculatorAppUi extends Application {
         vBoxRightest.getChildren().add(1, getAllSavedExpressions);
         vBoxRightest.getChildren().add(2, retrievalStatus);
         vBoxRightest.getChildren().add(3, copyDbExpression);
-//        vBoxRightest.getChildren().add(5, searchExpression);
         vBoxRightest.getChildren().add(4, deleteExpression);
         vBoxRightest.getChildren().add(5, deleteStatus);
         vBoxRightest.getChildren().add(6, databaseList);
-
+        
+        ListView<Expression> databaseMatchesList = new ListView();
+        ListProperty<Expression> matchesListProperty = new SimpleListProperty<>();
+        databaseMatchesList.itemsProperty().bind(matchesListProperty);
+        
+        VBox vBoxSearch = new VBox();
+        vBoxSearch.getChildren().add(0, searchExpression);
+        vBoxSearch.getChildren().add(1, databaseMatchesList);
+        
+//        vBoxLeft.getChildren().add(5, vBoxSearch);
+        
         HBox hbox = new HBox();
         hbox.getChildren().addAll(vBoxLeft, vBoxCenter, vBoxRight, vBoxRightest);
 
@@ -352,6 +368,18 @@ public class CalculatorAppUi extends Application {
                 delayedClear(deleteStatus);
             }
         });
+        
+        searchExpression.setOnMouseClicked((event) -> {
+            String partialExpression = "";
+            if (!partialExpression.equals("")) {
+                try {
+                    matchesListProperty.set(FXCollections.observableArrayList(eDao.findMatches(partialExpression)));
+                } catch (SQLException e) {
+
+                }
+            }
+            
+        });
 
         Scene scene = new Scene(hbox);
         stage.setTitle("CalculatorApp");
@@ -363,7 +391,7 @@ public class CalculatorAppUi extends Application {
     public void stop() {
         System.out.println("Closing the CalculatorApp...");
     }
-    
+
     private void delayedClear(Label label) {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10.0), ev -> {
             label.setText("");

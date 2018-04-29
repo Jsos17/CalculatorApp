@@ -105,21 +105,21 @@ public class CalculatorServiceTest {
 
     @Test
     public void exponentiationIsCorrect1() {
-        assertEquals(14641, calcServ.exp(11, 4), 0.0001);
+        assertEquals(14641, calcServ.exponentiation(11, 4), 0.0001);
     }
 
     @Test
     public void exponentiationIsCorrect2() {
-        assertEquals(1520.301258, calcServ.exp(3.7, 5.6), 0.0001);
+        assertEquals(1520.301258, calcServ.exponentiation(3.7, 5.6), 0.0001);
     }
     
     @Test
     public void exponentiationIsCorrect3() {
-        assertEquals(Double.NaN, calcServ.exp(0, 0), 0.0001);
+        assertEquals(Double.NaN, calcServ.exponentiation(0, 0), 0.0001);
     }
     
     @Test
     public void exponentiationIsCorrect4() {
-        assertEquals(Double.NaN, calcServ.exp(0.0000, 0.0000), 0.0001);
+        assertEquals(Double.NaN, calcServ.exponentiation(0.0000, 0.0000), 0.0001);
     }
 }

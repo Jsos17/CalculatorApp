@@ -2,13 +2,13 @@
 package calculatorapp.logic;
 
 /**
- *
+ *Provides all the Calculator operations
+ * 
  * @author jpssilve
  */
 public class CalculatorService {
     
     public CalculatorService() {
-        
     }
     
     public long addLong(long x, long y) {
@@ -22,19 +22,43 @@ public class CalculatorService {
     public long multiplyLong(long x, long y) {
         return x * y;
     }
-    
+
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return double precision addition
+     */
     public double addDouble(double x, double y) {
         return x + y;
     }
-    
+
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return double precision subtraction
+     */
     public double subtractDouble(double x, double y) {
         return x - y;
     }
-    
+
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return double precision multiplication
+     */
     public double multiplyDouble(double x, double y) {
         return x * y;
     }
-    
+
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return double precision division
+     */
     public double divideDouble(double x, double y) {
         if (y == 0) {
             return Double.NaN;
@@ -42,15 +66,31 @@ public class CalculatorService {
             return  x / y;
         }
     }
-    
+
+    /**
+     * 
+     * @param x
+     * @return a number as a percentage 
+     */
     public double percent(double x) {
         return x * 100.0;
     }
-    
+
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return the x modulo y 
+     */
     public long modulo(long x, long y) {
         return x % y;
     }
-    
+
+    /**
+     * 
+     * @param x
+     * @return the natural logarithm of a number
+     */
     public double naturalLog(long x) {
         if (x <= 0) {
             return Double.NaN;
@@ -58,7 +98,12 @@ public class CalculatorService {
             return Math.log(x);
         }
     }
-    
+
+    /**
+     * 
+     * @param x
+     * @return the base 10 logarithm of a number
+     */
     public double base10log(long x) {
         if (x <= 0) {
             return Double.NaN;
@@ -67,11 +112,21 @@ public class CalculatorService {
         }
     }
     
+    /**
+     * 
+     * @param x
+     * @return the absolute value of a number
+     */
     public double abs(double x) {
         return Math.abs(x);
     }
-    
-    public double exp(double base, double exponent) {
+
+    /**
+     * @param base
+     * @param exponent
+     * @return a number raised to the desired power 
+     */
+    public double exponentiation(double base, double exponent) {
         if (base == 0 && exponent == 0) {
             return Double.NaN;
         } else {

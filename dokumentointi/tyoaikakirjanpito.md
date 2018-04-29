@@ -13,5 +13,7 @@
 | 21.4. | 8       | database work, added tests for memory class and for the corner cases of inputParser |
 | 23.4. | 4       | covered tests for database functionality, added memory setting and clearing feature to gui |
 | 24.4. | 6       | gui development, preparing to integrate database into the gui, drafting documents, release v1.0, added sequence diagram, udated class diagram  |
-| cumulative | 62 |              |
+| 29.4. | 6       | integrated database and memory functionality into the gui almost fully, added a few tests |
+| 30.4. | 2       | started javadoc |
+| cumulative | 70 |              |
 
