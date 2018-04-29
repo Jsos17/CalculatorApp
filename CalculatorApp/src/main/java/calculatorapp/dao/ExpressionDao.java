@@ -69,14 +69,6 @@ public class ExpressionDao implements MathDao {
         }
     }
 
-//    public boolean deleteAll() throws SQLException {
-//        try (Connection conn = mathDB.getConnection();
-//                PreparedStatement stmt = conn.prepareStatement("DELETE FROM Expression")) {
-//            stmt.executeLargeUpdate();
-//            return true;
-//        }
-//    }
-
     public ArrayList<Expression> findMatches(String partialExpression) throws SQLException {
         ArrayList<Expression> foundExpressions = new ArrayList<>();
 

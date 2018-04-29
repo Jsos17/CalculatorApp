@@ -33,4 +33,9 @@ public class Expression {
     public void setExpression(String expression) {
         this.expression = expression;
     }
+    
+    @Override
+    public String toString() {
+        return this.expression;
+    }
 }

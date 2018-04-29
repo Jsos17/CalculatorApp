@@ -8,6 +8,7 @@ package calculatorapp.logic;
 public class CalculatorService {
     
     public CalculatorService() {
+        
     }
     
     public long addLong(long x, long y) {

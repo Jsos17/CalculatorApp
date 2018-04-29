@@ -128,6 +128,18 @@ public class ExpressionMemoryTest {
         exprMem.addToMemory("-9-0");
         assertEquals(0, exprMem.getMemExpressionsArrayList().size());
     }
+    
+    @Test
+    public void addToMemoryAddsOnlyValidInputs3() {
+        String tooLong = "";
+        for (int i = 1; i <= 200; i++) {
+            tooLong += "1234567890";
+        }
+        
+        exprMem.addToMemory(tooLong);
+        exprMem.addToMemory("(7*42)");
+        assertEquals(1, exprMem.getMemExpressionsArrayList().size());
+    }
 
     @Test
     public void addToMemoryHonorsLimit1() {

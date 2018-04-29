@@ -28,7 +28,8 @@ public class ExpressionMemory {
     }
 
     public void addToMemory(String expression) {
-        if (Double.isNaN(this.inParser.expressionEvaluation(expression))) {
+        if (Double.isNaN(this.inParser.expressionEvaluation(expression))  ||
+                Double.isInfinite(this.inParser.expressionEvaluation(expression))) {
             return;
         }
 
