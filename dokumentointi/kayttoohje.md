@@ -22,11 +22,26 @@ The program can be run with the command
 
 The user can input any expression by using the provided buttons, and if the expression can be parsed (i.e. brackets, operators, dots etc are placed correctly) provides the result as a double value. If the input cannot be parsed, then the user is notified and asked to correct the expression.
 
-Currently the buttons (+, -, *, /, ^, ., Ans, Delete, =, numbers, Set Memory limit, Clear Memory) are activated and operational. 
-Others are currently deactivated on purpose: (mod, %, abs and buttons regarding database functionality). 
+Currently the operations (+, -, *, /, ^, ., Ans, Delete, =) are available. 
 
-Maximum size for exression is currently set at 1000 characters, which cannot be exceeded.
+Maximum size for expression is currently set at 1000 characters, which cannot be exceeded.
 
-The app also shows recently used expressions, and the user can change how many, if any, expressions are kept in memory. Note if new memory size is set smaller than current list size of recently used expressions, then expressions will be removed until the list size matches the given memory limit.
+**Memory and database functionality**
 
-The user can also clear the memory list which removes all recently used expressions from the list.
+*Set memory limit using the slider* a slider can be used to set the desired amount of expressions stored in memory. As the word memory implies, once the program closes all expressions in memory are lost. In order to save expressions for future use, the database functionality should be used. See below.
+
+*Set memory limit* once this button is clicked the value set by the slider comes in effect. Note if new memory size is set smaller than current list size of recently used expressions, then expressions will be removed until the list size matches the given memory limit.
+
+*Clear memory* removes everything from memory.
+
+*Retrieve all saved expressions* retrieves all expressions that exist in the SQLite Expression table.
+
+*Copy selected database expression* copies the selected expression to input field.
+
+*Delete the selected expression* deletes the selected expression. This action is irreversible.
+
+*Save all expressions in memory* inserts all the expressions that are in memory into the SQLite Expression table.
+
+*Save the selected expression* inserts the selected expression into SQLite Expression table. If the expression already existed in the database, a duplicate is inserted anyway.
+
+*Copy the selected memory expression* copies the selected expression in memory to input field.
