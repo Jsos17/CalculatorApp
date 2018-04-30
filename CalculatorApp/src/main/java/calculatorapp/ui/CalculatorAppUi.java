@@ -161,7 +161,7 @@ public class CalculatorAppUi extends Application {
 
         TextField input = new TextField();
         input.setPrefHeight(h2);
-        input.setEditable(true);
+        input.setEditable(false);
         TextField formula = new TextField();
         formula.setPrefHeight(h2);
         formula.setEditable(false);

@@ -22,7 +22,17 @@ public class InputParser {
         this.calculator = calculator;
     }
 
-    // @Djikstra as source and wikipedia pseudo-code as basis for implementation
+    /**
+     * Djikstra's shunting-yard algorithm implementation.
+     * The pseudocode found on shunting-yard wikipedia page is the 
+     * basis for implementation.
+     * 
+     * The method takes a String and produces the mathematical expression
+     * in reverse Polish notation also known as postfix notation.
+     * 
+     * @param expression
+     * @return 
+     */
     protected ArrayDeque<String> shuntingYard(String expression) {
         ArrayDeque<String> output = new ArrayDeque();
         Stack<Character> stack = new Stack();
@@ -69,7 +79,16 @@ public class InputParser {
         return output;
     }
 
-    // wikipedia pseudo-code as basis for implementation
+    /**
+     * This method evaluates a mathematical expression in 
+     * reverse Polish notation also known as postfix notation.
+     * 
+     * The pseudocode found on the reverse Polish notation wikipedia
+     * page is the basis for implementation.
+     * 
+     * @param output
+     * @return 
+     */
     protected double postfixEvaluator(ArrayDeque<String> output) {
         Stack<Double> values = new Stack();
         while (!output.isEmpty()) {
