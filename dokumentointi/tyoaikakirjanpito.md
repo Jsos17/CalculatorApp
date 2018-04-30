@@ -14,6 +14,6 @@
 | 23.4. | 4       | covered tests for database functionality, added memory setting and clearing feature to gui |
 | 24.4. | 6       | gui development, preparing to integrate database into the gui, drafting documents, release v1.0, added sequence diagram, udated class diagram  |
 | 29.4. | 6       | integrated database and memory functionality into the gui almost fully, added a few tests |
-| 30.4. | 3       | started javadoc, updated user manual |
-| cumulative | 71 |              |
+| 30.4. | 9       | started javadoc, updated user manual |
+| cumulative | 77 |              |
 

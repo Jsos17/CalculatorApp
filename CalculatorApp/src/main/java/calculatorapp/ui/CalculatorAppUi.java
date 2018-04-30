@@ -260,7 +260,7 @@ public class CalculatorAppUi extends Application {
         minus.setOnMouseClicked((event) -> input.appendText("-"));
         exponent.setOnMouseClicked((event) -> input.appendText("^"));
 
-        signMinus.setOnMouseClicked((event) -> input.appendText("(-"));
+//        signMinus.setOnMouseClicked((event) -> input.appendText("(-"));
 
 //        percent.setOnMouseClicked((event) -> input.appendText("%"));
 //        modulo.setOnMouseClicked((event) -> input.appendText("mod"));
