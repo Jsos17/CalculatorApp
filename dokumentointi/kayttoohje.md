@@ -26,22 +26,22 @@ Currently the operations (+, -, *, /, ^, ., Ans, Delete, =) are supported. Addit
 
 Maximum size for expression is currently set at 1000 characters, which cannot be exceeded.
 
-**Memory and database functionality**
+### Memory and database functionality
 
-*Set memory limit using the slider* a slider can be used to set the desired amount of expressions stored in memory. As the word memory implies, once the program closes all expressions in memory are lost. In order to save expressions for future use, the database functionality should be used. See below.
+**Set memory limit using the slider** a slider can be used to set the desired amount of expressions stored in memory. As the word memory implies, once the program closes all expressions in memory are lost. In order to save expressions for future use, the database functionality should be used. See below.
 
-*Set memory limit* once this button is clicked the value set by the slider comes in effect. Note if new memory size is set smaller than current list size of recently used expressions, then expressions will be removed until the list size matches the given memory limit.
+**Set memory limit** once this button is clicked the value set by the slider comes in effect. Note if new memory size is set smaller than current list size of recently used expressions, then expressions will be removed until the list size matches the given memory limit.
 
-*Clear memory* removes everything from memory.
+**Clear memory** removes everything from memory.
 
-*Retrieve all saved expressions* retrieves all expressions that exist in the SQLite Expression table.
+**Retrieve all saved expressions** retrieves all expressions that exist in the SQLite Expression table.
 
-*Copy selected database expression* copies the selected expression to input field.
+**Copy selected database expression** copies the selected expression to input field.
 
-*Delete the selected expression* deletes the selected expression. This action is irreversible.
+**Delete the selected expression** deletes the selected expression. This action is irreversible.
 
-*Save all expressions in memory* inserts all the expressions that are in memory into the SQLite Expression table.
+**Save all expressions in memory** inserts all the expressions that are in memory into the SQLite Expression table.
 
-*Save the selected expression* inserts the selected expression into SQLite Expression table. If the expression already existed in the database, a duplicate is inserted anyway.
+**Save the selected expression** inserts the selected expression into SQLite Expression table. If the expression already existed in the database, a duplicate is inserted anyway.
 
-*Copy the selected memory expression* copies the selected expression in memory to input field.
+**Copy the selected memory expression** copies the selected expression in memory to input field.
