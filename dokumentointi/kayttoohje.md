@@ -22,7 +22,7 @@ The program can be run with the command
 
 The user can input any expression by using the provided buttons, and if the expression can be parsed (i.e. brackets, operators, dots etc are placed correctly) provides the result as a double value. If the input cannot be parsed, then the user is notified and asked to correct the expression.
 
-Currently the operations (+, -, *, /, ^, ., Ans, Delete, =) are available. 
+Currently the operations (+, -, *, /, ^, ., Ans, Delete, =) are supported. Additionally, the app has an integrated database and memory. See *Memory and database functionality* below. 
 
 Maximum size for expression is currently set at 1000 characters, which cannot be exceeded.
 
