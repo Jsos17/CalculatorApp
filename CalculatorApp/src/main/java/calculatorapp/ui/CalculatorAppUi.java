@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * This is the graphcical user interface for the CalculatorApp. 
+ * This is the graphical user interface for the CalculatorApp. 
  * @author jpssilve
  */
 public class CalculatorAppUi extends Application {
