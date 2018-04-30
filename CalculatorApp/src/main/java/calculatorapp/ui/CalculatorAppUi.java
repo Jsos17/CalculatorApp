@@ -162,6 +162,9 @@ public class CalculatorAppUi extends Application {
         TextField input = new TextField();
         input.setPrefHeight(h2);
         input.setEditable(false);
+        input.setOnKeyPressed((event) -> {
+            
+        });
         TextField formula = new TextField();
         formula.setPrefHeight(h2);
         formula.setEditable(false);
@@ -231,38 +234,38 @@ public class CalculatorAppUi extends Application {
         HBox hbox = new HBox();
         hbox.getChildren().addAll(vBoxLeft, vBoxCenter, vBoxRight, vBoxRightest);
 
-        numbers.get(0).setOnMouseClicked((event) -> input.setText(input.getText() + "0"));
-        numbers.get(1).setOnMouseClicked((event) -> input.setText(input.getText() + "1"));
-        numbers.get(2).setOnMouseClicked((event) -> input.setText(input.getText() + "2"));
-        numbers.get(3).setOnMouseClicked((event) -> input.setText(input.getText() + "3"));
-        numbers.get(4).setOnMouseClicked((event) -> input.setText(input.getText() + "4"));
-        numbers.get(5).setOnMouseClicked((event) -> input.setText(input.getText() + "5"));
-        numbers.get(6).setOnMouseClicked((event) -> input.setText(input.getText() + "6"));
-        numbers.get(7).setOnMouseClicked((event) -> input.setText(input.getText() + "7"));
-        numbers.get(8).setOnMouseClicked((event) -> input.setText(input.getText() + "8"));
-        numbers.get(9).setOnMouseClicked((event) -> input.setText(input.getText() + "9"));
+        numbers.get(0).setOnMouseClicked((event) -> input.appendText("0"));
+        numbers.get(1).setOnMouseClicked((event) -> input.appendText("1"));
+        numbers.get(2).setOnMouseClicked((event) -> input.appendText("2"));
+        numbers.get(3).setOnMouseClicked((event) -> input.appendText("3"));
+        numbers.get(4).setOnMouseClicked((event) -> input.appendText("4"));
+        numbers.get(5).setOnMouseClicked((event) -> input.appendText("5"));
+        numbers.get(6).setOnMouseClicked((event) -> input.appendText("6"));
+        numbers.get(7).setOnMouseClicked((event) -> input.appendText("7"));
+        numbers.get(8).setOnMouseClicked((event) -> input.appendText("8"));
+        numbers.get(9).setOnMouseClicked((event) -> input.appendText("9"));
 
-        multiply.setOnMouseClicked((event) -> input.setText(input.getText() + "*"));
-        divide.setOnMouseClicked((event) -> input.setText(input.getText() + "/"));
-        plus.setOnMouseClicked((event) -> input.setText(input.getText() + "+"));
-        minus.setOnMouseClicked((event) -> input.setText(input.getText() + "-"));
-        exponent.setOnMouseClicked((event) -> input.setText(input.getText() + "^"));
+        multiply.setOnMouseClicked((event) -> input.appendText("*"));
+        divide.setOnMouseClicked((event) -> input.appendText("/"));
+        plus.setOnMouseClicked((event) -> input.appendText("+"));
+        minus.setOnMouseClicked((event) -> input.appendText("-"));
+        exponent.setOnMouseClicked((event) -> input.appendText("^"));
 
-//        percent.setOnMouseClicked((event) -> input.setText(input.getText() + "%"));
-//        modulo.setOnMouseClicked((event) -> input.setText(input.getText() + "mod"));
+//        percent.setOnMouseClicked((event) -> input.appendText("%"));
+//        modulo.setOnMouseClicked((event) -> input.appendText("mod"));
         delete.setOnMouseClicked((event) -> {
-            String s = input.getText();
-            if (s.length() != 0) {
-                input.setText(input.getText().substring(0, input.getText().length() - 1));
+            int inputLength = input.getLength();
+            if (inputLength > 0) {
+                input.deleteText(inputLength - 1, inputLength);
             }
         });
         clear.setOnMouseClicked((event) -> {
-            input.setText("");
-            formula.setText("");
-            result.setText("");
-            instruction.setText("");
+            input.clear();
+            formula.clear();
+            result.clear();
+            instruction.clear();
         });
-        dot.setOnMouseClicked((event) -> input.setText((input.getText() + ".")));
+        dot.setOnMouseClicked((event) -> input.appendText((".")));
         equalsSign.setOnMouseClicked((event) -> {
             Double res = inputParser.expressionEvaluation(input.getText());
             if (res.equals(Double.NaN)) {
@@ -273,14 +276,14 @@ public class CalculatorAppUi extends Application {
                 formula.setText(input.getText());
                 exprMem.addToMemory(input.getText());
                 listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
-                input.setText("");
-                result.setText("" + res);
-                instruction.setText("");
+                input.clear();
+                result.setText(Double.toString(res));
+                instruction.clear();
             }
         });
-        answer.setOnMouseClicked((event) -> input.setText((input.getText() + result.getText())));
-        leftBracket.setOnMouseClicked((event) -> input.setText((input.getText() + "(")));
-        rightBracket.setOnMouseClicked((event) -> input.setText((input.getText() + ")")));
+        answer.setOnMouseClicked((event) -> input.appendText(result.getText()));
+        leftBracket.setOnMouseClicked((event) -> input.appendText("("));
+        rightBracket.setOnMouseClicked((event) -> input.appendText(")"));
 
         setMemoryLimit.setOnMouseClicked((event) -> {
             exprMem.setMemoryLimit((int) memLimitSlider.getValue());
@@ -296,14 +299,14 @@ public class CalculatorAppUi extends Application {
         copyMemExpression.setOnMouseClicked((event) -> {
             int memSelectionIndex = memoryList.getSelectionModel().selectedIndexProperty().get();
             if (memSelectionIndex >= 0 && !listProperty.isEmpty()) {
-                input.setText(input.getText() + listProperty.get(memSelectionIndex));
+                input.appendText(listProperty.get(memSelectionIndex));
             }
         });
 
         copyDbExpression.setOnMouseClicked((event) -> {
             int selectedIdx = databaseList.getSelectionModel().selectedIndexProperty().get();
             if (selectedIdx >= 0 && !dbListProperty.isEmpty()) {
-                input.setText(input.getText() + dbListProperty.get(selectedIdx).getExpression());
+                input.appendText(dbListProperty.get(selectedIdx).getExpression());
             }
         });
 
