@@ -10,13 +10,13 @@ The app also shows recently used expressions, and the user can change how many, 
 
 ## Documentation
 
-[Käyttöohje/User manual](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/kayttoohje.md)
+[Käyttöohje/User manual](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/kayttoohje.md)
 
-[Vaatimusmäärittely/Software requirement specification](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
+[Vaatimusmäärittely/Software requirement specification](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/vaatimusmaarittely.md)
 
-[Työaikakirjanpito/Work log](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
+[Työaikakirjanpito/Work log](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/tyoaikakirjanpito.md)
 
-[Arkkitehtuurikuvaus/Software architecture](https://github.com/Jsos17/otm-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
+[Arkkitehtuurikuvaus/Software architecture](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/arkkitehtuuri.md)
 
 ## Releases
 
@@ -44,7 +44,7 @@ Generates an executable jar-file, *CalculatorApp-1.0-SNAPSHOT.jar*, inside the t
 
 **Checkstyle**
 
-Style checks that are specified in the file [checkstyle.xml](https://github.com/Jsos17/otm-harjoitustyo/blob/master/CalculatorApp/checkstyle.xml) can be run with the command:
+Style checks that are specified in the file [checkstyle.xml](https://github.com/Jsos17/CalculatorApp/blob/master/CalculatorApp/checkstyle.xml) can be run with the command:
 
     mvn jxr:jxr checkstyle:checkstyle
 
