@@ -6,7 +6,9 @@ The CalculatorApp is, as the name suggests, a calculator. So far it only has the
 
 The user can input any expression by using the provided buttons, and if the expression can be parsed (i.e. brackets, operators, dots etc are placed correctly) provides the result as double value. If the input cannot be parsed, then the user is notified and is asked to correct the expression.
 
-The app also shows recently used expressions, and the user can change how many, if any, expressions are kept in memory. This feature will be expanded to include database storage for user selected expressions.
+The app also shows recently used expressions, and the user can change how many, if any, expressions are kept in memory. 
+
+The user can save expressions in a database and re-use them later.
 
 ## Documentation
 
