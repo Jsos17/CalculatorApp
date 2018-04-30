@@ -31,7 +31,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * This is the graphical user interface for the CalculatorApp. 
+ * This is the graphical user interface for the CalculatorApp.
+ *
  * @author jpssilve
  */
 public class CalculatorAppUi extends Application {
@@ -44,6 +45,12 @@ public class CalculatorAppUi extends Application {
     private Button exponent;
     private Button percent;
     private Button modulo;
+    private Button sqrt;
+    private Button sin;
+    private Button cos;
+    private Button tan;
+    private Button ln;
+    private Button log;
     private Button delete;
     private Button clear;
     private Button dot;
@@ -52,6 +59,7 @@ public class CalculatorAppUi extends Application {
     private Button leftBracket;
     private Button rightBracket;
     private Button absValue;
+    private Button signMinus;
     private ArrayList<Button> mainGridButtons;
     private ArrayList<Button> auxGridButtons;
 
@@ -84,7 +92,6 @@ public class CalculatorAppUi extends Application {
     private ExpressionDao eDao;
     private int width;
     private int height;
-    
 
     /**
      * @param args the command line arguments
@@ -94,11 +101,13 @@ public class CalculatorAppUi extends Application {
     }
 
     /**
-     * Creates a database if it does not already exist, by establishing a connection
-     * to a SQLite database. 
-     * 
-     * The name of the database is retrieved from a file config.properties which the user must create.
-     * @throws Exception 
+     * Creates a database if it does not already exist, by establishing a
+     * connection to a SQLite database.
+     *
+     * The name of the database is retrieved from a file config.properties which
+     * the user must create.
+     *
+     * @throws Exception
      */
     @Override
     public void init() throws Exception {
@@ -138,9 +147,9 @@ public class CalculatorAppUi extends Application {
         mainGrid.addRow(3, numbers.get(0), dot, percent, answer, equalsSign);
 
         GridPane auxGrid = new GridPane();
-        auxGrid.addColumn(0, exponent, modulo);
-        auxGrid.addColumn(1, leftBracket, rightBracket);
-        auxGrid.addColumn(2, absValue);
+        auxGrid.addColumn(0, exponent, modulo, sin, sqrt);
+        auxGrid.addColumn(1, leftBracket, rightBracket, cos, ln);
+        auxGrid.addColumn(2, absValue, signMinus, tan, log);
 
         int h2 = 30;
         Label inputLabel = new Label("Input: ");
@@ -163,7 +172,7 @@ public class CalculatorAppUi extends Application {
         input.setPrefHeight(h2);
         input.setEditable(false);
         input.setOnKeyPressed((event) -> {
-            
+
         });
         TextField formula = new TextField();
         formula.setPrefHeight(h2);
@@ -220,19 +229,19 @@ public class CalculatorAppUi extends Application {
         vBoxRightest.getChildren().add(4, deleteExpression);
         vBoxRightest.getChildren().add(5, deleteStatus);
         vBoxRightest.getChildren().add(6, databaseList);
-        
+
         ListView<Expression> databaseMatchesList = new ListView();
         ListProperty<Expression> matchesListProperty = new SimpleListProperty<>();
         databaseMatchesList.itemsProperty().bind(matchesListProperty);
-        
+
         VBox vBoxSearch = new VBox();
         vBoxSearch.getChildren().add(0, searchExpression);
         vBoxSearch.getChildren().add(1, databaseMatchesList);
-        
+
 //        vBoxLeft.getChildren().add(5, vBoxSearch);
-        
         HBox hbox = new HBox();
         hbox.getChildren().addAll(vBoxLeft, vBoxCenter, vBoxRight, vBoxRightest);
+        hbox.setSpacing(15);
 
         numbers.get(0).setOnMouseClicked((event) -> input.appendText("0"));
         numbers.get(1).setOnMouseClicked((event) -> input.appendText("1"));
@@ -250,6 +259,8 @@ public class CalculatorAppUi extends Application {
         plus.setOnMouseClicked((event) -> input.appendText("+"));
         minus.setOnMouseClicked((event) -> input.appendText("-"));
         exponent.setOnMouseClicked((event) -> input.appendText("^"));
+
+        signMinus.setOnMouseClicked((event) -> input.appendText("(-"));
 
 //        percent.setOnMouseClicked((event) -> input.appendText("%"));
 //        modulo.setOnMouseClicked((event) -> input.appendText("mod"));
@@ -290,7 +301,7 @@ public class CalculatorAppUi extends Application {
             currentMemLimit.setText("The memory limit is: " + exprMem.getMemoryLimit());
             listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
         });
-        
+
         clearMemory.setOnMouseClicked((event) -> {
             exprMem.clearMemory();
             listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
@@ -321,7 +332,7 @@ public class CalculatorAppUi extends Application {
                     saveStatus.setText("Save failed");
                     saveStatus.setTextFill(Color.RED);
                 }
-                
+
                 delayedClear(saveStatus);
             }
 
@@ -336,7 +347,7 @@ public class CalculatorAppUi extends Application {
                 retrievalStatus.setText("Retrieval failed");
                 retrievalStatus.setTextFill(Color.RED);
             }
-            
+
             delayedClear(retrievalStatus);
         });
 
@@ -350,9 +361,9 @@ public class CalculatorAppUi extends Application {
                     saveAllStatus.setText("Save all failed");
                     saveAllStatus.setTextFill(Color.RED);
                 }
-                
+
                 delayedClear(saveAllStatus);
-            } 
+            }
         });
 
         deleteExpression.setOnMouseClicked((event) -> {
@@ -367,11 +378,11 @@ public class CalculatorAppUi extends Application {
                     deleteStatus.setText("Delete failed");
                     deleteStatus.setTextFill(Color.RED);
                 }
-                
+
                 delayedClear(deleteStatus);
             }
         });
-        
+
         searchExpression.setOnMouseClicked((event) -> {
             String partialExpression = "";
             if (!partialExpression.equals("")) {
@@ -381,7 +392,7 @@ public class CalculatorAppUi extends Application {
 
                 }
             }
-            
+
         });
 
         Scene scene = new Scene(hbox);
@@ -421,6 +432,7 @@ public class CalculatorAppUi extends Application {
         auxGridButtons = new ArrayList<>();
         createNumberButtons();
         createMathOperatorButtons();
+        createFunctionButtons();
         createOtherButtons();
         createMemoryANdDataBaseButtons();
         createProgramFunctionalityButtons();
@@ -435,6 +447,7 @@ public class CalculatorAppUi extends Application {
         for (int i = 0; i <= 9; i++) {
             numbers.add(new Button("" + i));
         }
+        
         mainGridButtons.addAll(numbers);
     }
 
@@ -444,20 +457,34 @@ public class CalculatorAppUi extends Application {
         multiply = new Button("*");
         divide = new Button("/");
         exponent = new Button("^");
-        percent = new Button("%");
-        modulo = new Button("mod");
 
         mainGridButtons.add(plus);
         mainGridButtons.add(minus);
         mainGridButtons.add(multiply);
         mainGridButtons.add(divide);
-        mainGridButtons.add(percent);
 
-        auxGridButtons.add(modulo);
         auxGridButtons.add(exponent);
+    }
+    
+    private void createFunctionButtons() {
+        sqrt = new Button("sqrt()");
+        sin = new Button("sin()");
+        cos = new Button("cos()");
+        tan = new Button("tan()");
+        ln = new Button("ln()");
+        log = new Button("log()");
+        
+        auxGridButtons.add(sqrt);
+        auxGridButtons.add(sin);
+        auxGridButtons.add(cos);
+        auxGridButtons.add(tan);
+        auxGridButtons.add(ln);
+        auxGridButtons.add(log);
     }
 
     private void createOtherButtons() {
+        percent = new Button("%");
+        modulo = new Button("mod");
         delete = new Button("Delete");
         clear = new Button("Clear");
         dot = new Button(".");
@@ -466,16 +493,20 @@ public class CalculatorAppUi extends Application {
         leftBracket = new Button("(");
         rightBracket = new Button(")");
         absValue = new Button("abs");
+        signMinus = new Button("(-)");
 
         mainGridButtons.add(delete);
         mainGridButtons.add(clear);
         mainGridButtons.add(dot);
         mainGridButtons.add(equalsSign);
         mainGridButtons.add(answer);
+        mainGridButtons.add(percent);
 
+        auxGridButtons.add(modulo);
         auxGridButtons.add(leftBracket);
         auxGridButtons.add(rightBracket);
         auxGridButtons.add(absValue);
+        auxGridButtons.add(signMinus);
     }
 
     private void createMemoryANdDataBaseButtons() {

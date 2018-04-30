@@ -6,7 +6,7 @@ import java.util.Stack;
 /**
  * The class InputParser is responsible for the evaluation of mathematical
  * expressions in String form.
- * 
+ *
  * @author jpssilve
  */
 public class InputParser {
@@ -15,23 +15,22 @@ public class InputParser {
 
     /**
      * The constructor takes a CalculatorService as a parameter
-     * 
-     * @param calculator 
+     *
+     * @param calculator
      */
     public InputParser(CalculatorService calculator) {
         this.calculator = calculator;
     }
 
     /**
-     * Djikstra's shunting-yard algorithm implementation.
-     * The pseudocode found on shunting-yard wikipedia page is the 
-     * basis for implementation.
-     * 
-     * The method takes a String and produces the mathematical expression
-     * in reverse Polish notation also known as postfix notation.
-     * 
+     * Djikstra's shunting-yard algorithm implementation. The pseudocode found
+     * on shunting-yard wikipedia page is the basis for implementation.
+     *
+     * The method takes a String and produces the mathematical expression in
+     * reverse Polish notation also known as postfix notation.
+     *
      * @param expression
-     * @return 
+     * @return
      */
     protected ArrayDeque<String> shuntingYard(String expression) {
         ArrayDeque<String> output = new ArrayDeque();
@@ -80,20 +79,20 @@ public class InputParser {
     }
 
     /**
-     * This method evaluates a mathematical expression in 
-     * reverse Polish notation also known as postfix notation.
-     * 
-     * The pseudocode found on the reverse Polish notation wikipedia
-     * page is the basis for implementation.
-     * 
+     * This method evaluates a mathematical expression in reverse Polish
+     * notation also known as postfix notation.
+     *
+     * The pseudocode found on the reverse Polish notation wikipedia page is the
+     * basis for implementation.
+     *
      * @param output
-     * @return 
+     * @return
      */
     protected double postfixEvaluator(ArrayDeque<String> output) {
         Stack<Double> values = new Stack();
         while (!output.isEmpty()) {
             String mathObject = output.pollFirst();
-            
+
             if (stringIsANumber(mathObject)) {
                 values.push(Double.parseDouble(mathObject));
             } else if (stringIsAMathOperator(mathObject)) {
@@ -118,15 +117,16 @@ public class InputParser {
     }
 
     /**
-     * The method evaluates a mathematical expression in String form if it can be
-     * parsed.
-     * 
+     * The method evaluates a mathematical expression in String form if it can
+     * be parsed.
+     *
      * The method calls several methods of the same class.
-     * 
+     *
      * @param expression
-     * 
-     * @return Double.NaN if the expression cannot be parsed, positive infinity if the expression is too long 
-     * and a double value if the expression can be parsed
+     *
+     * @return Double.NaN if the expression cannot be parsed, positive infinity
+     * if the expression is too long and a double value if the expression can be
+     * parsed
      */
     public double expressionEvaluation(String expression) {
         if (expression.length() > 1000) {
@@ -190,7 +190,7 @@ public class InputParser {
                 while (i < expression.length() && (isANumber(expression.charAt(i)) || expression.charAt(i) == '.')) {
                     i++;
                 }
-                
+
                 if (stringIsANumber(expression.substring(index, i))) {
                     continue;
                 } else {
@@ -234,20 +234,12 @@ public class InputParser {
     }
 
     private boolean isAMathOperator(char c) {
-        if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
-            return true;
-        } else {
-            return false;
-        }
+        return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
     }
 
     private boolean isANumber(char c) {
-        if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4'
-                || c == '5' | c == '6' || c == '7' || c == '8' || c == '9') {
-            return true;
-        } else {
-            return false;
-        }
+        return c == '0' || c == '1' || c == '2' || c == '3' || c == '4'
+                || c == '5' || c == '6' || c == '7' || c == '8' || c == '9';
     }
 
     protected boolean stringIsAMathOperator(String candidate) {

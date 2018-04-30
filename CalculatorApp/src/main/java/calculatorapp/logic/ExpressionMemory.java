@@ -9,20 +9,23 @@ import java.util.ArrayList;
 
 /**
  * The class functions as the memory for CalculatorApp.
+ *
  * @author jpssilve
- * 
+ *
  */
 public class ExpressionMemory {
 
     private ArrayList<String> memExpressions;
     private InputParser inParser;
     private int memoryLimit;
-    
+
     /**
-     * The constructor gets an InputParser and an int value as parameters. 
-     * MemoryLimit tells how many expressions are kept in memory and thus shown to the user.
+     * The constructor gets an InputParser and an int value as parameters.
+     * MemoryLimit tells how many expressions are kept in memory and thus shown
+     * to the user.
+     *
      * @param inParser
-     * @param memoryLimit 
+     * @param memoryLimit
      */
     public ExpressionMemory(InputParser inParser, int memoryLimit) {
         this.memExpressions = new ArrayList<>();
@@ -31,18 +34,18 @@ public class ExpressionMemory {
     }
 
     /**
-     * 
-     * @return all expressions in memory as Strings 
+     *
+     * @return all expressions in memory as Strings
      */
     public ArrayList<String> getMemExpressionsArrayList() {
         return this.memExpressions;
     }
-    
+
     /**
-     * The method adds the expression it gets as a parameter into the 
-     * ArrayList that represents the memory.
-     * 
-     * @param expression 
+     * The method adds the expression it gets as a parameter into the ArrayList
+     * that represents the memory.
+     *
+     * @param expression
      */
     public void addToMemory(String expression) {
         Double result = this.inParser.expressionEvaluation(expression);
@@ -65,7 +68,8 @@ public class ExpressionMemory {
 
     /**
      * Returns current limit for how many expressions are kept in memory.
-     * @return 
+     *
+     * @return
      */
     public int getMemoryLimit() {
         return this.memoryLimit;
@@ -73,7 +77,8 @@ public class ExpressionMemory {
 
     /**
      * Sets the desired size for how many expressions are kept in memory.
-     * @param value 
+     *
+     * @param value
      */
     public void setMemoryLimit(int value) {
         if (value >= 0) {
