@@ -268,6 +268,7 @@ public class CalculatorAppUi extends Application {
         sin.setOnMouseClicked((event) -> input.appendText("sin("));
         cos.setOnMouseClicked((event) -> input.appendText("cos("));
         tan.setOnMouseClicked((event) -> input.appendText("tan("));
+        absValue.setOnMouseClicked((event) -> input.appendText("abs("));
         signMinus.setOnMouseClicked((event) -> input.appendText("neg("));
         percent.setOnMouseClicked((event) -> input.appendText("%("));
 

@@ -3,14 +3,15 @@ package calculatorapp.logic;
 import java.util.Stack;
 
 /**
- * The class InputParser
+ * The class InputParser is responsible for checking that the input is valid
+ * before it is evaluated by ExpressionEvaluator
  *
  * @author jpssilve
  */
 public class InputParser {
 
     /**
-     * The constructor
+     * The constructor gets no parameters.
      *
      */
     public InputParser() {
@@ -85,11 +86,7 @@ public class InputParser {
             return false;
         }
 
-        if (isDot && (before == '.' || after == '.')) {
-            return false;
-        }
-
-        return true;
+        return !(isDot && (before == '.' || after == '.'));
     }
 
     protected boolean isAFunction(String maybeF) {

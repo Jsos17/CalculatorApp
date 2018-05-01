@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /**
+ * ExpressionEvaluator is responsible for actually evaluating expressions.
  *
  * @author jpssilve
  */
@@ -18,6 +19,13 @@ public class ExpressionEvaluator {
     private CalculatorService calculator;
     private InputParser inputParser;
 
+    /**
+     * The constructor gets an instance of CalculatorService class and an
+     * instance of InputParser class.
+     *
+     * @param calculator
+     * @param inputParser
+     */
     public ExpressionEvaluator(CalculatorService calculator, InputParser inputParser) {
         this.calculator = calculator;
         this.inputParser = inputParser;
@@ -110,7 +118,7 @@ public class ExpressionEvaluator {
             } else if (this.inputParser.isAFunction(mathObject)) {
                 if (!values.empty()) {
                     double x = values.pop();
-                    values.push(executeTheRightFunction(mathObject, x));
+                    values.push(executeTheRightFunction1(mathObject, x));
                 }
             } else if (stringIsAMathOperator(mathObject)) {
                 if (values.size() >= 2) {
@@ -132,12 +140,37 @@ public class ExpressionEvaluator {
         }
     }
 
+    /**
+     * expressionEvaluation first executes a series of checks by checking the
+     * length of the expression and using the InputParser given in the
+     * constructor to make sure that the expression can be evaluated.
+     *
+     * Then it calls the function tokenizeExpressions, which puts numbers,
+     * mathematical operators, functions and brackets into an ArrayList of
+     * Strings i.e. makes mathematical tokens out of them.
+     *
+     * Then the ArrayList of Strings is passed to the shunting-yard algorithm
+     * (by Djikstra, wikipedia pseudocode forms the basis for implementation).
+     *
+     * The shunting-yard algorithm produces the expression in reverse Polish
+     * notation also know as postfix notation. After the shunting-yard algorithm
+     * terminates all the brackets have been thrown out and the expression is
+     * now in postfix notation as an ArrayDeque of Strings.
+     *
+     * This ArrayDeque consisting of the numbers, functions and operators is
+     * then passed to the postfixEvaluator, which actually evaluates the
+     * expression and returns a double value.
+     *
+     * @param expression
+     * @return
+     */
     public double expressionEvaluation(String expression) {
         if (expression.length() > 1000) {
             return Double.POSITIVE_INFINITY;
         } else if (this.inputParser.bracketingEquals(expression)
                 && this.inputParser.numbersAndBracketsCorrect(expression)
                 && this.inputParser.correctOperatorAndDotPlacement(expression)) {
+
             ArrayDeque<String> queue = shuntingYardWithFunctions(tokenizeExpression(expression));
             return postfixEvaluator(queue);
         } else {
@@ -157,7 +190,7 @@ public class ExpressionEvaluator {
         }
     }
 
-    protected double executeTheRightFunction(String function, double x) {
+    protected double executeTheRightFunction1(String function, double x) {
         switch (function) {
             case "sqrt":
                 return this.calculator.squareRoot(x);
@@ -173,6 +206,13 @@ public class ExpressionEvaluator {
                 return this.calculator.base10log(x);
             case "abs":
                 return this.calculator.abs(x);
+            default:
+                return executeTheRightFunction2(function, x);
+        }
+    }
+
+    protected double executeTheRightFunction2(String function, double x) {
+        switch (function) {
             case "neg":
                 return this.calculator.negate(x);
             case "%":

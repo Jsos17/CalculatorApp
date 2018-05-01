@@ -121,6 +121,12 @@ public class CalculatorService {
         }
     }
 
+    /**
+     * Returns the square root of a number if it is non-negative.
+     *
+     * @param x
+     * @return
+     */
     public double squareRoot(double x) {
         if (x >= 0) {
             return Math.sqrt(x);
@@ -129,18 +135,41 @@ public class CalculatorService {
         }
     }
 
+    /**
+     *
+     * @param x is in radians
+     * @return the sin value of the radian parameter
+     */
     public double sin(double x) {
         return Math.sin(x);
     }
 
+    /**
+     *
+     * @param x is in radians
+     * @return the cos value of the radian parameter
+     */
     public double cos(double x) {
         return Math.cos(x);
     }
 
+    /**
+     * Due to double precision, situations where cos x = 0 in tan x = sin x /
+     * cos x should not arise.
+     *
+     * @param x is in radians
+     * @return
+     */
     public double tan(double x) {
         return Math.tan(x);
     }
 
+    /**
+     * This function return the parameter multiplied by two.
+     *
+     * @param x
+     * @return the negation of a number
+     */
     public double negate(double x) {
         return -1 * x;
     }
