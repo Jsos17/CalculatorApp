@@ -125,7 +125,7 @@ public class CalculatorAppUi extends Application {
         } catch (IOException e) {
             System.out.println("config.properties missing, default name is used");
             try {
-                File mathDBFile = new File("math.db");
+                File mathDBFile = new File("mathAlternative.db");
                 mathDBFile.createNewFile();
                 databaseAddress = mathDBFile.getAbsolutePath();
             } catch (IOException ioe) {
