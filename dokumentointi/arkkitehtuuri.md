@@ -2,6 +2,12 @@
 
 ## Application logic
 
+The classes ExpressionEvaluator and InputParser handle almost all the functional logic of the program. In other words, they are responsible for checking the input for correctness (InputParser) and transforming it into numerical form (ExpressionEvaluator). The CalculatorService class handles the actual numerical computations. 
+
+The ExpressionMemory class stores recently used expressions during the execution of the program, while ExpressionDao offers database functionality, and thus long-term storage for expressions.
+
+MAthDatabase provides a database connection and Expression class provides a Java encapsulation for the expressions stored in the SQL Expression table.
+
 **Package diagram**
 
 ![package diagram](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/calculatorapp_package_diagram.jpg)
@@ -35,7 +41,13 @@ The database list does not update automatically. Instead, after a save the user 
 
 ## Main functionality
 
-**Sequence diagrams**
+### Sequence diagrams
+
+CalculatorAppUi calls ExpressionEvaluator which first performs three checks on the input using the InputParser, and then starts calling its own methods tokenizeExpression, shuntingYardWithFunctions and postFixEvaluator. During these method calls other methods from InputParser are called and also short helper methods from inside the ExpressionEvaluator class.
+
+Eventually ExpressionEvaluator returns the value 4.0 and then CalculatorAppUi calls ExpressionMemory to add **the expression not the result** into memory and to then return the updated ArrayList which will then be updated to actually show in the gui. And finally the result field is updated with the result of the evaluation.
+
+The following diagram shows this in greater detail:
 
 ![Expression evaluation in great detail](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/Detailed_Expr_Eval_Sequence.png)
 
