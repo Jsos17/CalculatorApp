@@ -26,7 +26,11 @@ The CalculatorApp uses double precision and is intended mainly to be a demonstra
 
 Currently the operations +, -, *, /, ^, ., Ans, Delete, Clear, =, (, ) and the functions sin(), cos(), tan(), log(), ln(), sqrt(), abs(), neg() and %() are supported. 
 
-So for example a percentage calculation is carried out like: %(42) = 0.42. Thus every sign that has double brackets following it () is a function and what needs to be calculated is to be put inside the brackets. The sign "-" is a subtraction operator, and does not function as the sign of a number. Instead the neg() function should be used for this purpose: for example neg(7) = -7.0 and neg(7)^3 = -343.0.
+So for example a percentage calculation is carried out like: %(42) = 0.42. 
+
+Thus every sign that has double brackets () following it, is a function, and what needs to be calculated is to be put inside the brackets. 
+
+The **sign "-" is a subtraction operator, and does not function as the sign of a number**. Instead the **neg() function** should be used for this purpose: for example neg(7) = -7.0 and neg(7)^3 = -343.0.
  
 Maximum size for expression is currently set at 1000 characters, which cannot be exceeded.
 
@@ -38,13 +42,13 @@ Maximum size for expression is currently set at 1000 characters, which cannot be
 
 **Clear memory** removes everything from memory.
 
-**Retrieve all saved expressions** retrieves all expressions that exist in the SQLite Expression table.
+**Retrieve all saved expressions** retrieves all expressions that exist in the database.
 
 **Copy selected database expression** copies the selected expression to input field.
 
 **Delete the selected expression** deletes the selected expression. This action is irreversible.
 
-**Save all expressions in memory** inserts all the expressions that are in memory into the SQLite Expression table.
+**Save all expressions in memory** inserts all the expressions that are in memory into the database.
 
 **Save the selected expression** inserts the selected expression into SQLite Expression table. If the expression already existed in the database, a duplicate is inserted anyway.
 
