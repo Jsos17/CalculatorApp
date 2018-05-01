@@ -57,20 +57,10 @@ public class CalculatorService {
     /**
      *
      * @param x
-     * @return a number as a percentage
+     * @return a percentage as decimal value
      */
     public double percent(double x) {
         return x / 100.0;
-    }
-
-    /**
-     *
-     * @param x
-     * @param y
-     * @return the x modulo y
-     */
-    public long modulo(long x, long y) {
-        return x % y;
     }
 
     /**
@@ -155,7 +145,7 @@ public class CalculatorService {
 
     /**
      * Due to double precision, situations where cos x = 0 in tan x = sin x /
-     * cos x should not arise.
+     * cos x should not arise i.e. divide by zero should not arise.
      *
      * @param x is in radians
      * @return
@@ -165,7 +155,8 @@ public class CalculatorService {
     }
 
     /**
-     * This function return the parameter multiplied by two.
+     * This function returns the parameter multiplied by minus 1 and mainly
+     * serves to provide handling of negative numbers in expression evaluation.
      *
      * @param x
      * @return the negation of a number

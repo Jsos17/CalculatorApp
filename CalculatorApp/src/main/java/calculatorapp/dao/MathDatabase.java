@@ -54,7 +54,7 @@ public class MathDatabase {
     /**
      * Returns a connection to the underlying SQLite database.
      *
-     * @return
+     * @return 
      * @throws SQLException
      */
     public Connection getConnection() throws SQLException {

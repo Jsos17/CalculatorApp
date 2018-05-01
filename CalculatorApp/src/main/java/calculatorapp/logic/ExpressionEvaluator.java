@@ -159,10 +159,12 @@ public class ExpressionEvaluator {
      *
      * This ArrayDeque consisting of the numbers, functions and operators is
      * then passed to the postfixEvaluator, which actually evaluates the
-     * expression and returns a double value.
+     * expression from left to right (in postfix notation) and returns a double
+     * value.
      *
      * @param expression
-     * @return
+     * @return a double value, or NaN if expression cannot be evaluated or
+     * positive infinity if the expression is too long
      */
     public double expressionEvaluation(String expression) {
         if (expression.length() > 1000) {

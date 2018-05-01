@@ -53,11 +53,6 @@ public class CalculatorServiceTest {
     }
 
     @Test
-    public void moduloIsCorrect() {
-        assertEquals(44, calcServ.modulo(101, 57));
-    }
-
-    @Test
     public void naturalLogNonPositiverArgumentsNotAllowed() {
         assertEquals(Double.NaN, calcServ.naturalLog(-1), 0.001);
     }

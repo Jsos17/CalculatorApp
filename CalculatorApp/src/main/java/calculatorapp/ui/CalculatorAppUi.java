@@ -34,6 +34,8 @@ import javafx.util.Duration;
 /**
  * This is the graphical user interface for the CalculatorApp.
  *
+ * It provides calculator functionality and database functionality alongside it.
+ *
  * @author jpssilve
  */
 public class CalculatorAppUi extends Application {
@@ -138,7 +140,7 @@ public class CalculatorAppUi extends Application {
         height = 500;
 
         createAllButtons();
-        int divider = 7;
+        int divider = 8;
         setButtonSize(mainGridButtons, divider);
         setButtonSize(auxGridButtons, divider);
 

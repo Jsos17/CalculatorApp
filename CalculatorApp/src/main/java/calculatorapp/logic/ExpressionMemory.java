@@ -21,11 +21,10 @@ public class ExpressionMemory {
 
     /**
      * The constructor gets an InputParser and an int value as parameters.
-     * MemoryLimit tells how many expressions are kept in memory and thus shown
-     * to the user.
      *
-     * @param exprEval
-     * @param memoryLimit
+     * @param exprEval an ExpressionEvaluator is used to double check that expressions saved in database are valid
+     * @param memoryLimit tells how many expressions are kept in memory and thus shown
+     * to the user.
      */
     public ExpressionMemory(ExpressionEvaluator exprEval, int memoryLimit) {
         this.memExpressions = new ArrayList<>();
@@ -69,7 +68,7 @@ public class ExpressionMemory {
     /**
      * Returns current limit for how many expressions are kept in memory.
      *
-     * @return
+     * @return 
      */
     public int getMemoryLimit() {
         return this.memoryLimit;
@@ -78,7 +77,7 @@ public class ExpressionMemory {
     /**
      * Sets the desired size for how many expressions are kept in memory.
      *
-     * @param value
+     * @param value is the value specified by the user 
      */
     public void setMemoryLimit(int value) {
         if (value >= 0) {

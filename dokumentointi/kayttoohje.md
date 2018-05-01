@@ -50,6 +50,6 @@ Maximum size for expression is currently set at 1000 characters, which cannot be
 
 **Save all expressions in memory** inserts all the expressions that are in memory into the database.
 
-**Save the selected expression** inserts the selected expression into SQLite Expression table. If the expression already existed in the database, a duplicate is inserted anyway.
+**Save the selected expression** inserts the selected expression into the Expression table. If the expression already existed in the database, a duplicate is inserted anyway.
 
 **Copy the selected memory expression** copies the selected expression in memory to input field.

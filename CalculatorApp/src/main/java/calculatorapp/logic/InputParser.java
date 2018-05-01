@@ -4,7 +4,10 @@ import java.util.Stack;
 
 /**
  * The class InputParser is responsible for checking that the input is valid
- * before it is evaluated by ExpressionEvaluator
+ * before it is evaluated by ExpressionEvaluator.
+ * 
+ * Among notable methods are checking that bracketing is equal
+ * @see  bracketingEquals
  *
  * @author jpssilve
  */
@@ -89,9 +92,9 @@ public class InputParser {
         return !(isDot && (before == '.' || after == '.'));
     }
 
-    protected boolean isAFunction(String maybeF) {
-        return maybeF.equals("sqrt") || maybeF.equals("sin") || maybeF.equals("cos") || maybeF.equals("tan")
-                || maybeF.equals("ln") || maybeF.equals("log") || maybeF.equals("abs") || maybeF.equals("neg") || maybeF.equals("%");
+    protected boolean isAFunction(String maybeFunc) {
+        return maybeFunc.equals("sqrt") || maybeFunc.equals("sin") || maybeFunc.equals("cos") || maybeFunc.equals("tan")
+                || maybeFunc.equals("ln") || maybeFunc.equals("log") || maybeFunc.equals("abs") || maybeFunc.equals("neg") || maybeFunc.equals("%");
     }
 
     protected boolean startsAFunction(char start) {
