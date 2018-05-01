@@ -49,7 +49,7 @@ public class CalculatorServiceTest {
 
     @Test
     public void percentageIsCorrect() {
-        assertEquals(42.0, calcServ.percent(0.42), 0.0001);
+        assertEquals(0.420, calcServ.percent(42), 0.0001);
     }
 
     @Test

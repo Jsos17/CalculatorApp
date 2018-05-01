@@ -60,7 +60,7 @@ public class CalculatorService {
      * @return a number as a percentage
      */
     public double percent(double x) {
-        return x * 100.0;
+        return x / 100.0;
     }
 
     /**

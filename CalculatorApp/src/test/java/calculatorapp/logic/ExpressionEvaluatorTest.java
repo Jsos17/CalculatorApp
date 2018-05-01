@@ -294,14 +294,14 @@ public class ExpressionEvaluatorTest {
 
     @Test
     public void functionEvaluationWorksCorrectly13() {
-        String expression = "%(1.288)";
-        assertEquals(128.8, exprEval.expressionEvaluation(expression), 0.001);
+        String expression = "%(128)";
+        assertEquals(1.28, exprEval.expressionEvaluation(expression), 0.001);
     }
 
     @Test
     public void functionEvaluationWorksCorrectly14() {
-        String expression = "%(34/53)";
-        assertEquals(64.1509, exprEval.expressionEvaluation(expression), 0.0001);
+        String expression = "%(33)";
+        assertEquals(0.33, exprEval.expressionEvaluation(expression), 0.0001);
     }
 
     @Test

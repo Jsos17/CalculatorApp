@@ -2,7 +2,7 @@
 
 Here is the **README-file** for the project work **CalculatorApp**. This project is part of the course *Ohjelmistotekniikan menetelmät (Software engineering methods (unofficial translation))*
 
-The CalculatorApp is, as the name suggests, a calculator. So far it only has the basic arithmetic operations (+,-,*,/,^) available. 
+The CalculatorApp is, as the name suggests, a calculator. See [user manual](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/kayttoohje.md) for what operations are supported.
 
 The user can input any expression by using the provided buttons, and if the expression can be parsed (i.e. brackets, operators, dots etc are placed correctly) provides the result as double value. If the input cannot be parsed, then the user is notified and is asked to correct the expression.
 

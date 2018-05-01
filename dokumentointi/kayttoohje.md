@@ -22,8 +22,12 @@ The program can be run with the command
 
 The user can input any expression by using the provided buttons, and if the expression can be parsed (i.e. brackets, operators, dots etc are placed correctly) provides the result as a double value. If the input cannot be parsed, then the user is notified and asked to correct the expression.
 
-Currently the operations (+, -, *, /, ^, ., Ans, Delete, =) are supported. Additionally, the app has an integrated database and memory. See *Memory and database functionality* below. 
+The CalculatorApp uses double precision and is intended mainly to be a demonstration of certain programming skills. Thus it is not suited for scientific calculations requiring extreme precision. 
 
+Currently the operations +, -, *, /, ^, ., Ans, Delete, Clear, =, (, ) and the functions sin(), cos(), tan(), log(), ln(), sqrt(), abs(), neg() and %() are supported. 
+
+So for example a percentage calculation is carried out like: %(42) = 0.42. Thus every sign that has double brackets following it () is a function and what needs to be calculated is to be put inside the brackets. The sign "-" is a subtraction operator, and does not function as the sign of a number. Instead the neg() function should be used for this purpose: for example neg(7) = -7.0 and neg(7)^3 = -343.0.
+ 
 Maximum size for expression is currently set at 1000 characters, which cannot be exceeded.
 
 ### Memory and database functionality
