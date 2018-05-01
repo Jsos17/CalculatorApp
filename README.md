@@ -22,9 +22,9 @@ The user can save expressions in a database and re-use them later.
 
 ## Releases
 
-[Viikko 5](https://github.com/Jsos17/CalculatorApp/releases)
+[Viikko 5](https://github.com/Jsos17/CalculatorApp/releases/tag/viikko5)
 
-[Viikko 6](https://github.com/Jsos17/CalculatorApp/releases)
+[Viikko 6](https://github.com/Jsos17/CalculatorApp/releases/tag/v2.0)
 
 ## Command line
 
