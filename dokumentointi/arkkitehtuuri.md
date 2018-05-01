@@ -57,4 +57,4 @@ Automated testing for the expression evaluation algorithms would insure that the
 
 Some of the InputParser's methods need refactoring, in order to simplify the code and to diminish the times the entire String is iterated over. Currently it is about 3n in the InputParser alone (although still O(n), but could be more efficient and clear).
 
-The graphical user interface would benefit greatly from refactoring.
+The CalculatorAppUi would benefit greatly from refactoring.
