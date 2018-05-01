@@ -28,7 +28,7 @@ Currently the operations +, -, *, /, ^, ., Ans, Delete, Clear, =, (, ) and the f
 
 So for example a percentage calculation is carried out like: %(42) = 0.42. 
 
-Thus every sign that has double brackets () following it, is a function, and what needs to be calculated is to be put inside the brackets. 
+Thus every sign that has double brackets () following it, is a function, and what needs to be calculated is to be put inside the brackets. The user must remember to close all brackets. 
 
 The **sign "-" is a subtraction operator, and does not function as the sign of a number**. Instead the **neg() function** should be used for this purpose: for example neg(7) = -7.0 and neg(7)^3 = -343.0.
  
