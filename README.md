@@ -26,7 +26,7 @@ The user can save expressions in a database and re-use them later.
 
 ## Command line
 
-**Testing**
+### Testing
 
 Tests can be run with the command:
 
@@ -38,13 +38,21 @@ Test coverage report can be run with the command:
 
 And it can be examined by opening the file *target/site/jacoco/index.html* in the chromium-browser for example.
 
-**Generating an executable jar-file**
+### Generating an executable jar-file
 
     mvn package
 
 Generates an executable jar-file, *CalculatorApp-1.0-SNAPSHOT.jar*, inside the target directory. 
 
-**Checkstyle**
+### JavaDoc
+
+JavaDoc is generated with the command
+
+    mvn javadoc:javadoc
+
+JavaDoc can be examined by opening the file *target/site/apidocs/index.html* with the chromium-browser for example. 
+
+### Checkstyle
 
 Style checks that are specified in the file [checkstyle.xml](https://github.com/Jsos17/CalculatorApp/blob/master/CalculatorApp/checkstyle.xml) can be run with the command:
 

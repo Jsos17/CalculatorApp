@@ -15,6 +15,6 @@
 | 24.4. | 6       | gui development, preparing to integrate database into the gui, drafting documents, release v1.0, added sequence diagram, udated class diagram  |
 | 29.4. | 6       | integrated database and memory functionality into the gui almost fully, added a few tests |
 | 30.4. | 9       | started javadoc, updated user manual |
-| 1.5.  | 3       | added functions to gui, and thus far no major mistakes are found, InputParser class split into InputParser and ExpressionEvaluator, update user manual |
-| cumulative | 80 |              |
+| 1.5.  | 7       | added functions to gui, and thus far no major mistakes are found, InputParser class split into InputParser and ExpressionEvaluator, update user manual, update detailed sequence diagram |
+| cumulative | 84 |              |
 
