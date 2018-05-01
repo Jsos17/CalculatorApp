@@ -6,7 +6,7 @@ Download file [CalculatorApp-v1.0.jar](https://github.com/Jsos17/CalculatorApp/r
 
 ## Configuration
 
-It is advisable that the user adds configuration file [config.properties](https://github.com/Jsos17/CalculatorApp/blob/master/CalculatorApp/config.properties) in the same directory as the jar file. It defines the name of the SQLite database that the program uses to save expressions for long term. 
+It is advisable that the user adds configuration file [config.properties](https://github.com/Jsos17/CalculatorApp/blob/master/CalculatorApp/config.properties) in the same directory as the jar file. It defines the name of the SQL database that the program uses to save expressions for long term. 
 
 If this file is not added, then a new file called math.db is created. 
 
