@@ -24,6 +24,8 @@ The user can save expressions in a database and re-use them later.
 
 [Viikko 5](https://github.com/Jsos17/CalculatorApp/releases)
 
+[Viikko 6](https://github.com/Jsos17/CalculatorApp/releases)
+
 ## Command line
 
 ### Testing
