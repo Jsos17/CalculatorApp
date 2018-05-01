@@ -16,5 +16,6 @@
 | 29.4. | 6       | integrated database and memory functionality into the gui almost fully, added a few tests |
 | 30.4. | 9       | started javadoc, updated user manual |
 | 1.5.  | 10       | added functions to gui, and thus far no major mistakes are found, InputParser class split into InputParser and ExpressionEvaluator, update user manual, update detailed sequence diagram |
-| cumulative | 87 |              |
+| 2.5.  | 1      |  some additions to documentation  |
+| cumulative | 88 |              |
 
