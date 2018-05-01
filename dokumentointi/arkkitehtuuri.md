@@ -6,7 +6,7 @@ The classes ExpressionEvaluator and InputParser handle almost all the functional
 
 The ExpressionMemory class stores recently used expressions during the execution of the program, while ExpressionDao offers database functionality, and thus long-term storage for expressions.
 
-MAthDatabase provides a database connection and Expression class provides a Java encapsulation for the expressions stored in the SQL Expression table.
+MathDatabase provides a database connection and Expression class provides a Java encapsulation for the expressions stored in the SQL Expression table.
 
 **Package diagram**
 
