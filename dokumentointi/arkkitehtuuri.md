@@ -37,7 +37,7 @@ The database list does not update automatically. Instead, after a save the user 
 
 **Sequence diagrams**
 
-![Expression evaluation](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/Expression%20evaluation%20sequence.png)
+![Expression evaluation in great detail](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/Detailed_Expr_Eval_Sequence.png)
 
 ## Weaknesses remaining in the program
 
