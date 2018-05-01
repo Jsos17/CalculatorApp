@@ -10,7 +10,7 @@ It is advisable that the user adds configuration file [config.properties](https:
 
 If this file is not added, then a new file called math.db is created. 
 
-**However, if the jar is not executed from the command line the actual database might be stored in a different place than where the jar is. In other words, it is possible that left-clicking the jar creates a new math.db database and running the command *java -jar CalculatorApp-v2.0.jar* creates another.** Thus depending on how the jar is run the program might access a different database.
+**However, if the jar is not executed from the command line the actual database might be stored in a different place than where the jar is. In other words, it is possible that left-clicking the jar creates a new mathAlternative.db database somewhere else (probably in the root directory) and running the command *java -jar CalculatorApp-v2.0.jar* creates another in the same directory where the jar is.** Thus depending on how the jar is run the program might access a different database. 
 
 The format of the file is the following:
 
