@@ -7,7 +7,9 @@ import calculatorapp.logic.Expression;
 import calculatorapp.logic.ExpressionEvaluator;
 import calculatorapp.logic.ExpressionMemory;
 import calculatorapp.logic.InputParser;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -115,11 +117,23 @@ public class CalculatorAppUi extends Application {
     @Override
     public void init() throws Exception {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("config.properties"));
 
-        String databaseAddress = properties.getProperty("mathDatabase");
+        String databaseAddress = "";
+        try {
+            properties.load(new FileInputStream("config.properties"));
+            databaseAddress = properties.getProperty("mathDatabase");
+        } catch (IOException e) {
+            System.out.println("config.properties missing, default name is used");
+            try {
+                File mathDBFile = new File("math.db");
+                mathDBFile.createNewFile();
+                databaseAddress = mathDBFile.getAbsolutePath();
+            } catch (IOException ioe) {
+                throw new IOException();
+            }
+        }
+
         MathDatabase math = new MathDatabase("jdbc:sqlite:" + databaseAddress);
-
         try (Connection conn = math.getConnection()) {
             math.initDatabase();
             System.out.println("Database initialization/connection success");

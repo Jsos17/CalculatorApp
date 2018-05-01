@@ -2,11 +2,15 @@
 
 Download file [CalculatorApp-v1.0.jar](https://github.com/Jsos17/CalculatorApp/releases)
 
+**Download file [CalculatorApp-v2.0.jar](https://github.com/Jsos17/CalculatorApp/releases)**
+
 ## Configuration
 
-In order to run, the program needs to have the configuration file [config.properties](https://github.com/Jsos17/CalculatorApp/blob/master/CalculatorApp/config.properties) in the same directory as the jar file. It defines the name of the SQLite database that the program uses to save expressions for long term. 
+It is advisable that the user adds configuration file [config.properties](https://github.com/Jsos17/CalculatorApp/blob/master/CalculatorApp/config.properties) in the same directory as the jar file. It defines the name of the SQLite database that the program uses to save expressions for long term. 
 
-The file *config.properties* must be created and the proper line below has to be added to the file before running the program or exceptions may occur and the program might not run.
+If this file is not added, then a new file called math.db is created. 
+
+**However, if the jar is not executed from the command line the actual database might be stored in a different place than where the jar is. In other words, it is possible that left-clicking the jar creates a new math.db database and running the command *java -jar CalculatorApp-v2.0.jar* creates another.** Thus depending on how the jar is run the program might access a different database.
 
 The format of the file is the following:
 
@@ -14,9 +18,11 @@ The format of the file is the following:
 
 ## Running the program
 
+It is strongly advised to either create the config.properties file or to only run the jar through command line, for reasons explained above.
+
 The program can be run with the command
 
-    java -jar CalculatorApp-v1.0.jar
+    java -jar CalculatorApp-v2.0.jar
 
 ## Using the CalculatorApp
 
