@@ -23,15 +23,6 @@ public class ExpressionEvaluator {
         this.inputParser = inputParser;
     }
 
-    protected boolean isAFunction(String maybeF) {
-        return maybeF.equals("sqrt") || maybeF.equals("sin") || maybeF.equals("cos") || maybeF.equals("tan")
-                || maybeF.equals("ln") || maybeF.equals("log");
-    }
-
-    protected boolean startsAFunction(char start) {
-        return start == 's' || start == 'c' || start == 't' || start == 'l';
-    }
-
     protected ArrayList<String> tokenizeExpression(String expression) {
         ArrayList<String> tokens = new ArrayList<>();
 
@@ -40,26 +31,25 @@ public class ExpressionEvaluator {
         while (i < expression.length()) {
             char character = expression.charAt(i);
 
-            if (isANumber(character)) {
+            if (this.inputParser.isANumber(character)) {
                 index = i;
-                while (i < expression.length() && (isANumber(expression.charAt(i)) || expression.charAt(i) == '.')) {
+                while (i < expression.length() && (this.inputParser.isANumber(expression.charAt(i)) || expression.charAt(i) == '.')) {
                     i++;
                 }
 
-                if (stringIsANumber(expression.substring(index, i))) {
+                if (this.inputParser.stringIsANumber(expression.substring(index, i))) {
                     tokens.add(expression.substring(index, i));
                 }
-
                 continue;
-            } else if (isAMathOperator(character) || character == '(' || character == ')') {
+            } else if (this.inputParser.isAMathOperator(character) || character == '(' || character == ')') {
                 tokens.add(Character.toString(character));
-            } else if (startsAFunction(character)) {
+            } else if (this.inputParser.startsAFunction(character)) {
                 index = i;
                 while (i < expression.length() && expression.charAt(i) != '(') {
                     i++;
                 }
 
-                if (isAFunction(expression.substring(index, i))) {
+                if (this.inputParser.isAFunction(expression.substring(index, i))) {
                     tokens.add(expression.substring(index, i));
                 }
                 continue;
@@ -72,25 +62,25 @@ public class ExpressionEvaluator {
     }
 
     protected ArrayDeque<String> shuntingYardWithFunctions(ArrayList<String> tokens) {
-        ArrayDeque<String> outputQueue = new ArrayDeque();
+        ArrayDeque<String> output = new ArrayDeque();
         Stack<String> stack = new Stack();
 
         for (int j = 0; j < tokens.size(); j++) {
             String token = tokens.get(j);
 
-            if (stringIsANumber(token)) {
-                outputQueue.addLast(token);
-            } else if (isAFunction(token) || token.equals("(")) {
+            if (this.inputParser.stringIsANumber(token)) {
+                output.addLast(token);
+            } else if (this.inputParser.isAFunction(token) || token.equals("(")) {
                 stack.push(token);
             } else if (stringIsAMathOperator(token)) {
-                while (!stack.empty() && !stack.peek().equals("(") && (isAFunction(stack.peek()) || hasHigherPrecedence(stack.peek().charAt(0), token.charAt(0)))) {
-                    outputQueue.addLast(stack.pop());
+                while (!stack.empty() && !stack.peek().equals("(") && (this.inputParser.isAFunction(stack.peek()) || hasHigherPrecedence(stack.peek().charAt(0), token.charAt(0)))) {
+                    output.addLast(stack.pop());
                 }
 
                 stack.push(token);
             } else if (token.equals(")")) {
                 while (!stack.empty() && !stack.peek().equals("(")) {
-                    outputQueue.addLast(stack.pop());
+                    output.addLast(stack.pop());
                 }
 
                 if (!stack.empty()) {
@@ -99,11 +89,15 @@ public class ExpressionEvaluator {
             }
         }
 
+        return helperShuntingYard(stack, output);
+    }
+
+    private ArrayDeque<String> helperShuntingYard(Stack<String> stack, ArrayDeque<String> output) {
         while (!stack.empty()) {
-            outputQueue.addLast(stack.pop());
+            output.addLast(stack.pop());
         }
 
-        return outputQueue;
+        return output;
     }
 
     protected double postfixEvaluator(ArrayDeque<String> output) {
@@ -111,25 +105,26 @@ public class ExpressionEvaluator {
         while (!output.isEmpty()) {
             String mathObject = output.pollFirst();
 
-            if (stringIsANumber(mathObject)) {
+            if (this.inputParser.stringIsANumber(mathObject)) {
                 values.push(Double.parseDouble(mathObject));
-            } else if (isAFunction(mathObject)) {
+            } else if (this.inputParser.isAFunction(mathObject)) {
                 if (!values.empty()) {
                     double x = values.pop();
-                    double value = executeTheRightFunction(mathObject, x);
-                    values.push(value);
+                    values.push(executeTheRightFunction(mathObject, x));
                 }
-
             } else if (stringIsAMathOperator(mathObject)) {
                 if (values.size() >= 2) {
                     double x1 = values.pop();
                     double x2 = values.pop();
-                    double value = executeTheRightOperation(mathObject.charAt(0), x2, x1);
-                    values.push(value);
+                    values.push(executeTheRightOperation(mathObject.charAt(0), x2, x1));
                 }
             }
         }
 
+        return helperPostFixEval(values, output);
+    }
+
+    protected double helperPostFixEval(Stack<Double> values, ArrayDeque<String> output) {
         if (values.size() == 1) {
             return values.pop();
         } else {
@@ -140,11 +135,25 @@ public class ExpressionEvaluator {
     public double expressionEvaluation(String expression) {
         if (expression.length() > 1000) {
             return Double.POSITIVE_INFINITY;
-        } else if (this.inputParser.bracketingEquals(expression)) {
+        } else if (this.inputParser.bracketingEquals(expression)
+                && this.inputParser.numbersAndBracketsCorrect(expression)
+                && this.inputParser.correctOperatorAndDotPlacement(expression)) {
             ArrayDeque<String> queue = shuntingYardWithFunctions(tokenizeExpression(expression));
             return postfixEvaluator(queue);
         } else {
             return Double.NaN;
+        }
+    }
+
+    private boolean hasHigherPrecedence(char c1, char c2) {
+        if (c1 == '^' && c2 != '^') {
+            return true;
+        } else if ((c1 == '*' || c1 == '/') && c2 != '^') {
+            return true;
+        } else if ((c1 == '+' || c1 == '-') && (c2 == '+' || c2 == '-')) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -162,6 +171,12 @@ public class ExpressionEvaluator {
                 return this.calculator.naturalLog(x);
             case "log":
                 return this.calculator.base10log(x);
+            case "abs":
+                return this.calculator.abs(x);
+            case "neg":
+                return this.calculator.negate(x);
+            case "%":
+                return this.calculator.percent(x);
             default:
                 return Double.NaN;
         }
@@ -184,55 +199,9 @@ public class ExpressionEvaluator {
         }
     }
 
-    private boolean isAMathOperator(char c) {
-        return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
-    }
-
-    private boolean isANumber(char c) {
-        return c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5'
-                || c == '6' || c == '7' || c == '8' || c == '9';
-    }
-
     protected boolean stringIsAMathOperator(String candidate) {
         if (candidate.length() == 1) {
-            return isAMathOperator(candidate.charAt(0));
-        } else {
-            return false;
-        }
-    }
-
-    protected boolean stringIsANumber(String candidate) {
-        if (candidate.length() == 0 || candidate.charAt(candidate.length() - 1) == '.') {
-            return false;
-        } else {
-            try {
-                Double.parseDouble(candidate);
-                return true;
-            } catch (NumberFormatException e) {
-                return false;
-            }
-        }
-    }
-
-    protected double stringToNumber(String candidate) {
-        if (candidate.length() == 0 || candidate.charAt(candidate.length() - 1) == '.') {
-            return Double.NaN;
-        } else {
-            try {
-                return Double.parseDouble(candidate);
-            } catch (NumberFormatException e) {
-                return Double.NaN;
-            }
-        }
-    }
-
-    private boolean hasHigherPrecedence(char c1, char c2) {
-        if (c1 == '^' && c2 != '^') {
-            return true;
-        } else if ((c1 == '*' || c1 == '/') && c2 != '^') {
-            return true;
-        } else if ((c1 == '+' || c1 == '-') && (c2 == '+' || c2 == '-')) {
-            return true;
+            return this.inputParser.isAMathOperator(candidate.charAt(0));
         } else {
             return false;
         }

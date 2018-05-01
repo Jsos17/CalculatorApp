@@ -10,18 +10,6 @@ public class CalculatorService {
     public CalculatorService() {
     }
 
-    public long addLong(long x, long y) {
-        return x + y;
-    }
-
-    public long subtractLong(long x, long y) {
-        return x - y;
-    }
-
-    public long multiplyLong(long x, long y) {
-        return x * y;
-    }
-
     /**
      *
      * @param x
@@ -132,7 +120,7 @@ public class CalculatorService {
             return Math.pow(base, exponent);
         }
     }
-    
+
     public double squareRoot(double x) {
         if (x >= 0) {
             return Math.sqrt(x);
@@ -140,16 +128,20 @@ public class CalculatorService {
             return Double.NaN;
         }
     }
-    
+
     public double sin(double x) {
         return Math.sin(x);
     }
-    
+
     public double cos(double x) {
         return Math.cos(x);
     }
-    
+
     public double tan(double x) {
         return Math.tan(x);
+    }
+
+    public double negate(double x) {
+        return -1 * x;
     }
 }

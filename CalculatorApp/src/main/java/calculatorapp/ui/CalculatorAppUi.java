@@ -4,6 +4,7 @@ import calculatorapp.dao.ExpressionDao;
 import calculatorapp.dao.MathDatabase;
 import calculatorapp.logic.CalculatorService;
 import calculatorapp.logic.Expression;
+import calculatorapp.logic.ExpressionEvaluator;
 import calculatorapp.logic.ExpressionMemory;
 import calculatorapp.logic.InputParser;
 import java.io.FileInputStream;
@@ -44,7 +45,6 @@ public class CalculatorAppUi extends Application {
     private Button divide;
     private Button exponent;
     private Button percent;
-    private Button modulo;
     private Button sqrt;
     private Button sin;
     private Button cos;
@@ -88,6 +88,7 @@ public class CalculatorAppUi extends Application {
 
     private CalculatorService calc;
     private InputParser inputParser;
+    private ExpressionEvaluator exprEval;
     private ExpressionMemory exprMem;
     private ExpressionDao eDao;
     private int width;
@@ -126,8 +127,9 @@ public class CalculatorAppUi extends Application {
 
         eDao = new ExpressionDao(math);
         calc = new CalculatorService();
-        inputParser = new InputParser(calc);
-        exprMem = new ExpressionMemory(inputParser, 10);
+        inputParser = new InputParser();
+        exprEval = new ExpressionEvaluator(calc, inputParser);
+        exprMem = new ExpressionMemory(exprEval, 10);
     }
 
     @Override
@@ -147,9 +149,9 @@ public class CalculatorAppUi extends Application {
         mainGrid.addRow(3, numbers.get(0), dot, percent, answer, equalsSign);
 
         GridPane auxGrid = new GridPane();
-        auxGrid.addColumn(0, exponent, modulo, sin, sqrt);
-        auxGrid.addColumn(1, leftBracket, rightBracket, cos, ln);
-        auxGrid.addColumn(2, absValue, signMinus, tan, log);
+        auxGrid.addColumn(0, exponent, sin, sqrt, absValue);
+        auxGrid.addColumn(1, leftBracket, cos, ln, signMinus);
+        auxGrid.addColumn(2, rightBracket, tan, log);
 
         int h2 = 30;
         Label inputLabel = new Label("Input: ");
@@ -260,10 +262,15 @@ public class CalculatorAppUi extends Application {
         minus.setOnMouseClicked((event) -> input.appendText("-"));
         exponent.setOnMouseClicked((event) -> input.appendText("^"));
 
-//        signMinus.setOnMouseClicked((event) -> input.appendText("(-"));
+        sqrt.setOnMouseClicked((event) -> input.appendText("sqrt("));
+        log.setOnMouseClicked((event) -> input.appendText("log("));
+        ln.setOnMouseClicked((event) -> input.appendText("ln("));
+        sin.setOnMouseClicked((event) -> input.appendText("sin("));
+        cos.setOnMouseClicked((event) -> input.appendText("cos("));
+        tan.setOnMouseClicked((event) -> input.appendText("tan("));
+        signMinus.setOnMouseClicked((event) -> input.appendText("neg("));
+        percent.setOnMouseClicked((event) -> input.appendText("%("));
 
-//        percent.setOnMouseClicked((event) -> input.appendText("%"));
-//        modulo.setOnMouseClicked((event) -> input.appendText("mod"));
         delete.setOnMouseClicked((event) -> {
             int inputLength = input.getLength();
             if (inputLength > 0) {
@@ -278,7 +285,7 @@ public class CalculatorAppUi extends Application {
         });
         dot.setOnMouseClicked((event) -> input.appendText((".")));
         equalsSign.setOnMouseClicked((event) -> {
-            Double res = inputParser.expressionEvaluation(input.getText());
+            Double res = exprEval.expressionEvaluation(input.getText());
             if (res.equals(Double.NaN)) {
                 instruction.setText("Is not a valid expression, press delete to fix the expression and try again");
             } else if (Double.isInfinite(res)) {
@@ -406,6 +413,10 @@ public class CalculatorAppUi extends Application {
         System.out.println("Closing the CalculatorApp...");
     }
 
+    private void buttonAction(Button button, String text) {
+
+    }
+
     private void delayedClear(Label label) {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10.0), ev -> {
             label.setText("");
@@ -447,7 +458,7 @@ public class CalculatorAppUi extends Application {
         for (int i = 0; i <= 9; i++) {
             numbers.add(new Button("" + i));
         }
-        
+
         mainGridButtons.addAll(numbers);
     }
 
@@ -465,7 +476,7 @@ public class CalculatorAppUi extends Application {
 
         auxGridButtons.add(exponent);
     }
-    
+
     private void createFunctionButtons() {
         sqrt = new Button("sqrt()");
         sin = new Button("sin()");
@@ -473,18 +484,23 @@ public class CalculatorAppUi extends Application {
         tan = new Button("tan()");
         ln = new Button("ln()");
         log = new Button("log()");
-        
+        absValue = new Button("abs()");
+        signMinus = new Button("neg()");
+        percent = new Button("%()");
+
+        mainGridButtons.add(percent);
+
         auxGridButtons.add(sqrt);
         auxGridButtons.add(sin);
         auxGridButtons.add(cos);
         auxGridButtons.add(tan);
         auxGridButtons.add(ln);
         auxGridButtons.add(log);
+        auxGridButtons.add(absValue);
+        auxGridButtons.add(signMinus);
     }
 
     private void createOtherButtons() {
-        percent = new Button("%");
-        modulo = new Button("mod");
         delete = new Button("Delete");
         clear = new Button("Clear");
         dot = new Button(".");
@@ -492,21 +508,15 @@ public class CalculatorAppUi extends Application {
         answer = new Button("Ans");
         leftBracket = new Button("(");
         rightBracket = new Button(")");
-        absValue = new Button("abs");
-        signMinus = new Button("(-)");
 
         mainGridButtons.add(delete);
         mainGridButtons.add(clear);
         mainGridButtons.add(dot);
         mainGridButtons.add(equalsSign);
         mainGridButtons.add(answer);
-        mainGridButtons.add(percent);
 
-        auxGridButtons.add(modulo);
         auxGridButtons.add(leftBracket);
         auxGridButtons.add(rightBracket);
-        auxGridButtons.add(absValue);
-        auxGridButtons.add(signMinus);
     }
 
     private void createMemoryANdDataBaseButtons() {

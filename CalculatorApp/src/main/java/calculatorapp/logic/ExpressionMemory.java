@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ExpressionMemory {
 
     private ArrayList<String> memExpressions;
-    private InputParser inParser;
+    private ExpressionEvaluator exprEval;
     private int memoryLimit;
 
     /**
@@ -24,12 +24,12 @@ public class ExpressionMemory {
      * MemoryLimit tells how many expressions are kept in memory and thus shown
      * to the user.
      *
-     * @param inParser
+     * @param exprEval
      * @param memoryLimit
      */
-    public ExpressionMemory(InputParser inParser, int memoryLimit) {
+    public ExpressionMemory(ExpressionEvaluator exprEval, int memoryLimit) {
         this.memExpressions = new ArrayList<>();
-        this.inParser = inParser;
+        this.exprEval = exprEval;
         this.memoryLimit = memoryLimit;
     }
 
@@ -48,7 +48,7 @@ public class ExpressionMemory {
      * @param expression
      */
     public void addToMemory(String expression) {
-        Double result = this.inParser.expressionEvaluation(expression);
+        Double result = this.exprEval.expressionEvaluation(expression);
         if (Double.isNaN(result) || Double.isInfinite(result)) {
             return;
         }

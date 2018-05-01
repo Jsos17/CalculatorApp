@@ -23,22 +23,6 @@ public class CalculatorServiceTest {
     }
 
     @Test
-    public void addLongIsCorrect() {
-        assertEquals(90, calcServ.addLong(67, 23));
-        assertEquals(0, calcServ.addLong(10, -10));
-    }
-
-    @Test
-    public void subtractLongIsCorrect() {
-        assertEquals(20, calcServ.subtractLong(168, 148));
-    }
-
-    @Test
-    public void multiplyLongIsCorrect() {
-        assertEquals(294, calcServ.multiplyLong(42, 7));
-    }
-
-    @Test
     public void addDoubleIsCorrect() {
         assertEquals(4.9257, calcServ.addDouble(1.2765, 3.6492), 0.0001);
     }
@@ -112,14 +96,69 @@ public class CalculatorServiceTest {
     public void exponentiationIsCorrect2() {
         assertEquals(1520.301258, calcServ.exponentiation(3.7, 5.6), 0.0001);
     }
-    
+
     @Test
     public void exponentiationIsCorrect3() {
         assertEquals(Double.NaN, calcServ.exponentiation(0, 0), 0.0001);
     }
-    
+
     @Test
     public void exponentiationIsCorrect4() {
         assertEquals(Double.NaN, calcServ.exponentiation(0.0000, 0.0000), 0.0001);
+    }
+
+    @Test
+    public void sinWorks1() {
+        assertEquals(0.160890315, this.calcServ.sin(2.98), 0.000001);
+    }
+
+    @Test
+    public void sinWorks2() {
+        assertEquals(0, this.calcServ.sin(0), 0.000001);
+    }
+
+    @Test
+    public void cosWorks1() {
+        assertEquals(1, this.calcServ.cos(0), 0.000001);
+    }
+
+    @Test
+    public void cosWorks2() {
+        assertEquals(-0.999999, this.calcServ.cos(-3.14), 0.00001);
+    }
+
+    @Test
+    public void tanWorks1() {
+        assertEquals(-0.00159265, this.calcServ.tan(3.14), 0.000001);
+    }
+
+    @Test
+    public void tanWorks2() {
+        assertEquals(1255.76559, this.calcServ.tan(1.57), 0.0001);
+    }
+
+    @Test
+    public void negateWorks1() {
+        assertEquals(-42.3, calcServ.negate(42.3), 0.0001);
+    }
+
+    @Test
+    public void negateWorks2() {
+        assertEquals(42.3, calcServ.negate(-42.3), 0.0001);
+    }
+
+    @Test
+    public void squareRootWorks1() {
+        assertEquals(Double.NaN, calcServ.squareRoot(-42.3), 0.001);
+    }
+
+    @Test
+    public void squareRootWorks2() {
+        assertEquals(8.0, calcServ.squareRoot(64), 0.001);
+    }
+
+    @Test
+    public void squareRootWorks3() {
+        assertEquals(34.4901, calcServ.squareRoot(1189.5672), 0.0001);
     }
 }

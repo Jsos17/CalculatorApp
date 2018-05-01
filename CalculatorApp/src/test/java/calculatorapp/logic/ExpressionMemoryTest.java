@@ -15,52 +15,55 @@ import static org.junit.Assert.*;
  * @author jpssilve
  */
 public class ExpressionMemoryTest {
+
     private CalculatorService calc;
     private InputParser inParser;
+    private ExpressionEvaluator exprEval;
     private ExpressionMemory exprMem;
-   
+
     @Before
     public void setUp() {
         calc = new CalculatorService();
-        inParser = new InputParser(calc);
-        exprMem = new ExpressionMemory(inParser, 10);
+        inParser = new InputParser();
+        exprEval = new ExpressionEvaluator(calc, inParser);
+        exprMem = new ExpressionMemory(exprEval, 10);
     }
-    
+
     @Test
     public void setMemoryWorks1() {
         exprMem.setMemoryLimit(20);
         assertEquals(20, exprMem.getMemoryLimit());
     }
-    
+
     @Test
     public void setMemoryWorks2() {
         exprMem.setMemoryLimit(-50);
         assertEquals(10, exprMem.getMemoryLimit());
     }
-    
+
     @Test
     public void setMemoryDownSizesListIfLimitISmallerThanCurrentSize1() {
-       exprMem.setMemoryLimit(50);
-       for (int i = 1; i <= 20; i++) {
+        exprMem.setMemoryLimit(50);
+        for (int i = 1; i <= 20; i++) {
             exprMem.addToMemory("" + i * 2);
         }
-       assertEquals(20, exprMem.getMemExpressionsArrayList().size());
-       exprMem.setMemoryLimit(10);
-       assertEquals(10, exprMem.getMemExpressionsArrayList().size());
+        assertEquals(20, exprMem.getMemExpressionsArrayList().size());
+        exprMem.setMemoryLimit(10);
+        assertEquals(10, exprMem.getMemExpressionsArrayList().size());
     }
-    
+
     @Test
     public void addToMemoryAddsToListSize1() {
         exprMem.addToMemory("56");
         assertEquals(1, exprMem.getMemExpressionsArrayList().size());
     }
-    
+
     @Test
     public void addToMemoryReturnsRightValue1() {
         exprMem.addToMemory("42");
         assertEquals("42", exprMem.getMemExpressionsArrayList().get(0));
     }
-    
+
     @Test
     public void addToMemoryReturnsRightValue2() {
         for (int i = 0; i <= 8; i++) {
@@ -80,7 +83,7 @@ public class ExpressionMemoryTest {
 
         for (int i = 0; i < compares.size(); i++) {
             assertEquals(compares.get(i), exprMem.getMemExpressionsArrayList().get(i));
-        }   
+        }
     }
 
     @Test
@@ -93,7 +96,7 @@ public class ExpressionMemoryTest {
 
         for (int i = 0; i < 10; i++) {
             assertEquals(compares.get(i + 10), exprMem.getMemExpressionsArrayList().get(i));
-        }   
+        }
     }
 
     @Test
@@ -106,7 +109,7 @@ public class ExpressionMemoryTest {
 
         for (int i = 0; i < 10; i++) {
             assertNotEquals(compares.get(i), exprMem.getMemExpressionsArrayList().get(i));
-        }   
+        }
     }
 
     @Test
@@ -128,14 +131,14 @@ public class ExpressionMemoryTest {
         exprMem.addToMemory("-9-0");
         assertEquals(0, exprMem.getMemExpressionsArrayList().size());
     }
-    
+
     @Test
     public void addToMemoryAddsOnlyValidInputs3() {
         String tooLong = "";
         for (int i = 1; i <= 200; i++) {
             tooLong += "1234567890";
         }
-        
+
         exprMem.addToMemory(tooLong);
         exprMem.addToMemory("(7*42)");
         assertEquals(1, exprMem.getMemExpressionsArrayList().size());
@@ -146,7 +149,7 @@ public class ExpressionMemoryTest {
         for (int i = 0; i < 20; i++) {
             exprMem.addToMemory(i + "");
         }
-        
+
         assertEquals(10, exprMem.getMemExpressionsArrayList().size());
     }
 
@@ -171,7 +174,7 @@ public class ExpressionMemoryTest {
         for (int i = 0; i <= 9; i++) {
             exprMem.addToMemory(10 * i + "");
         }
-        
+
         exprMem.clearMemory();
         assertEquals(0, exprMem.getMemExpressionsArrayList().size());
     }
