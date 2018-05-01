@@ -6,7 +6,7 @@ Download file [CalculatorApp-v1.0.jar](https://github.com/Jsos17/CalculatorApp/r
 
 In order to run, the program needs to have the configuration file [config.properties](https://github.com/Jsos17/CalculatorApp/blob/master/CalculatorApp/config.properties) in the same directory as the jar file. It defines the name of the SQLite database that the program uses to save expressions for long term. 
 
-The file *config.properties* must be created and the proper line below has to be added to the file before running the program or exceptions may occur and the program might not run.
+The file *config.properties* must be created and the proper line below has to be added to the file before running the program or exceptions almost certainly occur and the program will not run.
 
 The format of the file is the following:
 
