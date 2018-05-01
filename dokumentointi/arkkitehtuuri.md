@@ -41,6 +41,8 @@ The database list does not update automatically. Instead, after a save the user 
 
 ## Weaknesses remaining in the program
 
-Automated testing for the expression evaluation algorithms would insure that the implementations actually work as intended in all scenarios. Now test cases were created manually and for more complex ones, the result produced by wolfram-alpha for the same expression was the comparison basis. 
+Automated testing for the expression evaluation algorithms would insure that the implementations actually work as intended in all scenarios. Now test cases were created manually and for more complex ones, the result produced by wolfram-alpha for the same expression was the comparison basis.
+
+Some of the InputParser's methods need refactoring, in order to simplify the code and to diminish the times the entire String is iterated over. Currently it is about 3n in the InputParser alone (although still O(n), but could be more efficient and clear).
 
 The graphical user interface would benefit greatly from refactoring.
