@@ -145,7 +145,8 @@ public class CalculatorService {
 
     /**
      * Due to double precision, situations where cos x = 0 in tan x = sin x /
-     * cos x should not arise i.e. divide by zero should not arise.
+     * cos x should not arise i.e. divide by zero should not arise since it would
+     * require pi / 2 type of value which cannot be achieved exactly.
      *
      * @param x is in radians
      * @return

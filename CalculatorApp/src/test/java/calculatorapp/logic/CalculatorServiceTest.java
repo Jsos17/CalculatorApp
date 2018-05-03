@@ -131,6 +131,11 @@ public class CalculatorServiceTest {
     public void tanWorks2() {
         assertEquals(1255.76559, this.calcServ.tan(1.57), 0.0001);
     }
+    
+     @Test
+    public void tanWorks3() {
+        assertEquals(Math.tan(Math.PI/2), this.calcServ.tan(Math.PI/2), 0.01);
+    }
 
     @Test
     public void negateWorks1() {
