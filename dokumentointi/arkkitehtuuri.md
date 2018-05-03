@@ -51,6 +51,10 @@ The following diagram shows this in greater detail:
 
 ![Expression evaluation in great detail](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/Detailed_Expr_Eval_Sequence.png)
 
+## Omissions from original requirements
+
+The modulo operation was removed, since using it with double precision makes no sense.
+
 ## Weaknesses remaining in the program
 
 Automated testing for the expression evaluation algorithms would insure that the implementations actually work as intended in all scenarios. Now test cases were created manually and for more complex ones, the result produced by wolfram-alpha for the same expression was the comparison basis.
