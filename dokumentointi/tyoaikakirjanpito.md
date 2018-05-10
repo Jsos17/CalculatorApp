@@ -17,6 +17,6 @@
 | 30.4. | 9       | started javadoc, updated user manual |
 | 1.5.  | 10       | added functions to gui, and thus far no major mistakes are found, InputParser class split into InputParser and ExpressionEvaluator, update user manual, update detailed sequence diagram |
 | 2.5.  | 1      |  some additions to documentation  |
-| 10.5. | 6      | refactoring longer methods in InputParser and ExpressionEvaluator, additions to tests and javadoc |
-| cumulative | 94 |              |
+| 10.5. | 9      | refactoring longer methods in InputParser and ExpressionEvaluator, additions to tests, javadoc and documentation, added search functionality and expression count in gui, refactoring gui |
+| cumulative | 97 |              |
 

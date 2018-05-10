@@ -79,12 +79,23 @@ public class CalculatorAppUi extends Application {
     private Slider memLimitSlider;
 
     private Label databaseLabel;
+    private Label expressionCount;
     private Button copyDbExpression;
     private Button getAllSavedExpressions;
     private Label retrievalStatus;
+
+    private TextField search;
+    private Label searchHelp;
     private Button searchExpression;
+    private Label searchStatus;
+    private Button copyMatch;
     private Button deleteExpression;
     private Label deleteStatus;
+
+    private TextField input;
+    private TextField formula;
+    private TextField result;
+    private TextField instruction;
 
     private Button closeButton;
     private Button yesButton;
@@ -166,104 +177,36 @@ public class CalculatorAppUi extends Application {
         setButtonSize(auxGridButtons, divider);
 
         GridPane mainGrid = new GridPane();
-        mainGrid.addRow(0, numbers.get(7), numbers.get(8), numbers.get(9), delete, clear);
-        mainGrid.addRow(1, numbers.get(4), numbers.get(5), numbers.get(6), multiply, divide);
-        mainGrid.addRow(2, numbers.get(1), numbers.get(2), numbers.get(3), plus, minus);
-        mainGrid.addRow(3, numbers.get(0), dot, percent, answer, equalsSign);
-
         GridPane auxGrid = new GridPane();
-        auxGrid.addColumn(0, exponent, sin, sqrt, absValue);
-        auxGrid.addColumn(1, leftBracket, cos, ln, signMinus);
-        auxGrid.addColumn(2, rightBracket, tan, log);
+        createGrids(mainGrid, auxGrid);
 
-        int h2 = 30;
-        Label inputLabel = new Label("Input: ");
-        inputLabel.setPrefHeight(h2);
-        Label exprLabel = new Label("Expression:");
-        exprLabel.setPrefHeight(h2);
-        Label resLabel = new Label("Result: ");
-        resLabel.setPrefHeight(h2);
-        Label instrLabel = new Label("Instructions: ");
-        instrLabel.setPrefHeight(h2);
-
-        VBox vBoxLeft = new VBox();
-        vBoxLeft.getChildren().add(0, inputLabel);
-        vBoxLeft.getChildren().add(1, exprLabel);
-        vBoxLeft.getChildren().add(2, resLabel);
-        vBoxLeft.getChildren().add(3, instrLabel);
-        vBoxLeft.getChildren().add(4, auxGrid);
-
-        TextField input = new TextField();
-        input.setPrefHeight(h2);
-        input.setEditable(false);
-        input.setOnKeyPressed((event) -> {
-
-        });
-        TextField formula = new TextField();
-        formula.setPrefHeight(h2);
-        formula.setEditable(false);
-        TextField result = new TextField();
-        result.setPrefHeight(h2);
-        result.setEditable(false);
-        TextField instruction = new TextField();
-        instruction.setPrefHeight(h2);
-        instruction.setEditable(false);
-
-        VBox vBoxCenter = new VBox();
-        vBoxCenter.setPrefSize(width, height);
-        vBoxCenter.getChildren().add(0, input);
-        vBoxCenter.getChildren().add(1, formula);
-        vBoxCenter.getChildren().add(2, result);
-        vBoxCenter.getChildren().add(3, instruction);
-        vBoxCenter.getChildren().add(4, mainGrid);
-
-        Label recentExpressions = new Label("Memory: Recently used");
-        recentExpressions.setPrefHeight(h2);
+        ListView<Expression> databaseMatchesList = new ListView();
+        ListProperty<Expression> matchesListProperty = new SimpleListProperty<>();
+        databaseMatchesList.itemsProperty().bind(matchesListProperty);
 
         ListView<String> memoryList = new ListView<>();
         ListProperty<String> listProperty = new SimpleListProperty<>();
         memoryList.itemsProperty().bind(listProperty);
         listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
 
-        createSetMemoryLimitSlider();
-        VBox vBoxRight = new VBox();
-        vBoxRight.setSpacing(5);
-        vBoxRight.getChildren().add(0, currentMemLimit);
-        vBoxRight.getChildren().add(1, setMemoryLabel);
-        vBoxRight.getChildren().add(2, memLimitSlider);
-        vBoxRight.getChildren().add(3, setMemoryLimit);
-        vBoxRight.getChildren().add(4, recentExpressions);
-        vBoxRight.getChildren().add(5, clearMemory);
-        vBoxRight.getChildren().add(6, saveAllExpressions);
-        vBoxRight.getChildren().add(7, saveAllStatus);
-        vBoxRight.getChildren().add(8, saveExpression);
-        vBoxRight.getChildren().add(9, saveStatus);
-        vBoxRight.getChildren().add(10, copyMemExpression);
-        vBoxRight.getChildren().add(11, memoryList);
-
         ListView<Expression> databaseList = new ListView();
         ListProperty<Expression> dbListProperty = new SimpleListProperty<>();
         databaseList.itemsProperty().bind(dbListProperty);
 
-        VBox vBoxRightest = new VBox();
-        vBoxRightest.setSpacing(10);
-        vBoxRightest.getChildren().add(0, databaseLabel);
-        vBoxRightest.getChildren().add(1, getAllSavedExpressions);
-        vBoxRightest.getChildren().add(2, retrievalStatus);
-        vBoxRightest.getChildren().add(3, copyDbExpression);
-        vBoxRightest.getChildren().add(4, deleteExpression);
-        vBoxRightest.getChildren().add(5, deleteStatus);
-        vBoxRightest.getChildren().add(6, databaseList);
-
-        ListView<Expression> databaseMatchesList = new ListView();
-        ListProperty<Expression> matchesListProperty = new SimpleListProperty<>();
-        databaseMatchesList.itemsProperty().bind(matchesListProperty);
+        int h2 = 30;
 
         VBox vBoxSearch = new VBox();
-        vBoxSearch.getChildren().add(0, searchExpression);
-        vBoxSearch.getChildren().add(1, databaseMatchesList);
+        createVBoxSearch(vBoxSearch);
+        VBox vBoxLeft = new VBox();
+        createVBoxLeft(vBoxLeft, h2, auxGrid, vBoxSearch);
+        VBox vBoxCenter = new VBox();
+        createVBoxCenter(vBoxCenter, h2, mainGrid, databaseMatchesList);
+        createSetMemoryLimitSlider();
+        VBox vBoxRight = new VBox();
+        createVBoxRight(vBoxRight, memoryList);
+        VBox vBoxRightest = new VBox();
+        createVBoxRightest(vBoxRightest, databaseList);
 
-//        vBoxLeft.getChildren().add(5, vBoxSearch);
         HBox hbox = new HBox();
         hbox.getChildren().addAll(vBoxLeft, vBoxCenter, vBoxRight, vBoxRightest);
         hbox.setSpacing(15);
@@ -340,25 +283,26 @@ public class CalculatorAppUi extends Application {
 
         copyMemExpression.setOnMouseClicked((event) -> {
             int memSelectionIndex = memoryList.getSelectionModel().selectedIndexProperty().get();
-            if (memSelectionIndex >= 0 && !listProperty.isEmpty()) {
+            if (memSelectionIndex >= 0 && memSelectionIndex < listProperty.size()) {
                 input.appendText(listProperty.get(memSelectionIndex));
             }
         });
 
         copyDbExpression.setOnMouseClicked((event) -> {
             int selectedIdx = databaseList.getSelectionModel().selectedIndexProperty().get();
-            if (selectedIdx >= 0 && !dbListProperty.isEmpty()) {
+            if (selectedIdx >= 0 && selectedIdx < dbListProperty.size()) {
                 input.appendText(dbListProperty.get(selectedIdx).getExpression());
             }
         });
 
         saveExpression.setOnMouseClicked((event) -> {
             int memSelectionIndex = memoryList.getSelectionModel().selectedIndexProperty().get();
-            if (memSelectionIndex >= 0 && !listProperty.isEmpty()) {
+            if (memSelectionIndex >= 0 && memSelectionIndex < listProperty.size()) {
                 try {
                     eDao.save(listProperty.get(memSelectionIndex));
                     saveStatus.setText("Save completed successfully");
                     saveStatus.setTextFill(Color.GREEN);
+                    countExpressions();
                     dbListProperty.set(FXCollections.observableArrayList(eDao.findAll()));
                 } catch (SQLException e) {
                     saveStatus.setText("Save failed");
@@ -389,6 +333,7 @@ public class CalculatorAppUi extends Application {
                     eDao.saveAll(exprMem.getMemExpressionsArrayList());
                     saveAllStatus.setText("All saves completed successfully");
                     saveAllStatus.setTextFill(Color.GREEN);
+                    countExpressions();
                     dbListProperty.set(FXCollections.observableArrayList(eDao.findAll()));
                 } catch (SQLException e) {
                     saveAllStatus.setText("Save all failed");
@@ -401,12 +346,13 @@ public class CalculatorAppUi extends Application {
 
         deleteExpression.setOnMouseClicked((event) -> {
             int selectedIdx = databaseList.getSelectionModel().selectedIndexProperty().get();
-            if (selectedIdx >= 0 && dbListProperty.size() > selectedIdx) {
+            if (selectedIdx >= 0 && selectedIdx < dbListProperty.size()) {
                 try {
                     eDao.delete(dbListProperty.get(selectedIdx).getId());
                     dbListProperty.set(FXCollections.observableArrayList(eDao.findAll()));
                     deleteStatus.setText("Delete successful");
                     deleteStatus.setTextFill(Color.GREEN);
+                    countExpressions();
                 } catch (SQLException e) {
                     deleteStatus.setText("Delete failed");
                     deleteStatus.setTextFill(Color.RED);
@@ -417,15 +363,26 @@ public class CalculatorAppUi extends Application {
         });
 
         searchExpression.setOnMouseClicked((event) -> {
-            String partialExpression = "";
+            String partialExpression = search.getText();
             if (!partialExpression.equals("")) {
                 try {
                     matchesListProperty.set(FXCollections.observableArrayList(eDao.findMatches(partialExpression)));
+                    searchStatus.setText("Search completed");
+                    searchStatus.setTextFill(Color.GREEN);
                 } catch (SQLException e) {
-
+                    searchStatus.setText("Search failed");
+                    searchStatus.setTextFill(Color.RED);
                 }
-            }
 
+                delayedClear(searchStatus);
+            }
+        });
+
+        copyMatch.setOnMouseClicked((event) -> {
+            int selectedIdx = databaseMatchesList.getSelectionModel().selectedIndexProperty().get();
+            if (selectedIdx >= 0 && selectedIdx < matchesListProperty.size()) {
+                input.appendText(matchesListProperty.get(selectedIdx).getExpression());
+            }
         });
 
         Scene scene = new Scene(hbox);
@@ -439,16 +396,104 @@ public class CalculatorAppUi extends Application {
         System.out.println("Closing the CalculatorApp...");
     }
 
-    private void buttonAction(Button button, String text) {
-
-    }
-
     private void delayedClear(Label label) {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10.0), ev -> {
             label.setText("");
             label.setTextFill(Color.BLACK);
         }));
         timeline.play();
+    }
+
+    private void createGrids(GridPane mainGrid, GridPane auxGrid) {
+        mainGrid.addRow(0, numbers.get(7), numbers.get(8), numbers.get(9), delete, clear);
+        mainGrid.addRow(1, numbers.get(4), numbers.get(5), numbers.get(6), multiply, divide);
+        mainGrid.addRow(2, numbers.get(1), numbers.get(2), numbers.get(3), plus, minus);
+        mainGrid.addRow(3, numbers.get(0), dot, percent, answer, equalsSign);
+
+        auxGrid.addColumn(0, exponent, sin, sqrt, absValue);
+        auxGrid.addColumn(1, leftBracket, cos, ln, signMinus);
+        auxGrid.addColumn(2, rightBracket, tan, log);
+    }
+
+    private void createVBoxLeft(VBox vBoxLeft, int height, GridPane auxGrid, VBox vBoxSearch) {
+        Label inputLabel = new Label("Input: ");
+        inputLabel.setPrefHeight(height);
+        Label exprLabel = new Label("Expression:");
+        exprLabel.setPrefHeight(height);
+        Label resLabel = new Label("Result: ");
+        resLabel.setPrefHeight(height);
+        Label instrLabel = new Label("Instructions: ");
+        instrLabel.setPrefHeight(height);
+
+        vBoxLeft.getChildren().add(0, inputLabel);
+        vBoxLeft.getChildren().add(1, exprLabel);
+        vBoxLeft.getChildren().add(2, resLabel);
+        vBoxLeft.getChildren().add(3, instrLabel);
+        vBoxLeft.getChildren().add(4, auxGrid);
+        vBoxLeft.getChildren().add(5, vBoxSearch);
+    }
+
+    private void createVBoxCenter(VBox vBoxCenter, int h2, GridPane mainGrid, ListView<Expression> databaseMatchesList) {
+        input = new TextField();
+        input.setPrefHeight(h2);
+        input.setEditable(false);
+        formula = new TextField();
+        formula.setPrefHeight(h2);
+        formula.setEditable(false);
+        result = new TextField();
+        result.setPrefHeight(h2);
+        result.setEditable(false);
+        instruction = new TextField();
+        instruction.setPrefHeight(h2);
+        instruction.setEditable(false);
+
+        vBoxCenter.setPrefSize(width, height);
+        vBoxCenter.getChildren().add(0, input);
+        vBoxCenter.getChildren().add(1, formula);
+        vBoxCenter.getChildren().add(2, result);
+        vBoxCenter.getChildren().add(3, instruction);
+        vBoxCenter.getChildren().add(4, mainGrid);
+        vBoxCenter.getChildren().add(5, new Label("Search results:"));
+        vBoxCenter.getChildren().add(6, databaseMatchesList);
+    }
+
+    private void createVBoxSearch(VBox vBoxSearch) {
+        search = new TextField();
+        vBoxSearch.setSpacing(5);
+        vBoxSearch.getChildren().add(0, searchHelp);
+        vBoxSearch.getChildren().add(1, search);
+        vBoxSearch.getChildren().add(2, searchExpression);
+        vBoxSearch.getChildren().add(3, searchStatus);
+        vBoxSearch.getChildren().add(4, copyMatch);
+    }
+
+    private void createVBoxRight(VBox vBoxRight, ListView<String> memoryList) {
+        Label recentExpressions = new Label("Memory: Recently used");
+        vBoxRight.setSpacing(5);
+        vBoxRight.getChildren().add(0, currentMemLimit);
+        vBoxRight.getChildren().add(1, setMemoryLabel);
+        vBoxRight.getChildren().add(2, memLimitSlider);
+        vBoxRight.getChildren().add(3, setMemoryLimit);
+        vBoxRight.getChildren().add(4, recentExpressions);
+        vBoxRight.getChildren().add(5, clearMemory);
+        vBoxRight.getChildren().add(6, saveAllExpressions);
+        vBoxRight.getChildren().add(7, saveAllStatus);
+        vBoxRight.getChildren().add(8, saveExpression);
+        vBoxRight.getChildren().add(9, saveStatus);
+        vBoxRight.getChildren().add(10, copyMemExpression);
+        vBoxRight.getChildren().add(11, memoryList);
+    }
+
+    private void createVBoxRightest(VBox vBoxRightest, ListView<Expression> databaseList) {
+        vBoxRightest.setSpacing(10);
+        vBoxRightest.getChildren().add(0, databaseLabel);
+        vBoxRightest.getChildren().add(1, expressionCount);
+        vBoxRightest.getChildren().add(2, getAllSavedExpressions);
+        vBoxRightest.getChildren().add(3, retrievalStatus);
+        vBoxRightest.getChildren().add(4, copyDbExpression);
+        vBoxRightest.getChildren().add(5, deleteExpression);
+        vBoxRightest.getChildren().add(6, deleteStatus);
+        vBoxRightest.getChildren().add(7, databaseList);
     }
 
     private void createSetMemoryLimitSlider() {
@@ -555,12 +600,26 @@ public class CalculatorAppUi extends Application {
         saveAllStatus = new Label("");
 
         databaseLabel = new Label("Expressions in the database:");
+        expressionCount = new Label("");
+        countExpressions();
         copyDbExpression = new Button("Copy selected database expression to input");
         getAllSavedExpressions = new Button("Retrieve all saved expressions");
         retrievalStatus = new Label("");
+        searchHelp = new Label("Type below to search:");
         searchExpression = new Button("Search for an expression");
+        searchStatus = new Label("");
+        copyMatch = new Button("Copy selected match to input");
         deleteExpression = new Button("Delete the selected expression from database");
         deleteStatus = new Label("");
+    }
+
+    private void countExpressions() {
+        try {
+            expressionCount.setText("There are " + eDao.countExpressionsInDatabase() + " expressions in the database");
+            expressionCount.setTextFill(Color.BLUE);
+        } catch (SQLException e) {
+            expressionCount.setText("Expressions in database could not be counted");
+        }
     }
 
     private void createProgramFunctionalityButtons() {
