@@ -321,4 +321,34 @@ public class ExpressionEvaluatorTest {
         String expression = "sqrt(log(((cos(3+(6-3)^2.4)+sin(4.3*0.73))+14.62)^4))";
         assertEquals(2.15017, exprEval.expressionEvaluation(expression), 0.001);
     }
+
+    @Test
+    public void functionEvaluationWorksCorrectly18() {
+        String expression = "neg(ln(65+log(1175)+sin(3.47)*cos(1.45))/tan(57))";
+        assertEquals(-8.70636, exprEval.expressionEvaluation(expression), 0.0001);
+    }
+
+    @Test
+    public void functionEvaluationWorksCorrectly19() {
+        String expression = "abs(neg(ln(65+log(1175)+sin(3.47)*cos(1.45))/tan(57)))";
+        assertEquals(8.70636, exprEval.expressionEvaluation(expression), 0.0001);
+    }
+
+    @Test
+    public void functionEvaluationWorksCorrectly20() {
+        String expression = "sqrt(10^2)";
+        assertEquals(10, exprEval.expressionEvaluation(expression), 0.0001);
+    }
+
+    @Test
+    public void functionEvaluationWorksCorrectly21() {
+        String expression = "sqrt(neg(10)^2)";
+        assertEquals(10, exprEval.expressionEvaluation(expression), 0.0001);
+    }
+
+    @Test
+    public void functionEvaluationWorksCorrectly22() {
+        String expression = "sqrt(neg(10))";
+        assertEquals(Double.NaN, exprEval.expressionEvaluation(expression), 0.0001);
+    }
 }

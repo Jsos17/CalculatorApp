@@ -129,7 +129,8 @@ public class CalculatorAppUi extends Application {
                 mathDBFile.createNewFile();
                 databaseAddress = mathDBFile.getAbsolutePath();
             } catch (IOException ioe) {
-                throw new IOException();
+                System.out.println("File creation failed");
+                System.out.println("Database functionality is absent");
             }
         }
 
@@ -148,6 +149,12 @@ public class CalculatorAppUi extends Application {
         exprMem = new ExpressionMemory(exprEval, 10);
     }
 
+    /**
+     * The standard method for the gui
+     *
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         width = 500;

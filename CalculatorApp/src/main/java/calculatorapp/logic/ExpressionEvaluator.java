@@ -69,35 +69,36 @@ public class ExpressionEvaluator {
         return tokens;
     }
 
-    protected ArrayDeque<String> shuntingYardWithFunctions(ArrayList<String> tokens) {
-        ArrayDeque<String> output = new ArrayDeque();
-        Stack<String> stack = new Stack();
+    protected ArrayDeque<String> shuntingYardWithFunctions(ArrayList<String> mathematicalTokens) {
+        ArrayDeque<String> postFixOutput = new ArrayDeque();
+        Stack<String> operatorStack = new Stack();
 
-        for (int j = 0; j < tokens.size(); j++) {
-            String token = tokens.get(j);
+        for (int j = 0; j < mathematicalTokens.size(); j++) {
+            String mathToken = mathematicalTokens.get(j);
 
-            if (this.inputParser.stringIsANumber(token)) {
-                output.addLast(token);
-            } else if (this.inputParser.isAFunction(token) || token.equals("(")) {
-                stack.push(token);
-            } else if (stringIsAMathOperator(token)) {
-                while (!stack.empty() && !stack.peek().equals("(") && (this.inputParser.isAFunction(stack.peek()) || hasHigherPrecedence(stack.peek().charAt(0), token.charAt(0)))) {
-                    output.addLast(stack.pop());
+            if (this.inputParser.stringIsANumber(mathToken)) {
+                postFixOutput.addLast(mathToken);
+            } else if (this.inputParser.isAFunction(mathToken) || mathToken.equals("(")) {
+                operatorStack.push(mathToken);
+            } else if (stringIsAMathOperator(mathToken)) {
+                while (!operatorStack.empty() && !operatorStack.peek().equals("(")
+                        && (this.inputParser.isAFunction(operatorStack.peek()) || hasHigherPrecedence(operatorStack.peek().charAt(0), mathToken.charAt(0)))) {
+                    postFixOutput.addLast(operatorStack.pop());
                 }
 
-                stack.push(token);
-            } else if (token.equals(")")) {
-                while (!stack.empty() && !stack.peek().equals("(")) {
-                    output.addLast(stack.pop());
+                operatorStack.push(mathToken);
+            } else if (mathToken.equals(")")) {
+                while (!operatorStack.empty() && !operatorStack.peek().equals("(")) {
+                    postFixOutput.addLast(operatorStack.pop());
                 }
 
-                if (!stack.empty()) {
-                    stack.pop();
+                if (!operatorStack.empty()) {
+                    operatorStack.pop();
                 }
             }
         }
 
-        return helperShuntingYard(stack, output);
+        return helperShuntingYard(operatorStack, postFixOutput);
     }
 
     private ArrayDeque<String> helperShuntingYard(Stack<String> stack, ArrayDeque<String> output) {
@@ -108,17 +109,16 @@ public class ExpressionEvaluator {
         return output;
     }
 
-    protected double postfixEvaluator(ArrayDeque<String> output) {
+    protected double postfixEvaluator(ArrayDeque<String> postFixOutput) {
         Stack<Double> values = new Stack();
-        while (!output.isEmpty()) {
-            String mathObject = output.pollFirst();
+        while (!postFixOutput.isEmpty()) {
+            String mathObject = postFixOutput.pollFirst();
 
             if (this.inputParser.stringIsANumber(mathObject)) {
                 values.push(Double.parseDouble(mathObject));
             } else if (this.inputParser.isAFunction(mathObject)) {
                 if (!values.empty()) {
-                    double x = values.pop();
-                    values.push(executeTheRightFunction1(mathObject, x));
+                    values.push(executeTheRightFunction1(mathObject, values.pop()));
                 }
             } else if (stringIsAMathOperator(mathObject)) {
                 if (values.size() >= 2) {
@@ -129,10 +129,10 @@ public class ExpressionEvaluator {
             }
         }
 
-        return helperPostFixEval(values, output);
+        return helperPostFixEval(values);
     }
 
-    protected double helperPostFixEval(Stack<Double> values, ArrayDeque<String> output) {
+    protected double helperPostFixEval(Stack<Double> values) {
         if (values.size() == 1) {
             return values.pop();
         } else {

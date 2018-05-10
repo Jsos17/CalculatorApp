@@ -5,9 +5,10 @@ import java.util.Stack;
 /**
  * The class InputParser is responsible for checking that the input is valid
  * before it is evaluated by ExpressionEvaluator.
- * 
+ *
  * Among notable methods are checking that bracketing is equal
- * @see  bracketingEquals
+ *
+ * @see bracketingEquals
  *
  * @author jpssilve
  */

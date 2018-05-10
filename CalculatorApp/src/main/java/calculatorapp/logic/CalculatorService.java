@@ -11,6 +11,7 @@ public class CalculatorService {
     }
 
     /**
+     * The sum of two numbers in double precision.
      *
      * @param x
      * @param y
@@ -21,6 +22,7 @@ public class CalculatorService {
     }
 
     /**
+     * Subtracts y from x in double precision.
      *
      * @param x
      * @param y
@@ -31,6 +33,7 @@ public class CalculatorService {
     }
 
     /**
+     * Basic double precision multiplication.
      *
      * @param x
      * @param y
@@ -41,6 +44,7 @@ public class CalculatorService {
     }
 
     /**
+     * Basic double precision division.
      *
      * @param x
      * @param y
@@ -55,6 +59,7 @@ public class CalculatorService {
     }
 
     /**
+     * Calculates a percentage value in decimal form.
      *
      * @param x
      * @return a percentage as decimal value
@@ -64,6 +69,7 @@ public class CalculatorService {
     }
 
     /**
+     * Calculates the natural logarithm of a number, if it is non-negative.
      *
      * @param x
      * @return the natural logarithm of a number
@@ -77,6 +83,7 @@ public class CalculatorService {
     }
 
     /**
+     * Calculates the base 10 logarithm of a number, if it is non-negative.
      *
      * @param x
      * @return the base 10 logarithm of a number
@@ -90,6 +97,7 @@ public class CalculatorService {
     }
 
     /**
+     * Calculates the absolute value of a number.
      *
      * @param x
      * @return the absolute value of a number
@@ -112,10 +120,10 @@ public class CalculatorService {
     }
 
     /**
-     * Returns the square root of a number if it is non-negative.
+     * Calculates the square root of a number in double precision.
      *
-     * @param x
-     * @return
+     * @param x is any double value
+     * @return the square root of a number if it is non-negative.
      */
     public double squareRoot(double x) {
         if (x >= 0) {
@@ -126,6 +134,7 @@ public class CalculatorService {
     }
 
     /**
+     * The sine value of a double number in double precision.
      *
      * @param x is in radians
      * @return the sin value of the radian parameter
@@ -135,6 +144,7 @@ public class CalculatorService {
     }
 
     /**
+     * The cosine value of a double number in double precision.
      *
      * @param x is in radians
      * @return the cos value of the radian parameter
@@ -145,11 +155,11 @@ public class CalculatorService {
 
     /**
      * Due to double precision, situations where cos x = 0 in tan x = sin x /
-     * cos x should not arise i.e. divide by zero should not arise since it would
-     * require pi / 2 type of value which cannot be achieved exactly.
+     * cos x should not arise i.e. divide by zero should not arise since it
+     * would require pi / 2 type of value which cannot be achieved exactly.
      *
      * @param x is in radians
-     * @return
+     * @return the tan value of the radian parameter
      */
     public double tan(double x) {
         return Math.tan(x);
