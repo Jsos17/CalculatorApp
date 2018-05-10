@@ -32,41 +32,54 @@ public class ExpressionEvaluator {
     }
 
     protected ArrayList<String> tokenizeExpression(String expression) {
-        ArrayList<String> tokens = new ArrayList<>();
+        ArrayList<String> mathematicalTokens = new ArrayList<>();
 
         int i = 0;
-        int index = 0;
         while (i < expression.length()) {
             char character = expression.charAt(i);
 
             if (this.inputParser.isANumber(character)) {
-                index = i;
-                while (i < expression.length() && (this.inputParser.isANumber(expression.charAt(i)) || expression.charAt(i) == '.')) {
-                    i++;
-                }
-
-                if (this.inputParser.stringIsANumber(expression.substring(index, i))) {
-                    tokens.add(expression.substring(index, i));
-                }
+                i = numberProcessor(expression, mathematicalTokens, i);
                 continue;
-            } else if (this.inputParser.isAMathOperator(character) || character == '(' || character == ')') {
-                tokens.add(Character.toString(character));
+
             } else if (this.inputParser.startsAFunction(character)) {
-                index = i;
-                while (i < expression.length() && expression.charAt(i) != '(') {
-                    i++;
-                }
-
-                if (this.inputParser.isAFunction(expression.substring(index, i))) {
-                    tokens.add(expression.substring(index, i));
-                }
+                i = functionProcessor(expression, mathematicalTokens, i);
                 continue;
+
+            } else if (this.inputParser.isAMathOperator(character) || character == '(' || character == ')') {
+                mathematicalTokens.add(Character.toString(character));
             }
 
             i++;
         }
 
-        return tokens;
+        return mathematicalTokens;
+    }
+
+    private int numberProcessor(String expression, ArrayList<String> mathematicalTokens, int i) {
+        int index = i;
+        while (i < expression.length() && (this.inputParser.isANumber(expression.charAt(i)) || expression.charAt(i) == '.')) {
+            i++;
+        }
+
+        if (this.inputParser.stringIsANumber(expression.substring(index, i))) {
+            mathematicalTokens.add(expression.substring(index, i));
+        }
+
+        return i;
+    }
+
+    private int functionProcessor(String expression, ArrayList<String> mathematicalTokens, int i) {
+        int index = i;
+        while (i < expression.length() && expression.charAt(i) != '(') {
+            i++;
+        }
+
+        if (this.inputParser.isAFunction(expression.substring(index, i))) {
+            mathematicalTokens.add(expression.substring(index, i));
+        }
+
+        return i;
     }
 
     protected ArrayDeque<String> shuntingYardWithFunctions(ArrayList<String> mathematicalTokens) {
@@ -78,8 +91,10 @@ public class ExpressionEvaluator {
 
             if (this.inputParser.stringIsANumber(mathToken)) {
                 postFixOutput.addLast(mathToken);
+
             } else if (this.inputParser.isAFunction(mathToken) || mathToken.equals("(")) {
                 operatorStack.push(mathToken);
+
             } else if (stringIsAMathOperator(mathToken)) {
                 while (!operatorStack.empty() && !operatorStack.peek().equals("(")
                         && (this.inputParser.isAFunction(operatorStack.peek()) || hasHigherPrecedence(operatorStack.peek().charAt(0), mathToken.charAt(0)))) {
@@ -87,13 +102,16 @@ public class ExpressionEvaluator {
                 }
 
                 operatorStack.push(mathToken);
-            } else if (mathToken.equals(")")) {
-                while (!operatorStack.empty() && !operatorStack.peek().equals("(")) {
-                    postFixOutput.addLast(operatorStack.pop());
-                }
 
-                if (!operatorStack.empty()) {
-                    operatorStack.pop();
+            } else if (mathToken.equals(")")) {
+                while (!operatorStack.empty()) {
+                    String operator = operatorStack.pop();
+
+                    if (operator.equals("(")) {
+                        break;
+                    }
+
+                    postFixOutput.addLast(operator);
                 }
             }
         }
@@ -101,9 +119,9 @@ public class ExpressionEvaluator {
         return helperShuntingYard(operatorStack, postFixOutput);
     }
 
-    private ArrayDeque<String> helperShuntingYard(Stack<String> stack, ArrayDeque<String> output) {
-        while (!stack.empty()) {
-            output.addLast(stack.pop());
+    private ArrayDeque<String> helperShuntingYard(Stack<String> operatorStack, ArrayDeque<String> output) {
+        while (!operatorStack.empty()) {
+            output.addLast(operatorStack.pop());
         }
 
         return output;

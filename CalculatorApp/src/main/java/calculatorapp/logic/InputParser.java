@@ -47,7 +47,8 @@ public class InputParser {
 
             if ((c1 == '(' && c2 == ')') || (c1 == ')' && c2 == '(')) {
                 return false;
-            } else if ((isANumber(c1) && c2 == '(') || c1 == ')' && isANumber(c2)) {
+            } else if ((isANumber(c1) && c2 == '(')
+                    || (c1 == ')' && !isAMathOperator(c2) && c2 != ')')) {
                 return false;
             }
         }
@@ -56,41 +57,53 @@ public class InputParser {
     }
 
     protected boolean correctOperatorAndDotPlacement(String expression) {
-        int index = 0;
-        int i = 0;
-        while (i < expression.length()) {
-            char character = expression.charAt(i);
-            if (isAMathOperator(character) || character == '.') {
-                if (i == 0 || i == expression.length() - 1) {
-                    return false;
-                } else if (!dotAndOperatorHelper(isAMathOperator(character), character == '.', expression.charAt(i - 1), expression.charAt(i + 1))) {
-                    return false;
-                }
-            } else if (isANumber(character)) {
-                index = i;
-                while (i < expression.length() && (isANumber(expression.charAt(i)) || expression.charAt(i) == '.')) {
-                    i++;
-                }
+        boolean[] shouldContinue = new boolean[1];
+        shouldContinue[0] = true;
 
-                if (stringIsANumber(expression.substring(index, i))) {
-                    continue;
-                } else {
+        for (int i = 0; i < expression.length(); i++) {
+            char character = expression.charAt(i);
+
+            if (isAMathOperator(character)
+                    && ((i == 0 || i == expression.length() - 1) || !operatorHelper(expression.charAt(i - 1), expression.charAt(i + 1)))) {
+                return false;
+
+            } else if (character == '.'
+                    && ((i == 0 || i == expression.length() - 1) || !dotHelper(expression.charAt(i + 1)))) {
+                return false;
+
+            } else if (isANumber(character)) {
+                i = numberHelper(expression, i, shouldContinue);
+
+                if (!shouldContinue[0]) {
                     return false;
                 }
             }
-
-            i++;
         }
 
         return true;
     }
 
-    protected boolean dotAndOperatorHelper(boolean mathOp, boolean isDot, char before, char after) {
-        if (mathOp && ((!isANumber(before) && before != ')') || (!isANumber(after) && !(startsAFunction(after)) && after != '('))) {
+    protected boolean operatorHelper(char before, char after) {
+        if ((!isANumber(before) && before != ')')) {
             return false;
         }
 
-        return !(isDot && (before == '.' || after == '.'));
+        return isANumber(after) || startsAFunction(after) || after == '(';
+    }
+
+    private boolean dotHelper(char after) {
+        return after != '.';
+    }
+
+    private int numberHelper(String expression, int i, boolean[] shouldContinue) {
+        int index = i;
+        while (i < expression.length() && (isANumber(expression.charAt(i)) || expression.charAt(i) == '.')) {
+            i++;
+        }
+
+        shouldContinue[0] = stringIsANumber(expression.substring(index, i));
+
+        return i - 1;
     }
 
     protected boolean isAFunction(String maybeFunc) {

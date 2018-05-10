@@ -44,24 +44,6 @@ public class Expression {
     }
 
     /**
-     * Sets the id of the Expression
-     *
-     * @param id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Sets the actual symbols contained in the expressions
-     *
-     * @param expression
-     */
-    public void setExpression(String expression) {
-        this.expression = expression;
-    }
-
-    /**
      * Overrides toString() method
      *
      * @return the expressions in String form

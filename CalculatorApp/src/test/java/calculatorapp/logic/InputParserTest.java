@@ -5,6 +5,7 @@
  */
 package calculatorapp.logic;
 
+import java.lang.reflect.Method;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -162,6 +163,24 @@ public class InputParserTest {
     }
 
     @Test
+    public void checksDotPlacementCorrectly8() {
+        String expression = "6*(67+7...0)-(8+9)/8";
+        assertFalse(inParser.correctOperatorAndDotPlacement(expression));
+    }
+
+    @Test
+    public void checksDotPlacementCorrectly9() {
+        String expression = "6.6";
+        assertTrue(inParser.correctOperatorAndDotPlacement(expression));
+    }
+
+    @Test
+    public void checksDotPlacementCorrectly10() {
+        String expression = ".9.";
+        assertFalse(inParser.correctOperatorAndDotPlacement(expression));
+    }
+
+    @Test
     public void numbersAndBrackecketsCorrectCornerCase1() {
         assertFalse(inParser.numbersAndBracketsCorrect("8(+8"));
     }
@@ -178,28 +197,18 @@ public class InputParserTest {
 
     @Test
     public void dotAndOperatorHelperCornerCase1() {
-        assertFalse(inParser.dotAndOperatorHelper(true, false, '+', '*'));
+        assertFalse(inParser.operatorHelper('+', '*'));
     }
-
-    @Test
-    public void dotAndOperatorHelperCornerCase2() {
-        assertFalse(inParser.dotAndOperatorHelper(true, false, '8', '*'));
-    }
-
-    @Test
-    public void dotAndOperatorHelperCornerCase3() {
-        assertFalse(inParser.dotAndOperatorHelper(true, false, '/', '6'));
-    }
-
-    @Test
-    public void dotAndOperatorHelperCornerCase4() {
-        assertFalse(inParser.dotAndOperatorHelper(false, true, '.', '.'));
-    }
-
-    @Test
-    public void dotAndOperatorHelperImpossibleCase() {
-        assertTrue(inParser.dotAndOperatorHelper(true, true, '8', '8'));
-    }
+//
+//    @Test
+//    public void dotAndOperatorHelperCornerCase2() {
+//        assertFalse(inParser.dotAndOperatorHelper(true, false, '8', '*'));
+//    }
+//
+//    @Test
+//    public void dotAndOperatorHelperCornerCase3() {
+//        assertFalse(inParser.dotAndOperatorHelper(true, false, '/', '6'));
+//    }
 
     @Test
     public void stringIsANumberCornerCase1() {
