@@ -2,42 +2,37 @@
 
 ## The purpose of the application
 
-The application provides all the basic arithmetic operations (+, -, *, /, mod) and also trigonometric functions, exponentiation, square-root, logarithm, factorial and so on. 
+The application provides all the basic arithmetic operations (+, -, *, /, ^) and also trigonometric functions, square-root (other roots can be inputted as a fractional power), logarithm, absolute value and percentage. Negative numbers are represented by the neg() functions, since the "-" sign is interpreted as a subtraction operator. 
 
-Additionally, it serves as a graphics calculator, providing the ability to visualize simple functions and examine their behaviour. 
-
-The application should also provide some means to save functions into a database, hence the user does not need to write the functions all over again every time he/she has closed the application. Additionally the user can also edit and delete his/her personally made functions.
-
-The application should also provide some basic template-functions so that users can examine the behaviour of the program before making their own functions.
+The application provides means to save functions into a database, hence the user does not need to write the functions all over again every time he/she has closed the application. Additionally the user can also save an new edited version of a function or  delete functions.
 
 ## Users
 
-At first the application does not provide any login feature, so users are not specified. Later on, the application can be expanded into allowing login, so that the users can save their own functions and only the user that created a function can modify it.
+The application does not have any login feature.
 
 ## User interface outline
 
-The application should have the basic arithmetic operations visible to the user at all times while the application is running, and an additional window should open when the user wishes to use the graphics calculator feature.
+The user has all the buttons available at all times, and inputted functions also appear automatically in the list that represents the memory of the calculator.
 
-## Planned features for the basic version
+Additionally, the user can retrieve all expressions saved in a database. After retrieval the expressions are permanently in view. 
 
-* All the basic arithmetic operations with a button for each and/or the ability to type inputs
+If the user saves an expression or saves all expressions in memory, then the database list is updated automatically. The same applies to deletion of an expression. Thus, the user needs to click retrieve all expressions button only once.
+
+## Planned features of the basic version
+
+* All the basic arithmetic operations with a button for each.
 
 * Graphical user-interface
 
 * Error handling for bad inputs, e.g. divide by zero etc, and appropriate messages for the user
 
-* A separate graphics calculator window
+* Functions can be created, edited, saved and deleted by the user
 
-* At least simple functions can be created, edited, saved and deleted by the user
-
-* These simple functions can then be examined visually through the graphics calculator feature
-
-* Thus function creation should have detailed instructions and error handling
-
+* These functions can contain other functions
 
 ## Possibilities for expansion
 
-* Visualizing the behaviour of a function when it approaches its limit, e.g. *lim (1 + 1/n)^n -> e when n -> infinity*
+* Adding a graphics calculator feature
 
 * The ability to toggle between fractional and decimal representation of numbers and results
 

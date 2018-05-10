@@ -359,6 +359,7 @@ public class CalculatorAppUi extends Application {
                     eDao.save(listProperty.get(memSelectionIndex));
                     saveStatus.setText("Save completed successfully");
                     saveStatus.setTextFill(Color.GREEN);
+                    dbListProperty.set(FXCollections.observableArrayList(eDao.findAll()));
                 } catch (SQLException e) {
                     saveStatus.setText("Save failed");
                     saveStatus.setTextFill(Color.RED);
@@ -388,6 +389,7 @@ public class CalculatorAppUi extends Application {
                     eDao.saveAll(exprMem.getMemExpressionsArrayList());
                     saveAllStatus.setText("All saves completed successfully");
                     saveAllStatus.setTextFill(Color.GREEN);
+                    dbListProperty.set(FXCollections.observableArrayList(eDao.findAll()));
                 } catch (SQLException e) {
                     saveAllStatus.setText("Save all failed");
                     saveAllStatus.setTextFill(Color.RED);
