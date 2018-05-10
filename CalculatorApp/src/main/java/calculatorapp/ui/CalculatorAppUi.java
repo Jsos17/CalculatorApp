@@ -150,7 +150,7 @@ public class CalculatorAppUi extends Application {
             math.initDatabase();
             System.out.println("Database initialization/connection success");
         } catch (SQLException e) {
-            System.out.println("Database initialization/connection failure " + e.getMessage());
+            System.out.println("Database initialization/connection failure ");
         }
 
         eDao = new ExpressionDao(math);
@@ -425,6 +425,7 @@ public class CalculatorAppUi extends Application {
         Label instrLabel = new Label("Instructions: ");
         instrLabel.setPrefHeight(height);
 
+        vBoxLeft.setSpacing(5);
         vBoxLeft.getChildren().add(0, inputLabel);
         vBoxLeft.getChildren().add(1, exprLabel);
         vBoxLeft.getChildren().add(2, resLabel);
@@ -447,7 +448,7 @@ public class CalculatorAppUi extends Application {
         instruction.setPrefHeight(h2);
         instruction.setEditable(false);
 
-        vBoxCenter.setPrefSize(width, height);
+        vBoxCenter.setSpacing(5);
         vBoxCenter.getChildren().add(0, input);
         vBoxCenter.getChildren().add(1, formula);
         vBoxCenter.getChildren().add(2, result);
@@ -458,7 +459,6 @@ public class CalculatorAppUi extends Application {
     }
 
     private void createVBoxSearch(VBox vBoxSearch) {
-        search = new TextField();
         vBoxSearch.setSpacing(5);
         vBoxSearch.getChildren().add(0, searchHelp);
         vBoxSearch.getChildren().add(1, search);
@@ -485,7 +485,7 @@ public class CalculatorAppUi extends Application {
     }
 
     private void createVBoxRightest(VBox vBoxRightest, ListView<Expression> databaseList) {
-        vBoxRightest.setSpacing(10);
+        vBoxRightest.setSpacing(5);
         vBoxRightest.getChildren().add(0, databaseLabel);
         vBoxRightest.getChildren().add(1, expressionCount);
         vBoxRightest.getChildren().add(2, getAllSavedExpressions);
@@ -605,6 +605,7 @@ public class CalculatorAppUi extends Application {
         copyDbExpression = new Button("Copy selected database expression to input");
         getAllSavedExpressions = new Button("Retrieve all saved expressions");
         retrievalStatus = new Label("");
+        search = new TextField();
         searchHelp = new Label("Type below to search:");
         searchExpression = new Button("Search for an expression");
         searchStatus = new Label("");

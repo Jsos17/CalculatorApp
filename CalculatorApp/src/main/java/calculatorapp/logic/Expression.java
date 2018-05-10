@@ -44,7 +44,9 @@ public class Expression {
     }
 
     /**
-     * Overrides toString() method
+     * Overrides toString() method and is used to properly show expressions in
+     * the lists of the gui.
+     *
      *
      * @return the expressions in String form
      */
