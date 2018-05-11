@@ -26,7 +26,7 @@ public class InputParser {
      * @param expression the mathematical expression to be checked as a String
      * @return true or false based on whether the expression is valid or not
      */
-    protected boolean corretFunctions(String expression) {
+    protected boolean correctFunctions(String expression) {
         int index = 0;
         int i = 0;
         while (i < expression.length()) {
