@@ -8,6 +8,10 @@ The ExpressionMemory class stores recently used expressions during the execution
 
 MathDatabase provides a database connection and Expression class provides a Java encapsulation for the expressions stored in the SQL Expression table.
 
+## Package structure
+
+The only class in the package calculatorapp.ui is the CalculatorAppUi and it uses classes from the packages calculatorapp.logic and calculatorapp.dao.
+
 **Package diagram**
 
 ![package diagram](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/calculatorapp_package_diagram_new.jpg)
