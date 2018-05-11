@@ -133,7 +133,7 @@ public class CalculatorAppUi extends Application {
             properties.load(new FileInputStream("config.properties"));
             databaseAddress = properties.getProperty("mathDatabase");
         } catch (IOException e) {
-            System.out.println("config.properties missing, default name is used");
+            System.out.println("config.properties missing, default name mathAlternative.db is used");
             try {
                 File mathDBFile = new File("mathAlternative.db");
                 mathDBFile.createNewFile();
@@ -186,20 +186,19 @@ public class CalculatorAppUi extends Application {
         ListView<String> memoryList = new ListView<>();
         ListProperty<String> memListProperty = new SimpleListProperty<>();
         memoryList.itemsProperty().bind(memListProperty);
-        memListProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
 
         ListView<Expression> databaseList = new ListView();
         ListProperty<Expression> dbListProperty = new SimpleListProperty<>();
         databaseList.itemsProperty().bind(dbListProperty);
 
-        int h2 = 30;
+        int rowHeight = 30;
 
         VBox vBoxSearch = new VBox();
         createVBoxSearch(vBoxSearch);
         VBox vBoxLeft = new VBox();
-        createVBoxLeft(vBoxLeft, h2, auxGrid, vBoxSearch);
+        createVBoxLeft(vBoxLeft, rowHeight, auxGrid, vBoxSearch);
         VBox vBoxCenter = new VBox();
-        createVBoxCenter(vBoxCenter, h2, mainGrid, databaseMatchesList);
+        createVBoxCenter(vBoxCenter, rowHeight, mainGrid, databaseMatchesList);
         createSetMemoryLimitSlider();
         VBox vBoxRight = new VBox();
         createVBoxRight(vBoxRight, memoryList);
@@ -243,13 +242,16 @@ public class CalculatorAppUi extends Application {
                 input.deleteText(inputLength - 1, inputLength);
             }
         });
+
         clear.setOnMouseClicked((event) -> {
             input.clear();
             formula.clear();
             result.clear();
             instruction.clear();
         });
+
         dot.setOnMouseClicked((event) -> input.appendText((".")));
+
         equalsSign.setOnMouseClicked((event) -> {
             Double res = exprEval.expressionEvaluation(input.getText());
             if (res.equals(Double.NaN)) {
@@ -265,6 +267,7 @@ public class CalculatorAppUi extends Application {
                 instruction.clear();
             }
         });
+
         answer.setOnMouseClicked((event) -> input.appendText(result.getText()));
         leftBracket.setOnMouseClicked((event) -> input.appendText("("));
         rightBracket.setOnMouseClicked((event) -> input.appendText(")"));
@@ -310,7 +313,6 @@ public class CalculatorAppUi extends Application {
 
                 delayedClear(saveStatus);
             }
-
         });
 
         getAllSavedExpressions.setOnMouseClicked((event) -> {
@@ -525,19 +527,19 @@ public class CalculatorAppUi extends Application {
         saveAllStatus = new Label("");
 
         databaseLabel = new Label("Expressions in the database:");
-        copyDbExpression = new Button("Copy selected database expression to input");
-        getAllSavedExpressions = new Button("Retrieve all saved expressions");
-        retrievalStatus = new Label("");
-        deleteExpression = new Button("Delete the selected expression from database");
-        deleteStatus = new Label("");
-
         expressionCount = new Label("");
         countExpressions();
+        copyDbExpression = new Button("Copy the selected database expression to input");
+        getAllSavedExpressions = new Button("Retrieve all saved expressions");
+        retrievalStatus = new Label("");
+        deleteExpression = new Button("Delete the selected expression from the database");
+        deleteStatus = new Label("");
+
         search = new TextField();
         searchHelp = new Label("Type below to search:");
         searchExpression = new Button("Search for an expression");
         searchStatus = new Label("");
-        copyMatch = new Button("Copy selected match to input");
+        copyMatch = new Button("Copy the selected match to input");
     }
 
     private void countExpressions() {
@@ -545,7 +547,7 @@ public class CalculatorAppUi extends Application {
             expressionCount.setText("There are " + eDao.countExpressionsInDatabase() + " expressions in the database");
             expressionCount.setTextFill(Color.BLUE);
         } catch (SQLException e) {
-            expressionCount.setText("Expressions in database could not be counted");
+            expressionCount.setText("Expressions in the database could not be counted");
         }
     }
 
@@ -631,13 +633,12 @@ public class CalculatorAppUi extends Application {
     }
 
     private void createVBoxRight(VBox vBoxRight, ListView<String> memoryList) {
-        Label recentExpressions = new Label("Memory: Recently used");
         vBoxRight.setSpacing(5);
         vBoxRight.getChildren().add(0, currentMemLimit);
         vBoxRight.getChildren().add(1, setMemoryLabel);
         vBoxRight.getChildren().add(2, memLimitSlider);
         vBoxRight.getChildren().add(3, setMemoryLimit);
-        vBoxRight.getChildren().add(4, recentExpressions);
+        vBoxRight.getChildren().add(4, new Label("Memory: Recently used"));
         vBoxRight.getChildren().add(5, clearMemory);
         vBoxRight.getChildren().add(6, saveAllExpressions);
         vBoxRight.getChildren().add(7, saveAllStatus);
