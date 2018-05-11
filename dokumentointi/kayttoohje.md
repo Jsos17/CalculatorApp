@@ -4,7 +4,7 @@ Download file [CalculatorApp-v1.0.jar](https://github.com/Jsos17/CalculatorApp/r
 
 Download file [CalculatorApp-v2.0.jar](https://github.com/Jsos17/CalculatorApp/releases/tag/v2.0)
 
-**Download file [CalculatorApp-v3.0.jar](https://github.com/Jsos17/CalculatorApp/releases/tag/v3.0)**
+**Download file [CalculatorApp-v3.1.jar]()**
 
 ## Configuration
 
@@ -26,7 +26,7 @@ It is strongly advised to either create the config.properties file or to only ru
 
 The program can be run with the command
 
-    java -jar CalculatorApp-v3.0.jar
+    java -jar CalculatorApp-v3.1.jar
 
 ## Using the CalculatorApp
 
