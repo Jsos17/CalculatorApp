@@ -137,7 +137,8 @@ public class CalculatorAppUi extends Application {
             try {
                 File mathDBFile = new File("mathAlternative.db");
                 mathDBFile.createNewFile();
-                databaseAddress = mathDBFile.getAbsolutePath();
+                databaseAddress = mathDBFile.getCanonicalPath();
+                System.out.println("File mathAlternative.db created at " + mathDBFile.getCanonicalPath());
             } catch (IOException ioe) {
                 System.out.println("File creation failed");
                 System.out.println("Database functionality is absent");
