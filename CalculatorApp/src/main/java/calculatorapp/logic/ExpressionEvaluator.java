@@ -189,7 +189,8 @@ public class ExpressionEvaluator {
     public double expressionEvaluation(String expression) {
         if (expression.length() > 1000) {
             return Double.POSITIVE_INFINITY;
-        } else if (this.inputParser.bracketingEquals(expression)
+        } else if (this.inputParser.corretFunctions(expression)
+                && this.inputParser.bracketingEquals(expression)
                 && this.inputParser.numbersAndBracketsCorrect(expression)
                 && this.inputParser.correctOperatorAndDotPlacement(expression)) {
 

@@ -21,6 +21,29 @@ public class InputParser {
     public InputParser() {
     }
 
+    protected boolean corretFunctions(String expression) {
+        int index = 0;
+        int i = 0;
+        while (i < expression.length()) {
+            if (startsAFunction(expression.charAt(i))) {
+                index = i;
+                while (i < expression.length() && expression.charAt(i) != '(') {
+                    i++;
+                }
+
+                if (isAFunction(expression.substring(index, i))) {
+                    continue;
+                } else {
+                    return false;
+                }
+            }
+
+            i++;
+        }
+
+        return true;
+    }
+
     protected boolean bracketingEquals(String expression) {
         Stack<Character> stack = new Stack();
 

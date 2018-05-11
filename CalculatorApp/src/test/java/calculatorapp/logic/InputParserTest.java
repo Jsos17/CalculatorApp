@@ -219,4 +219,52 @@ public class InputParserTest {
     public void stringIsANumberCornerCase2() {
         assertFalse(inParser.stringIsANumber("6876."));
     }
+
+    @Test
+    public void correctFunctionsTest1() {
+        String expression = "tantan(89)";
+        assertFalse(inParser.corretFunctions(expression));
+    }
+
+    @Test
+    public void correctFunctionsTest2() {
+        String expression = "tan(cos(sin(log(87+6^5))))";
+        assertTrue(inParser.corretFunctions(expression));
+    }
+
+    @Test
+    public void correctFunctionsTest3() {
+        String expression = "((cos(8.105)+log(5.7))*ln(2/3)+abs(8^3.9-6)*(27/127)*tan(45)-log(10000+1.4^2-67^0.1)+sqrt(6/4.8+1011.76^1.2)+56-56/0.123+3456)*sin(0.45-6)";
+        assertTrue(inParser.corretFunctions(expression));
+    }
+
+    @Test
+    public void correctFunctionsTest4() {
+        String expression = "((cos(8.105)+log1(5.7))*ln(2/3)+abs(8^3.9-6)*(27/127)*tan(45)-log(10000+1.4^2-67^0.1)+sqrt(6/4.8+1011.76^1.2)+56-56/0.123+3456)*sin(0.45-6)";
+        assertFalse(inParser.corretFunctions(expression));
+    }
+
+    @Test
+    public void correctFunctionsTest5() {
+        String expression = "((cos4(67)";
+        assertFalse(inParser.corretFunctions(expression));
+    }
+
+    @Test
+    public void correctFunctionsTest6() {
+        String expression = "tansin(10)";
+        assertFalse(inParser.corretFunctions(expression));
+    }
+
+    @Test
+    public void correctFunctionsTest7() {
+        String expression = "log(ln((10))";
+        assertTrue(inParser.corretFunctions(expression));
+    }
+
+    @Test
+    public void correctFunctionsTest8() {
+        String expression = "log(ln7((10))";
+        assertFalse(inParser.corretFunctions(expression));
+    }
 }
