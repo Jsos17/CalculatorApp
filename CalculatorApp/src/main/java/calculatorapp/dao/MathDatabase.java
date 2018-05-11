@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class provides a database connection and initialization for all data
+ * access object classes that might need it.
  *
  * @author jpssilve
  */
@@ -23,8 +25,10 @@ public class MathDatabase {
     /**
      * A database address is required for the constructor.
      *
-     * @param databaseAddress
-     * @throws ClassNotFoundException
+     * @param databaseAddress as String form and containing the "jdbc:sqlite:"
+     * prefix and the actual name/path of the database.
+     *
+     * @throws ClassNotFoundException if an exception occurs
      */
     public MathDatabase(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
@@ -34,7 +38,6 @@ public class MathDatabase {
      * Creates table Expression if it does not already exist by calling
      * sqliteCreateExpressions.
      *
-     * @see #sqliteCreateExpressions
      */
     public void initDatabase() {
         List<String> createExpressions = sqliteCreateExpressions();
@@ -52,10 +55,10 @@ public class MathDatabase {
     }
 
     /**
-     * Returns a connection to the underlying SQLite database.
+     * Returns a connection to the underlying SQL database.
      *
-     * @return 
-     * @throws SQLException
+     * @return a Connection to the underlying SQL database
+     * @throws SQLException if an exception occurs
      */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(this.databaseAddress);

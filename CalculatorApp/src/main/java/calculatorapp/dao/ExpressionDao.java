@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class is the data access object for the Expression table.
+ * The class is the data access object for the Expression table. It supports
+ * insertion, deletion, search and retrieval operations as well as counting the
+ * expressions that exist in the database.
  *
  * @author jpssilve
  */
@@ -25,7 +27,7 @@ public class ExpressionDao implements MathDao {
     /**
      * The constructor for ExpressionDao takes MathDatabase as a parameter.
      *
-     * @param mathDB
+     * @param mathDB a MathDatabase
      */
     public ExpressionDao(MathDatabase mathDB) {
         this.mathDB = mathDB;
@@ -35,9 +37,9 @@ public class ExpressionDao implements MathDao {
      * The method inserts a single expression into Expression table, and
      * implements the the method save that MathDao requires.
      *
-     * @param symbolicExpression
-     * @return
-     * @throws SQLException
+     * @param symbolicExpression as a String to be searched for
+     * @return true or false
+     * @throws SQLException if an exception happens
      */
     @Override
     public boolean save(String symbolicExpression) throws SQLException {
@@ -58,9 +60,9 @@ public class ExpressionDao implements MathDao {
      * The method inserts all Strings that it gets as a parameter into the
      * Expression table.
      *
-     * @param symbolicExpressions
-     * @return
-     * @throws SQLException
+     * @param symbolicExpressions expressions as an ArrayList of Strings
+     * @return true if successful else throws an exception
+     * @throws SQLException if an exception happens
      */
     public boolean saveAll(List<String> symbolicExpressions) throws SQLException {
         try (Connection conn = mathDB.getConnection()) {
@@ -75,9 +77,9 @@ public class ExpressionDao implements MathDao {
                     throw new SQLException();
                 }
             }
-        }
 
-        return true;
+            return true;
+        }
     }
 
     /**
@@ -85,9 +87,9 @@ public class ExpressionDao implements MathDao {
      * as parameter. One of the implementations of the required methods of
      * MathDao interface.
      *
-     * @param id
-     * @return
-     * @throws SQLException
+     * @param id is the primary key of the Expression in question
+     * @return true if successful else throws an exception
+     * @throws SQLException if an exception happens
      */
     @Override
     public boolean delete(Integer id) throws SQLException {
@@ -103,9 +105,9 @@ public class ExpressionDao implements MathDao {
     /**
      * Finds all Expressions that match the provided String
      *
-     * @param partialExpression
-     * @return matching Expressions
-     * @throws SQLException
+     * @param partialExpression partial expression to be searhed for as a String
+     * @return all matching Expressions as an ArrayList of Expressions
+     * @throws SQLException if an exception happens
      */
     public ArrayList<Expression> findMatches(String partialExpression) throws SQLException {
         ArrayList<Expression> foundExpressions = new ArrayList<>();
@@ -129,8 +131,8 @@ public class ExpressionDao implements MathDao {
     /**
      * Finds all Expressions in the table Expression.
      *
-     * @return all the Expressions as an ArrayList
-     * @throws SQLException
+     * @return all the Expressions as an ArrayList of Expressions
+     * @throws SQLException if an an exception happens
      */
     @Override
     public ArrayList<Expression> findAll() throws SQLException {
@@ -149,8 +151,8 @@ public class ExpressionDao implements MathDao {
     /**
      * Counts how many Expressions are saved in the Expression table.
      *
-     * @return count of the expressions
-     * @throws SQLException
+     * @return count of the expressions as an int value
+     * @throws SQLException if an exception happens
      */
     public int countExpressionsInDatabase() throws SQLException {
         int count = 0;

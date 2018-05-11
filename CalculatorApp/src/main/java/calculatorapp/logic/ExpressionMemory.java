@@ -8,7 +8,7 @@ package calculatorapp.logic;
 import java.util.ArrayList;
 
 /**
- * The class functions as the memory for CalculatorApp.
+ * The class functions as the memory for the CalculatorApp.
  *
  * @author jpssilve
  *
@@ -25,7 +25,7 @@ public class ExpressionMemory {
      * @param exprEval an ExpressionEvaluator is used to double check that
      * expressions saved in database are valid
      * @param memoryLimit tells how many expressions are kept in memory and thus
-     * shown to the user.
+     * are shown to the user.
      */
     public ExpressionMemory(ExpressionEvaluator exprEval, int memoryLimit) {
         this.memExpressions = new ArrayList<>();
@@ -45,7 +45,7 @@ public class ExpressionMemory {
      * The method adds the expression it gets as a parameter into the ArrayList
      * that represents the memory.
      *
-     * @param expression gets an expression as a parameter
+     * @param expression in String form
      */
     public void addToMemory(String expression) {
         Double result = this.exprEval.expressionEvaluation(expression);
@@ -69,7 +69,7 @@ public class ExpressionMemory {
     /**
      * Returns current limit for how many expressions are kept in memory.
      *
-     * @return current limit for the size of memory as an int
+     * @return current limit of the size of memory as an int value
      */
     public int getMemoryLimit() {
         return this.memoryLimit;
@@ -78,7 +78,7 @@ public class ExpressionMemory {
     /**
      * Sets the desired size for how many expressions are kept in memory.
      *
-     * @param value is the value specified by the user
+     * @param value is the int value specified by the user
      */
     public void setMemoryLimit(int value) {
         if (value >= 0) {

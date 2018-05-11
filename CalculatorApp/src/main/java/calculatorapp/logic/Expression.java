@@ -6,7 +6,7 @@
 package calculatorapp.logic;
 
 /**
- * The class encapsulates the Expression object
+ * The class encapsulates the Expression object/SQL table.
  *
  * @author jpssilve
  */
@@ -19,8 +19,8 @@ public class Expression {
      * An Expression object is created based on values retrieved from a
      * database.
      *
-     * @param id
-     * @param expression
+     * @param id the primary key of the Expression in the database
+     * @param expression the actual mathematical expression in String form
      */
     public Expression(int id, String expression) {
         this.id = id;
@@ -29,7 +29,7 @@ public class Expression {
 
     /**
      *
-     * @return the id of the Expression in the Expression table
+     * @return the primary key of the Expression in the Expression table
      */
     public int getId() {
         return id;
@@ -37,7 +37,7 @@ public class Expression {
 
     /**
      *
-     * @return the "symbols" of the Expression
+     * @return the "symbols" of the Expression i.e. the mathematical expression
      */
     public String getExpression() {
         return expression;
@@ -46,7 +46,6 @@ public class Expression {
     /**
      * Overrides toString() method and is used to properly show expressions in
      * the lists of the gui.
-     *
      *
      * @return the expressions in String form
      */

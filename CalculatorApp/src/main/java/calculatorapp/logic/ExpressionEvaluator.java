@@ -23,14 +23,24 @@ public class ExpressionEvaluator {
      * The constructor gets an instance of CalculatorService class and an
      * instance of InputParser class.
      *
-     * @param calculator
-     * @param inputParser
+     * @param calculator a CalculatorService which executes the actual
+     * computations
+     * @param inputParser an InputParser which insures that the inputs to
+     * ExpressionEvaluator are valid
      */
     public ExpressionEvaluator(CalculatorService calculator, InputParser inputParser) {
         this.calculator = calculator;
         this.inputParser = inputParser;
     }
 
+    /**
+     * The method takes a mathematical expression as a String as parameter, and
+     * puts every number, function (without the brackets), mathematical operator
+     * and bracket in its own place in the ArrayList.
+     *
+     * @param expression a mathematical expression as a String
+     * @return an ArrayList of Strings
+     */
     protected ArrayList<String> tokenizeExpression(String expression) {
         ArrayList<String> mathematicalTokens = new ArrayList<>();
 
@@ -82,6 +92,21 @@ public class ExpressionEvaluator {
         return i;
     }
 
+    /**
+     * My implementation of Edsger Djikstra's shunting-yard algorithm. The
+     * pseudo-code found on the wikipedia page of shunting-yard algorithm forms
+     * the basis for this implementation.
+     *
+     * An Arrraylist of numbers, brackets, functions and mathematical operators
+     * in String form is provided as a parameter, and then the algorithm
+     * attempts to produce the original mathematical expression in postfix
+     * notation so that it is easier to evaluate the value of it.
+     *
+     * @param mathematicalTokens an ArrayList consisting of numbers, brackets,
+     * functions and mathematical operators in String form
+     * @return an ArrayDeque of Strings where all the brackets have been removed
+     * and only the numbers, functions and mathematical operators remain
+     */
     protected ArrayDeque<String> shuntingYardWithFunctions(ArrayList<String> mathematicalTokens) {
         ArrayDeque<String> postFixOutput = new ArrayDeque();
         Stack<String> operatorStack = new Stack();
@@ -127,6 +152,17 @@ public class ExpressionEvaluator {
         return postFixOutput;
     }
 
+    /**
+     * Evaluates a mathematical expression in reverse Polish notation also known
+     * as postfix notation from left to right.
+     *
+     * See wikipedia for example for more info on postfix notation. The
+     * wikipedia page also served as the basis for this implementation.
+     *
+     * @param postFixOutput an ArrayDeque of mathematical objects, namely
+     * numbers, functions and operators
+     * @return a double value or NaN
+     */
     protected double postfixEvaluator(ArrayDeque<String> postFixOutput) {
         Stack<Double> values = new Stack();
         while (!postFixOutput.isEmpty()) {
@@ -152,6 +188,14 @@ public class ExpressionEvaluator {
         return helperPostFixEval(values);
     }
 
+    /**
+     * Just a small helper function to determine whether only one value remains
+     * in the values stack produced by the postFix evaluator, if so then the
+     * computation succeeded.
+     *
+     * @param values a Stack of double values
+     * @return a double value or NaN
+     */
     protected double helperPostFixEval(Stack<Double> values) {
         if (values.size() == 1) {
             return values.pop();
@@ -182,7 +226,7 @@ public class ExpressionEvaluator {
      * expression from left to right (in postfix notation) and returns a double
      * value.
      *
-     * @param expression
+     * @param expression as a String value
      * @return a double value, or NaN if expression cannot be evaluated or
      * positive infinity if the expression is too long
      */
@@ -213,6 +257,16 @@ public class ExpressionEvaluator {
         }
     }
 
+    /**
+     * Executes the the right function on the parameter value. The function is
+     * selected from the currently supported functions.
+     *
+     * @param function as a String
+     * @param x as a double value
+     * @return a double value or NaN
+     *
+     * @see #executeTheRightFunction2(java.lang.String, double)
+     */
     protected double executeTheRightFunction1(String function, double x) {
         switch (function) {
             case "sqrt":
@@ -234,6 +288,12 @@ public class ExpressionEvaluator {
         }
     }
 
+    /**
+     * @see #executeTheRightFunction1(java.lang.String, double)
+     * @param function as a String
+     * @param x as a double value
+     * @return a double value or NaN
+     */
     protected double executeTheRightFunction2(String function, double x) {
         switch (function) {
             case "neg":
@@ -245,6 +305,15 @@ public class ExpressionEvaluator {
         }
     }
 
+    /**
+     * According to the operator, the method performs the right calculation and
+     * returns its result.
+     *
+     * @param operator the mathematical operator as a char
+     * @param x1 double value
+     * @param x2 double value
+     * @return a double value or NaN
+     */
     protected double executeTheRightOperation(char operator, double x1, double x2) {
         switch (operator) {
             case '+':
@@ -262,6 +331,13 @@ public class ExpressionEvaluator {
         }
     }
 
+    /**
+     * Checks whether the String is among the currently supported mathematical
+     * operators
+     *
+     * @param candidate as a String
+     * @return true or false
+     */
     protected boolean stringIsAMathOperator(String candidate) {
         if (candidate.length() == 1) {
             return this.inputParser.isAMathOperator(candidate.charAt(0));

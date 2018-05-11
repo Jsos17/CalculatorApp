@@ -122,7 +122,10 @@ public class CalculatorAppUi extends Application {
      * The name of the database is retrieved from a file config.properties which
      * the user must create.
      *
-     * @throws Exception
+     * If the configuration file is not present, then default database is
+     * created.
+     *
+     * @throws Exception if an exception occurs
      */
     @Override
     public void init() throws Exception {
@@ -161,10 +164,13 @@ public class CalculatorAppUi extends Application {
     }
 
     /**
-     * The standard method for the gui
+     * The standard method for the gui.
      *
-     * @param stage
-     * @throws Exception
+     * Everything related to the graphical user interface happens in this
+     * method, or is initiated by this method.
+     *
+     * @param stage the stage to be shown
+     * @throws Exception if an exception occurs
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -568,6 +574,15 @@ public class CalculatorAppUi extends Application {
         auxGrid.addColumn(2, rightBracket, tan, log);
     }
 
+    private void createVBoxSearch(VBox vBoxSearch) {
+        vBoxSearch.setSpacing(5);
+        vBoxSearch.getChildren().add(0, searchHelp);
+        vBoxSearch.getChildren().add(1, search);
+        vBoxSearch.getChildren().add(2, searchExpression);
+        vBoxSearch.getChildren().add(3, searchStatus);
+        vBoxSearch.getChildren().add(4, copyMatch);
+    }
+
     private void createVBoxLeft(VBox vBoxLeft, int height, GridPane auxGrid, VBox vBoxSearch) {
         Label inputLabel = new Label("Input: ");
         inputLabel.setPrefHeight(height);
@@ -609,15 +624,6 @@ public class CalculatorAppUi extends Application {
         vBoxCenter.getChildren().add(4, mainGrid);
         vBoxCenter.getChildren().add(5, new Label("Search results:"));
         vBoxCenter.getChildren().add(6, databaseMatchesList);
-    }
-
-    private void createVBoxSearch(VBox vBoxSearch) {
-        vBoxSearch.setSpacing(5);
-        vBoxSearch.getChildren().add(0, searchHelp);
-        vBoxSearch.getChildren().add(1, search);
-        vBoxSearch.getChildren().add(2, searchExpression);
-        vBoxSearch.getChildren().add(3, searchStatus);
-        vBoxSearch.getChildren().add(4, copyMatch);
     }
 
     private void createSetMemoryLimitSlider() {
