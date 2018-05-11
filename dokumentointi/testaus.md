@@ -36,9 +36,9 @@ The user interface was tested manually, and mainly just trying to cause errors.
 
 Additionally, the jar-file was opened by left-clicking its icon and also through command line. 
 
-This test revealed that, if no config.properties file is present, then left-clicking almost certainly results in the database being created somewhere else than the directory where the jar file is (probably the root directory). On the contrary, command line execution of the jar creates the database inside the same directory.
+This test revealed that, that left-clicking almost certainly results in the database being created somewhere else than the directory where the jar file is (probably the root directory). On the contrary, command line execution of the jar creates the database inside the same directory.
 
-**Thus, it is possible that the program might access a different databases depending on how the program is run, IF the config.properties file and the proper configuration input (i.e. the name of desired database file) is not present.**
+A reliable way of ensuring access to the right database, is opening the jar file using the command line.
 
 ## Remaining deficiencies in the application/in testing
 
@@ -52,4 +52,4 @@ The following message can be seen, if expressions are deleted and the databaseli
 
     INFO: index exceeds maxCellCount. Check size calculations for class com.sun.javafx.scene.control.skin.ListViewSkin$2
 
-Technically it is not an error, and does not cause any disruption to the program. Additionally, a quick internet search [StackOverFlow-INFO](https://stackoverflow.com/questions/30683685/why-do-i-get-this-weird-warning-when-i-scroll-to-the-end-of-a-listview-in-javafx?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) revealed no significant harm caused by this and also no quick solution. So it was decided to simply ignore the message. 
+Technically it is not an error, and does not cause any disruption to the program. Additionally, a quick internet search [StackOverFlow](https://stackoverflow.com/questions/30683685/why-do-i-get-this-weird-warning-when-i-scroll-to-the-end-of-a-listview-in-javafx?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) revealed no significant harm caused by this and also no quick solution. So it was decided to simply ignore the message. 
