@@ -12,11 +12,9 @@ MathDatabase provides a database connection and Expression class provides a Java
 
 The only class in the package calculatorapp.ui is the CalculatorAppUi and it uses classes from the packages calculatorapp.logic and calculatorapp.dao.
 
-**Package diagram**
-
 ![package diagram](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/calculatorapp_package_diagram_new.jpg)
 
-**Class diagram**
+## Class structure
 
 ![class diagram](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/calculatorapp_class_diagram.jpg)
 
