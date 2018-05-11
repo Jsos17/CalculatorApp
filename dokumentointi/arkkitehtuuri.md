@@ -51,6 +51,8 @@ The following diagram shows this in greater detail:
 
 ![Expression evaluation in great detail](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/Detailed_Expression_Evaluation_Sequence.png)
 
+![Database retrieval sequence](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/Database_retrieval_sequence.png)
+
 
 ## Weaknesses remaining in the program
 
