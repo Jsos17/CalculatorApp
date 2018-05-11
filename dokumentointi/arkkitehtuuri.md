@@ -10,7 +10,7 @@ MathDatabase provides a database connection and Expression class provides a Java
 
 **Package diagram**
 
-![package diagram](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/calculatorapp_package_diagram.jpg)
+![package diagram]()
 
 **Class diagram**
 
