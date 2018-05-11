@@ -22,7 +22,7 @@ The classes with database functionality, were tested using TemporaryFolder-rules
 
 ## Integration testing
 
-The class ExpressionEvaluatorTest contains partially integration tests, since ExpressionEvaluator uses InputParser and CalculatorService as parameters. Therefore, creating additional integration test classes was seen as redundant, since it only would have tested the same functionality.
+The class ExpressionEvaluatorTest partially contains integration tests, since ExpressionEvaluator uses InputParser and CalculatorService as parameters. Therefore, creating additional integration test classes was seen as redundant, since it only would have tested the same functionality.
 
 Since almost all of the complex logic happens between ExpressionEvaluator, InputParser and CalculatorService, it is deemed that the tests of the ExpressionEvaluatorTest class are enough for integration testing.
 
