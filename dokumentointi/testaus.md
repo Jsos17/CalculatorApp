@@ -52,4 +52,4 @@ The following message can be seen, if expressions are deleted and the databaseli
 
     INFO: index exceeds maxCellCount. Check size calculations for class com.sun.javafx.scene.control.skin.ListViewSkin$2
 
-Technically it is not an error, and does not cause any disruption to the program. Additionally, a quick internet search (https://stackoverflow.com/questions/30683685/why-do-i-get-this-weird-warning-when-i-scroll-to-the-end-of-a-listview-in-javafx?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) revealed no significant harm caused by this and also no quick solution. So it was decided to simply ignore the message. 
+Technically it is not an error, and does not cause any disruption to the program. Additionally, a quick internet search [IStackOverFlow-INFO](https://stackoverflow.com/questions/30683685/why-do-i-get-this-weird-warning-when-i-scroll-to-the-end-of-a-listview-in-javafx?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) revealed no significant harm caused by this and also no quick solution. So it was decided to simply ignore the message. 
