@@ -2,7 +2,9 @@
 
 Download file [CalculatorApp-v1.0.jar](https://github.com/Jsos17/CalculatorApp/releases/tag/viikko5)
 
-**Download file [CalculatorApp-v2.0.jar](https://github.com/Jsos17/CalculatorApp/releases/tag/v2.0)**
+Download file [CalculatorApp-v2.0.jar](https://github.com/Jsos17/CalculatorApp/releases/tag/v2.0)
+
+**Download file [CalculatorApp-v3.0.jar]()**
 
 ## Configuration
 
@@ -10,7 +12,7 @@ It is advisable that the user adds configuration file [config.properties](https:
 
 If this file is not added, then a new file called mathAlternative.db is created. 
 
-**If the jar is not executed from the command line the actual database might be stored in a different place than where the jar is. In other words, it is possible that left-clicking the jar creates a new mathAlternative.db database somewhere else (probably in the root directory) and running the command *java -jar CalculatorApp-v2.0.jar* creates another in the same directory where the jar is.** Thus depending on how the jar is run the program might access a different database.
+**If the jar is not executed from the command line the actual database might be stored in a different place than where the jar is. In other words, it is possible that left-clicking the jar creates a new mathAlternative.db database somewhere else (probably in the root directory) and running the command *java -jar CalculatorApp-v3.0.jar* creates another in the same directory where the jar is.** Thus depending on how the jar is run the program might access a different database.
 
 **However, if the config.properties file is added later to the same directory as the jar file, then the program will access the database specified in that file only.**
 
@@ -26,7 +28,7 @@ It is strongly advised to either create the config.properties file or to only ru
 
 The program can be run with the command
 
-    java -jar CalculatorApp-v2.0.jar
+    java -jar CalculatorApp-v3.0.jar
 
 ## Using the CalculatorApp
 
