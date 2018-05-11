@@ -12,7 +12,7 @@ It is advisable that the user adds configuration file [config.properties](https:
 
 If this file is not added, then a new file called mathAlternative.db is created. 
 
-**If the jar is not executed from the command line the actual database might be stored in a different place than where the jar is. In other words, it is possible that left-clicking the jar creates a new mathAlternative.db database somewhere else (probably in the root directory) and running the command *java -jar CalculatorApp-v3.0.jar* creates another in the same directory where the jar is.** Thus depending on how the jar is run the program might access a different database.
+**If the jar is not executed from the command line the actual database might be stored in a different place than where the jar is. In other words, it is possible that left-clicking the jar creates a new mathAlternative.db database somewhere else (probably in the root directory) and running the command *java -jar CalculatorApp-v3.1.jar* creates another in the same directory where the jar is.** Thus left-clicking the jar file is not dependable way of ensuring that the right database is accessed, and thus using the command line is advised.
 
 The format of the [config.properties](https://github.com/Jsos17/CalculatorApp/blob/master/CalculatorApp/config.properties) file is the following:
 
