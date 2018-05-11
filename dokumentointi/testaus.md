@@ -8,7 +8,7 @@ As can be seen about 99% of instructions and about 96 % of branches are covered 
 
 Some cases are/seem impossible to actually happen in actual code. For example, if a valid input is injected to the postfixEvaluator, then when a mathematical operator is found in the ArrayDeque of Strings, the stack should never be empty since it would mean that the expression was not valid in the first place, and this error would have been catched earlier. So testing the method indirectly through expressionEvaluation does not cover this branch.
 
-These kind of situations also causes the inability to fully test all possibile branches of the code, since valid input just won't lead there, and the algorithm should only receive valid inputs, if everything else works correctly. 
+These kind of situations also cause the inability to fully test all possibile branches of the code, since valid input just won't lead there, and the algorithm should only receive valid inputs, if everything else works correctly. 
 
 Thus, in some cases, tests for these "impossible cases" were made.
 
@@ -16,11 +16,9 @@ Certain branches are missed in the tests, because of the above mentioned phenome
 
 ## Unit testing
 
-Unit test classes were made for very class. Some of the more complex ExpressionEvaluator tests were created by inputting the same (or almost the same expression) into WolframAlpha and then manually copying the result.
+Unit test classes were made for very class. Some of the more complex ExpressionEvaluator tests were created by inputting the same (or almost the same expression) into WolframAlpha and then manually copying the result. (Note: it is important to check that radians are used in WolframAlpha, and that the appropriate logarithmic function (ln or base-10 logarithm) are used to obtain the same results.)
 
-The classes using with database functionality, were tested using TemporaryFolder-rules.
-
-(Note: it is important to check that radians are used in WolframAlpha, and that the appropriate logarithmic function (ln or base-10 logarithm) are used to obtain the same results.)
+The classes with database functionality, were tested using TemporaryFolder-rules.
 
 ## Integration testing
 
@@ -54,4 +52,4 @@ The following message can be seen, if expressions are deleted and the databaseli
 
     INFO: index exceeds maxCellCount. Check size calculations for class com.sun.javafx.scene.control.skin.ListViewSkin$2
 
-Technically it is not an error, and does not cause any disruption to the program. Additionally, a quick internet search revealed no significant harm caused by this and also no quick solution. So it was decided to simply ignore the message. 
+Technically it is not an error, and does not cause any disruption to the program. Additionally, a quick internet search (https://stackoverflow.com/questions/30683685/why-do-i-get-this-weird-warning-when-i-scroll-to-the-end-of-a-listview-in-javafx?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa) revealed no significant harm caused by this and also no quick solution. So it was decided to simply ignore the message. 
