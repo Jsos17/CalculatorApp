@@ -6,13 +6,13 @@
 
 As can be seen about 99% of instructions and about 96 % of branches are covered by the tests. 
 
-Some cases are/seem impossible to actually happen in actual code. For example, if a valid input is injected to the postfixEvaluator, then when a mathematical operator is found in the ArrayDeque of Strings, the stack should never be empty since it would mean that the expression was not valid in the first place, and this error would have been catched earlier. So testing the method indirectly through expressionEvaluation does not cover this branch.
+Some cases seem impossible to actually happen in actual code. For example, if a valid input is injected to the postfixEvaluator, then when a mathematical operator is found in the ArrayDeque of Strings, the stack should never be empty since it would mean that the expression was not valid in the first place, and this error would have been catched earlier. So testing the method indirectly through expressionEvaluation does not cover this branch.
 
 These kind of situations also cause the inability to fully test all possibile branches of the code, since valid input just won't lead there, and the algorithm should only receive valid inputs, if everything else works correctly. 
 
 Thus, in some cases, tests for these "impossible cases" were made.
 
-Certain branches are missed in the tests, because of the above mentioned phenomena. However, in my opinion it is better to be safe than sorry, so changing the code to omit certain cases that seem impossible to happen, but cannot be easily proven to actually be so, is not desirable. 
+Certain branches are missed in the tests, because of the above mentioned phenomena.
 
 ## Unit testing
 
