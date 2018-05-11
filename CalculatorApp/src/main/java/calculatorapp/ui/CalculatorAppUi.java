@@ -278,7 +278,7 @@ public class CalculatorAppUi extends Application {
         answer.setOnMouseClicked((event) -> {
             String res = result.getText();
             if (!res.equals("")) {
-                if (res.charAt(0) == '-') {
+                if (res.charAt(0) == '-' && res.length() >= 2) {
                     input.appendText("neg(" + res.substring(1) + ")");
                 } else {
                     input.appendText(res);

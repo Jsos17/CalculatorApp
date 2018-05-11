@@ -37,7 +37,7 @@ During the execution of the program, the app automatically stores expressions in
 
 When a save, retrieval or delete operation is executed by pushing the appropriate button, a success/failure message is shown to the user for a duration of 10 seconds. The failure message is shown, if the underlying ExpressionDao class throws an SQLException, otherwise  a success message is shown.
 
-The database list does not update automatically. Instead, after a save the user needs to retrieve all expressions from the database to see the newly saved expression there.
+The database list updates automatically after it has been retrieved the first time.
 
 ## Main functionality
 

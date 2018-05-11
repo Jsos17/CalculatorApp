@@ -267,4 +267,10 @@ public class InputParserTest {
         String expression = "log(ln7((10))";
         assertFalse(inParser.correctFunctions(expression));
     }
+
+    @Test
+    public void correctFunctionsTest9() {
+        String expression = "log";
+        assertTrue(inParser.correctFunctions(expression));
+    }
 }

@@ -6,6 +6,7 @@
 package calculatorapp.logic;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -375,5 +376,35 @@ public class ExpressionEvaluatorTest {
     public void functionEvaluationWorksCorrectly25() {
         String expression = "((cos(8.105)+log(5.7))*ln(2/3)+abs(8^3.9-6)*(27/127)*tan(45)-log(10000+1.4^2-67^0.1)+sqrt(6/4.8+1011.76^1.2)+56-56/0.123+3456)*sin(0.45-6)";
         assertEquals(2850.747343, exprEval.expressionEvaluation(expression), 0.001);
+    }
+
+    @Test
+    public void functionEvaluationWorksCorrectly26() {
+        String expression = "lnln((10)^2)";
+        assertEquals(Double.NaN, exprEval.expressionEvaluation(expression), 0.0001);
+    }
+
+    @Test
+    public void executeTheRightFuncCornerCase() {
+        assertEquals(Double.NaN, exprEval.executeTheRightFunction2("foo", 42), 0.001);
+    }
+
+    @Test
+    public void shuntingYardImpossibleCase1() {
+        ArrayList<String> tokens = new ArrayList<>();
+        tokens.add(")");
+        assertEquals(0, exprEval.shuntingYardWithFunctions(tokens).size());
+    }
+
+    @Test
+    public void shuntingYardImpossibleCase2() {
+        ArrayList<String> tokens = new ArrayList<>();
+        tokens.add("]");
+        assertEquals(0, exprEval.shuntingYardWithFunctions(tokens).size());
+    }
+
+    @Test
+    public void tokenizeExpressionImpossibleCase1() {
+        assertEquals(0, exprEval.tokenizeExpression("x").size());
     }
 }
