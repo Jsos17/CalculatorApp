@@ -2,9 +2,9 @@
 
 ## The purpose of the application
 
-The application provides all the basic arithmetic operations (+, -, *, /, ^) and also trigonometric functions, square-root (other roots can be inputted as a fractional power), logarithm, absolute value and percentage. Negative numberr are represented by the help of the neg() function, since the "-" sign is interpreted as a subtraction operator. 
+The application provides all the basic arithmetic operations (+, -, *, /, ^) and also trigonometric functions, square-root (other roots can be inputted as a fractional power), logarithm, absolute value and percentage. Negative numbers are represented by the help of the neg() function, since the "-" sign is interpreted as a subtraction operator. 
 
-The application provides means to save functions into a database. Hence the user does not need to write the functions all over again every time he/she has closed the application. Additionally, the user can also save a new edited version of a function or  delete functions.
+The application provides means to save functions into a database. Hence the user does not need to write functions all over again every time he/she has closed the application. Additionally, the user can also save a new edited version of a function or  delete functions.
 
 The user can search expressions based on a keyword, and all matches will be shown to the user.
 
@@ -20,7 +20,7 @@ The count of expressions in the database is shown to the user at all times and i
 
 Additionally, the user can retrieve all expressions saved in a database. After retrieval, the expressions are permanently in view. 
 
-If the user saves an expression or saves all expressions in memory, then the database list is updated automatically. The same applies to deletion of an expression. Thus, the user needs to click retrieve all expressions button only once.
+If the user saves an expression or saves all expressions in memory, then the database list is updated automatically. The same applies to deletion of an expression. Thus, the user needs to retrieve all expressions only once.
 
 ## Features of the final version
 
