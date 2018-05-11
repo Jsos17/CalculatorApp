@@ -29,7 +29,7 @@ The user can save expressions in a database and re-use them later.
 
 [Viikko 6](https://github.com/Jsos17/CalculatorApp/releases/tag/v2.0)
 
-[loppupalautus]()
+[loppupalautus](https://github.com/Jsos17/CalculatorApp/releases/tag/v3.1)
 
 ## Command line
 
