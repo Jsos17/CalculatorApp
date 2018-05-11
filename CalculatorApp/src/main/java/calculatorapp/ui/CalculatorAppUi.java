@@ -117,7 +117,7 @@ public class CalculatorAppUi extends Application {
 
     /**
      * Creates a database if it does not already exist, by establishing a
-     * connection to a SQLite database.
+     * connection to a SQL database.
      *
      * The name of the database is retrieved from a file config.properties which
      * the user must create.
