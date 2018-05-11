@@ -49,7 +49,7 @@ Eventually ExpressionEvaluator returns the value 4.0 and then CalculatorAppUi ca
 
 The following diagram shows this in greater detail:
 
-![Expression evaluation in great detail]()
+![Expression evaluation in great detail](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/Detailed_Expression_Evaluation_Sequence.png)
 
 
 ## Weaknesses remaining in the program
