@@ -16,9 +16,12 @@ The user can save expressions in a database and re-use them later.
 
 [Vaatimusmäärittely/Software requirement specification](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/vaatimusmaarittely.md)
 
-[Työaikakirjanpito/Work log](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/tyoaikakirjanpito.md)
+[Testausdokumentti/Testing document](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/testaus.md)
 
 [Arkkitehtuurikuvaus/Software architecture](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/arkkitehtuuri.md)
+
+[Työaikakirjanpito/Work log](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/tyoaikakirjanpito.md)
+
 
 ## Releases
 
