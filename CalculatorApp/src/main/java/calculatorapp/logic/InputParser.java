@@ -68,7 +68,7 @@ public class InputParser {
                 return false;
 
             } else if (character == '.'
-                    && ((i == 0 || i == expression.length() - 1) || !dotHelper(expression.charAt(i + 1)))) {
+                    && ((i == 0 || i == expression.length() - 1) || expression.charAt(i + 1) == '.')) {
                 return false;
 
             } else if (isANumber(character)) {
@@ -89,10 +89,6 @@ public class InputParser {
         }
 
         return isANumber(after) || startsAFunction(after) || after == '(';
-    }
-
-    private boolean dotHelper(char after) {
-        return after != '.';
     }
 
     private int numberHelper(String expression, int i, boolean[] shouldContinue) {

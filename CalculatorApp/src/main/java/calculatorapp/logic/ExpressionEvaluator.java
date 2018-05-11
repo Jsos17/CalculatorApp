@@ -119,12 +119,12 @@ public class ExpressionEvaluator {
         return helperShuntingYard(operatorStack, postFixOutput);
     }
 
-    private ArrayDeque<String> helperShuntingYard(Stack<String> operatorStack, ArrayDeque<String> output) {
+    private ArrayDeque<String> helperShuntingYard(Stack<String> operatorStack, ArrayDeque<String> postFixOutput) {
         while (!operatorStack.empty()) {
-            output.addLast(operatorStack.pop());
+            postFixOutput.addLast(operatorStack.pop());
         }
 
-        return output;
+        return postFixOutput;
     }
 
     protected double postfixEvaluator(ArrayDeque<String> postFixOutput) {
@@ -134,10 +134,12 @@ public class ExpressionEvaluator {
 
             if (this.inputParser.stringIsANumber(mathObject)) {
                 values.push(Double.parseDouble(mathObject));
+
             } else if (this.inputParser.isAFunction(mathObject)) {
                 if (!values.empty()) {
                     values.push(executeTheRightFunction1(mathObject, values.pop()));
                 }
+
             } else if (stringIsAMathOperator(mathObject)) {
                 if (values.size() >= 2) {
                     double x1 = values.pop();

@@ -5,7 +5,6 @@
  */
 package calculatorapp.logic;
 
-import java.lang.reflect.Method;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -181,6 +180,17 @@ public class InputParserTest {
     }
 
     @Test
+    public void checksDotPlacementCorrectly11() {
+        String expression = "(..9)";
+        assertFalse(inParser.correctOperatorAndDotPlacement(expression));
+    }
+
+    public void checksDotPlacementCorrectly12() {
+        String expression = ".42";
+        assertFalse(inParser.correctOperatorAndDotPlacement(expression));
+    }
+
+    @Test
     public void numbersAndBrackecketsCorrectCornerCase1() {
         assertFalse(inParser.numbersAndBracketsCorrect("8(+8"));
     }
@@ -199,16 +209,6 @@ public class InputParserTest {
     public void dotAndOperatorHelperCornerCase1() {
         assertFalse(inParser.operatorHelper('+', '*'));
     }
-//
-//    @Test
-//    public void dotAndOperatorHelperCornerCase2() {
-//        assertFalse(inParser.dotAndOperatorHelper(true, false, '8', '*'));
-//    }
-//
-//    @Test
-//    public void dotAndOperatorHelperCornerCase3() {
-//        assertFalse(inParser.dotAndOperatorHelper(true, false, '/', '6'));
-//    }
 
     @Test
     public void stringIsANumberCornerCase1() {

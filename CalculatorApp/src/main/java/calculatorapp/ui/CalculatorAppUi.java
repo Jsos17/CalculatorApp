@@ -97,7 +97,6 @@ public class CalculatorAppUi extends Application {
     private TextField result;
     private TextField instruction;
 
-    private Button closeButton;
     private Button yesButton;
     private Button noButton;
 
@@ -181,13 +180,13 @@ public class CalculatorAppUi extends Application {
         createGrids(mainGrid, auxGrid);
 
         ListView<Expression> databaseMatchesList = new ListView();
-        ListProperty<Expression> matchesListProperty = new SimpleListProperty<>();
-        databaseMatchesList.itemsProperty().bind(matchesListProperty);
+        ListProperty<Expression> dbMatchesListProperty = new SimpleListProperty<>();
+        databaseMatchesList.itemsProperty().bind(dbMatchesListProperty);
 
         ListView<String> memoryList = new ListView<>();
-        ListProperty<String> listProperty = new SimpleListProperty<>();
-        memoryList.itemsProperty().bind(listProperty);
-        listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
+        ListProperty<String> memListProperty = new SimpleListProperty<>();
+        memoryList.itemsProperty().bind(memListProperty);
+        memListProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
 
         ListView<Expression> databaseList = new ListView();
         ListProperty<Expression> dbListProperty = new SimpleListProperty<>();
@@ -209,7 +208,7 @@ public class CalculatorAppUi extends Application {
 
         HBox hbox = new HBox();
         hbox.getChildren().addAll(vBoxLeft, vBoxCenter, vBoxRight, vBoxRightest);
-        hbox.setSpacing(15);
+        hbox.setSpacing(20);
 
         numbers.get(0).setOnMouseClicked((event) -> input.appendText("0"));
         numbers.get(1).setOnMouseClicked((event) -> input.appendText("1"));
@@ -260,7 +259,7 @@ public class CalculatorAppUi extends Application {
             } else {
                 formula.setText(input.getText());
                 exprMem.addToMemory(input.getText());
-                listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
+                memListProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
                 input.clear();
                 result.setText(Double.toString(res));
                 instruction.clear();
@@ -273,18 +272,18 @@ public class CalculatorAppUi extends Application {
         setMemoryLimit.setOnMouseClicked((event) -> {
             exprMem.setMemoryLimit((int) memLimitSlider.getValue());
             currentMemLimit.setText("The memory limit is: " + exprMem.getMemoryLimit());
-            listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
+            memListProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
         });
 
         clearMemory.setOnMouseClicked((event) -> {
             exprMem.clearMemory();
-            listProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
+            memListProperty.set(FXCollections.observableArrayList(exprMem.getMemExpressionsArrayList()));
         });
 
         copyMemExpression.setOnMouseClicked((event) -> {
             int memSelectionIndex = memoryList.getSelectionModel().selectedIndexProperty().get();
-            if (memSelectionIndex >= 0 && memSelectionIndex < listProperty.size()) {
-                input.appendText(listProperty.get(memSelectionIndex));
+            if (memSelectionIndex >= 0 && memSelectionIndex < memListProperty.size()) {
+                input.appendText(memListProperty.get(memSelectionIndex));
             }
         });
 
@@ -297,9 +296,9 @@ public class CalculatorAppUi extends Application {
 
         saveExpression.setOnMouseClicked((event) -> {
             int memSelectionIndex = memoryList.getSelectionModel().selectedIndexProperty().get();
-            if (memSelectionIndex >= 0 && memSelectionIndex < listProperty.size()) {
+            if (memSelectionIndex >= 0 && memSelectionIndex < memListProperty.size()) {
                 try {
-                    eDao.save(listProperty.get(memSelectionIndex));
+                    eDao.save(memListProperty.get(memSelectionIndex));
                     saveStatus.setText("Save completed successfully");
                     saveStatus.setTextFill(Color.GREEN);
                     countExpressions();
@@ -328,7 +327,7 @@ public class CalculatorAppUi extends Application {
         });
 
         saveAllExpressions.setOnMouseClicked((event) -> {
-            if (!listProperty.isEmpty()) {
+            if (!memListProperty.isEmpty()) {
                 try {
                     eDao.saveAll(exprMem.getMemExpressionsArrayList());
                     saveAllStatus.setText("All saves completed successfully");
@@ -366,7 +365,7 @@ public class CalculatorAppUi extends Application {
             String partialExpression = search.getText();
             if (!partialExpression.equals("")) {
                 try {
-                    matchesListProperty.set(FXCollections.observableArrayList(eDao.findMatches(partialExpression)));
+                    dbMatchesListProperty.set(FXCollections.observableArrayList(eDao.findMatches(partialExpression)));
                     searchStatus.setText("Search completed");
                     searchStatus.setTextFill(Color.GREEN);
                 } catch (SQLException e) {
@@ -380,15 +379,46 @@ public class CalculatorAppUi extends Application {
 
         copyMatch.setOnMouseClicked((event) -> {
             int selectedIdx = databaseMatchesList.getSelectionModel().selectedIndexProperty().get();
-            if (selectedIdx >= 0 && selectedIdx < matchesListProperty.size()) {
-                input.appendText(matchesListProperty.get(selectedIdx).getExpression());
+            if (selectedIdx >= 0 && selectedIdx < dbMatchesListProperty.size()) {
+                input.appendText(dbMatchesListProperty.get(selectedIdx).getExpression());
             }
         });
 
-        Scene scene = new Scene(hbox);
+        Scene calculatorScene = new Scene(hbox);
         stage.setTitle("CalculatorApp");
-        stage.setScene(scene);
+        stage.setScene(calculatorScene);
         stage.show();
+
+        GridPane exitGrid = new GridPane();
+        Label unsavedProgress = new Label("Upon exit, all unsaved progress will be lost");
+        Label exitQuestion = new Label("Are you sure you want to close the program?");
+        exitGrid.add(unsavedProgress, 0, 0);
+        exitGrid.add(exitQuestion, 0, 1);
+        exitGrid.add(yesButton, 0, 2);
+        exitGrid.add(noButton, 1, 2);
+        exitGrid.setVgap(10);
+
+        Scene exitScene = new Scene(exitGrid);
+        Stage exitStage = new Stage();
+        exitStage.setScene(exitScene);
+
+        stage.setOnCloseRequest((event) -> {
+            event.consume();
+            exitStage.show();
+        });
+
+        exitStage.setOnCloseRequest((event) -> {
+            event.consume();
+        });
+
+        noButton.setOnMouseClicked((event) -> {
+            exitStage.close();
+        });
+
+        yesButton.setOnMouseClicked((event) -> {
+            stage.close();
+            exitStage.close();
+        });
     }
 
     @Override
@@ -402,111 +432,6 @@ public class CalculatorAppUi extends Application {
             label.setTextFill(Color.BLACK);
         }));
         timeline.play();
-    }
-
-    private void createGrids(GridPane mainGrid, GridPane auxGrid) {
-        mainGrid.addRow(0, numbers.get(7), numbers.get(8), numbers.get(9), delete, clear);
-        mainGrid.addRow(1, numbers.get(4), numbers.get(5), numbers.get(6), multiply, divide);
-        mainGrid.addRow(2, numbers.get(1), numbers.get(2), numbers.get(3), plus, minus);
-        mainGrid.addRow(3, numbers.get(0), dot, percent, answer, equalsSign);
-
-        auxGrid.addColumn(0, exponent, sin, sqrt, absValue);
-        auxGrid.addColumn(1, leftBracket, cos, ln, signMinus);
-        auxGrid.addColumn(2, rightBracket, tan, log);
-    }
-
-    private void createVBoxLeft(VBox vBoxLeft, int height, GridPane auxGrid, VBox vBoxSearch) {
-        Label inputLabel = new Label("Input: ");
-        inputLabel.setPrefHeight(height);
-        Label exprLabel = new Label("Expression:");
-        exprLabel.setPrefHeight(height);
-        Label resLabel = new Label("Result: ");
-        resLabel.setPrefHeight(height);
-        Label instrLabel = new Label("Instructions: ");
-        instrLabel.setPrefHeight(height);
-
-        vBoxLeft.setSpacing(5);
-        vBoxLeft.getChildren().add(0, inputLabel);
-        vBoxLeft.getChildren().add(1, exprLabel);
-        vBoxLeft.getChildren().add(2, resLabel);
-        vBoxLeft.getChildren().add(3, instrLabel);
-        vBoxLeft.getChildren().add(4, auxGrid);
-        vBoxLeft.getChildren().add(5, vBoxSearch);
-    }
-
-    private void createVBoxCenter(VBox vBoxCenter, int h2, GridPane mainGrid, ListView<Expression> databaseMatchesList) {
-        input = new TextField();
-        input.setPrefHeight(h2);
-        input.setEditable(false);
-        formula = new TextField();
-        formula.setPrefHeight(h2);
-        formula.setEditable(false);
-        result = new TextField();
-        result.setPrefHeight(h2);
-        result.setEditable(false);
-        instruction = new TextField();
-        instruction.setPrefHeight(h2);
-        instruction.setEditable(false);
-
-        vBoxCenter.setSpacing(5);
-        vBoxCenter.getChildren().add(0, input);
-        vBoxCenter.getChildren().add(1, formula);
-        vBoxCenter.getChildren().add(2, result);
-        vBoxCenter.getChildren().add(3, instruction);
-        vBoxCenter.getChildren().add(4, mainGrid);
-        vBoxCenter.getChildren().add(5, new Label("Search results:"));
-        vBoxCenter.getChildren().add(6, databaseMatchesList);
-    }
-
-    private void createVBoxSearch(VBox vBoxSearch) {
-        vBoxSearch.setSpacing(5);
-        vBoxSearch.getChildren().add(0, searchHelp);
-        vBoxSearch.getChildren().add(1, search);
-        vBoxSearch.getChildren().add(2, searchExpression);
-        vBoxSearch.getChildren().add(3, searchStatus);
-        vBoxSearch.getChildren().add(4, copyMatch);
-    }
-
-    private void createVBoxRight(VBox vBoxRight, ListView<String> memoryList) {
-        Label recentExpressions = new Label("Memory: Recently used");
-        vBoxRight.setSpacing(5);
-        vBoxRight.getChildren().add(0, currentMemLimit);
-        vBoxRight.getChildren().add(1, setMemoryLabel);
-        vBoxRight.getChildren().add(2, memLimitSlider);
-        vBoxRight.getChildren().add(3, setMemoryLimit);
-        vBoxRight.getChildren().add(4, recentExpressions);
-        vBoxRight.getChildren().add(5, clearMemory);
-        vBoxRight.getChildren().add(6, saveAllExpressions);
-        vBoxRight.getChildren().add(7, saveAllStatus);
-        vBoxRight.getChildren().add(8, saveExpression);
-        vBoxRight.getChildren().add(9, saveStatus);
-        vBoxRight.getChildren().add(10, copyMemExpression);
-        vBoxRight.getChildren().add(11, memoryList);
-    }
-
-    private void createVBoxRightest(VBox vBoxRightest, ListView<Expression> databaseList) {
-        vBoxRightest.setSpacing(5);
-        vBoxRightest.getChildren().add(0, databaseLabel);
-        vBoxRightest.getChildren().add(1, expressionCount);
-        vBoxRightest.getChildren().add(2, getAllSavedExpressions);
-        vBoxRightest.getChildren().add(3, retrievalStatus);
-        vBoxRightest.getChildren().add(4, copyDbExpression);
-        vBoxRightest.getChildren().add(5, deleteExpression);
-        vBoxRightest.getChildren().add(6, deleteStatus);
-        vBoxRightest.getChildren().add(7, databaseList);
-    }
-
-    private void createSetMemoryLimitSlider() {
-        currentMemLimit = new Label("The memory limit is: " + exprMem.getMemoryLimit());
-        setMemoryLabel = new Label("Set memory limit using the slider");
-        memLimitSlider = new Slider();
-        memLimitSlider.setMin(0);
-        memLimitSlider.setMax(25);
-        memLimitSlider.setValue(10);
-        memLimitSlider.setShowTickLabels(true);
-        memLimitSlider.setShowTickMarks(true);
-        memLimitSlider.setSnapToTicks(true);
-        memLimitSlider.setMajorTickUnit(2);
     }
 
     private void createAllButtons() {
@@ -600,18 +525,19 @@ public class CalculatorAppUi extends Application {
         saveAllStatus = new Label("");
 
         databaseLabel = new Label("Expressions in the database:");
-        expressionCount = new Label("");
-        countExpressions();
         copyDbExpression = new Button("Copy selected database expression to input");
         getAllSavedExpressions = new Button("Retrieve all saved expressions");
         retrievalStatus = new Label("");
+        deleteExpression = new Button("Delete the selected expression from database");
+        deleteStatus = new Label("");
+
+        expressionCount = new Label("");
+        countExpressions();
         search = new TextField();
         searchHelp = new Label("Type below to search:");
         searchExpression = new Button("Search for an expression");
         searchStatus = new Label("");
         copyMatch = new Button("Copy selected match to input");
-        deleteExpression = new Button("Delete the selected expression from database");
-        deleteStatus = new Label("");
     }
 
     private void countExpressions() {
@@ -624,8 +550,112 @@ public class CalculatorAppUi extends Application {
     }
 
     private void createProgramFunctionalityButtons() {
-        closeButton = new Button("Close the application");
         yesButton = new Button("Yes");
         noButton = new Button("No");
+    }
+
+    private void createGrids(GridPane mainGrid, GridPane auxGrid) {
+        mainGrid.addRow(0, numbers.get(7), numbers.get(8), numbers.get(9), delete, clear);
+        mainGrid.addRow(1, numbers.get(4), numbers.get(5), numbers.get(6), multiply, divide);
+        mainGrid.addRow(2, numbers.get(1), numbers.get(2), numbers.get(3), plus, minus);
+        mainGrid.addRow(3, numbers.get(0), dot, percent, answer, equalsSign);
+
+        auxGrid.addColumn(0, exponent, sin, sqrt, absValue);
+        auxGrid.addColumn(1, leftBracket, cos, ln, signMinus);
+        auxGrid.addColumn(2, rightBracket, tan, log);
+    }
+
+    private void createVBoxLeft(VBox vBoxLeft, int height, GridPane auxGrid, VBox vBoxSearch) {
+        Label inputLabel = new Label("Input: ");
+        inputLabel.setPrefHeight(height);
+        Label exprLabel = new Label("Expression:");
+        exprLabel.setPrefHeight(height);
+        Label resLabel = new Label("Result: ");
+        resLabel.setPrefHeight(height);
+        Label instrLabel = new Label("Instructions: ");
+        instrLabel.setPrefHeight(height);
+
+        vBoxLeft.setSpacing(5);
+        vBoxLeft.getChildren().add(0, inputLabel);
+        vBoxLeft.getChildren().add(1, exprLabel);
+        vBoxLeft.getChildren().add(2, resLabel);
+        vBoxLeft.getChildren().add(3, instrLabel);
+        vBoxLeft.getChildren().add(4, auxGrid);
+        vBoxLeft.getChildren().add(5, vBoxSearch);
+    }
+
+    private void createVBoxCenter(VBox vBoxCenter, int h2, GridPane mainGrid, ListView<Expression> databaseMatchesList) {
+        input = new TextField();
+        input.setPrefHeight(h2);
+        input.setEditable(false);
+        formula = new TextField();
+        formula.setPrefHeight(h2);
+        formula.setEditable(false);
+        result = new TextField();
+        result.setPrefHeight(h2);
+        result.setEditable(false);
+        instruction = new TextField();
+        instruction.setPrefHeight(h2);
+        instruction.setEditable(false);
+
+        vBoxCenter.setSpacing(5);
+        vBoxCenter.getChildren().add(0, input);
+        vBoxCenter.getChildren().add(1, formula);
+        vBoxCenter.getChildren().add(2, result);
+        vBoxCenter.getChildren().add(3, instruction);
+        vBoxCenter.getChildren().add(4, mainGrid);
+        vBoxCenter.getChildren().add(5, new Label("Search results:"));
+        vBoxCenter.getChildren().add(6, databaseMatchesList);
+    }
+
+    private void createVBoxSearch(VBox vBoxSearch) {
+        vBoxSearch.setSpacing(5);
+        vBoxSearch.getChildren().add(0, searchHelp);
+        vBoxSearch.getChildren().add(1, search);
+        vBoxSearch.getChildren().add(2, searchExpression);
+        vBoxSearch.getChildren().add(3, searchStatus);
+        vBoxSearch.getChildren().add(4, copyMatch);
+    }
+
+    private void createSetMemoryLimitSlider() {
+        currentMemLimit = new Label("The memory limit is: " + exprMem.getMemoryLimit());
+        setMemoryLabel = new Label("Set memory limit using the slider");
+        memLimitSlider = new Slider();
+        memLimitSlider.setMin(0);
+        memLimitSlider.setMax(25);
+        memLimitSlider.setValue(10);
+        memLimitSlider.setShowTickLabels(true);
+        memLimitSlider.setShowTickMarks(true);
+        memLimitSlider.setSnapToTicks(true);
+        memLimitSlider.setMajorTickUnit(2);
+    }
+
+    private void createVBoxRight(VBox vBoxRight, ListView<String> memoryList) {
+        Label recentExpressions = new Label("Memory: Recently used");
+        vBoxRight.setSpacing(5);
+        vBoxRight.getChildren().add(0, currentMemLimit);
+        vBoxRight.getChildren().add(1, setMemoryLabel);
+        vBoxRight.getChildren().add(2, memLimitSlider);
+        vBoxRight.getChildren().add(3, setMemoryLimit);
+        vBoxRight.getChildren().add(4, recentExpressions);
+        vBoxRight.getChildren().add(5, clearMemory);
+        vBoxRight.getChildren().add(6, saveAllExpressions);
+        vBoxRight.getChildren().add(7, saveAllStatus);
+        vBoxRight.getChildren().add(8, saveExpression);
+        vBoxRight.getChildren().add(9, saveStatus);
+        vBoxRight.getChildren().add(10, copyMemExpression);
+        vBoxRight.getChildren().add(11, memoryList);
+    }
+
+    private void createVBoxRightest(VBox vBoxRightest, ListView<Expression> databaseList) {
+        vBoxRightest.setSpacing(5);
+        vBoxRightest.getChildren().add(0, databaseLabel);
+        vBoxRightest.getChildren().add(1, expressionCount);
+        vBoxRightest.getChildren().add(2, getAllSavedExpressions);
+        vBoxRightest.getChildren().add(3, retrievalStatus);
+        vBoxRightest.getChildren().add(4, copyDbExpression);
+        vBoxRightest.getChildren().add(5, deleteExpression);
+        vBoxRightest.getChildren().add(6, deleteStatus);
+        vBoxRightest.getChildren().add(7, databaseList);
     }
 }

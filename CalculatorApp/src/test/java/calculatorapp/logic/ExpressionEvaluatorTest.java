@@ -211,6 +211,13 @@ public class ExpressionEvaluatorTest {
     }
 
     @Test
+    public void postfixEvaluatorCornerCaseValueStackIsEmpty() {
+        ArrayDeque<String> output = new ArrayDeque<>();
+        output.addLast("log");
+        assertEquals(Double.NaN, exprEval.postfixEvaluator(output), 0.001);
+    }
+
+    @Test
     public void expressionEvaluationCornerCase1() {
         assertEquals(Double.NaN, exprEval.expressionEvaluation("8(+6"), 0.001);
     }
