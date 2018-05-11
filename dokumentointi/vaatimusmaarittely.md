@@ -46,6 +46,8 @@ If the user saves an expression or saves all expressions in memory, then the dat
 
 ## Possibilities for expansion
 
+* Adding the ability to insert/delete input in the middle of an expression
+
 * Adding a graphics calculator feature
 
 * Better than double precision accuracy, using integer values when possible
