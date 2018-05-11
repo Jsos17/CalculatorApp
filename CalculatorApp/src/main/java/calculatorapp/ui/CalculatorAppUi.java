@@ -275,7 +275,17 @@ public class CalculatorAppUi extends Application {
             }
         });
 
-        answer.setOnMouseClicked((event) -> input.appendText(result.getText()));
+        answer.setOnMouseClicked((event) -> {
+            String res = result.getText();
+            if (!res.equals("")) {
+                if (res.charAt(0) == '-') {
+                    input.appendText("neg(" + res.substring(1) + ")");
+                } else {
+                    input.appendText(res);
+                }
+            }
+        });
+
         leftBracket.setOnMouseClicked((event) -> input.appendText("("));
         rightBracket.setOnMouseClicked((event) -> input.appendText(")"));
 
