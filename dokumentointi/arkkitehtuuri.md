@@ -1,5 +1,7 @@
 # Software architecture
 
+**NOTE: The architecture has changed due to implementation of Command pattern**
+
 ## Application logic
 
 The classes ExpressionEvaluator and InputParser handle almost all the functional logic of the program. In other words, they are responsible for checking the input for correctness (InputParser) and transforming it into numerical form (ExpressionEvaluator). The CalculatorService class handles the actual numerical computations. 
