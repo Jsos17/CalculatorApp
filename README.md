@@ -18,8 +18,6 @@ The user can save expressions in a database and re-use them later.
 
 [Testausdokumentti/Testing document](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/testaus.md)
 
-**NOTE: The architecture has changed due to implementation of Command pattern**
-
 [Arkkitehtuurikuvaus/Software architecture](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/arkkitehtuuri.md)
 
 [Työaikakirjanpito/Work log](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/tyoaikakirjanpito.md)
