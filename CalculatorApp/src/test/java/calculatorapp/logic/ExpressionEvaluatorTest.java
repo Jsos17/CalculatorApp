@@ -385,11 +385,6 @@ public class ExpressionEvaluatorTest {
     }
 
     @Test
-    public void executeTheRightFuncCornerCase() {
-        assertEquals(Double.NaN, exprEval.executeTheRightFunction2("foo", 42), 0.001);
-    }
-
-    @Test
     public void shuntingYardImpossibleCase1() {
         ArrayList<String> tokens = new ArrayList<>();
         tokens.add(")");

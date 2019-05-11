@@ -268,41 +268,8 @@ public class ExpressionEvaluator {
      * @see #executeTheRightFunction2(java.lang.String, double)
      */
     protected double executeTheRightFunction1(String function, double x) {
-        switch (function) {
-            case "sqrt":
-                return this.calculator.squareRoot(x);
-            case "sin":
-                return this.calculator.sin(x);
-            case "cos":
-                return this.calculator.cos(x);
-            case "tan":
-                return this.calculator.tan(x);
-            case "ln":
-                return this.calculator.naturalLog(x);
-            case "log":
-                return this.calculator.base10log(x);
-            case "abs":
-                return this.calculator.abs(x);
-            default:
-                return executeTheRightFunction2(function, x);
-        }
-    }
-
-    /**
-     * @see #executeTheRightFunction1(java.lang.String, double)
-     * @param function as a String
-     * @param x as a double value
-     * @return a double value or NaN
-     */
-    protected double executeTheRightFunction2(String function, double x) {
-        switch (function) {
-            case "neg":
-                return this.calculator.negate(x);
-            case "%":
-                return this.calculator.percent(x);
-            default:
-                return Double.NaN;
-        }
+        double[] arguments = new double[]{x};
+        return this.calculator.execute(function, arguments);
     }
 
     /**
@@ -315,20 +282,8 @@ public class ExpressionEvaluator {
      * @return a double value or NaN
      */
     protected double executeTheRightOperation(char operator, double x1, double x2) {
-        switch (operator) {
-            case '+':
-                return this.calculator.addDouble(x1, x2);
-            case '-':
-                return this.calculator.subtractDouble(x1, x2);
-            case '*':
-                return this.calculator.multiplyDouble(x1, x2);
-            case '/':
-                return this.calculator.divideDouble(x1, x2);
-            case '^':
-                return this.calculator.exponentiation(x1, x2);
-            default:
-                return Double.NaN;
-        }
+        double[] arguments = new double[]{x1, x2};
+        return this.calculator.execute(Character.toString(operator), arguments);
     }
 
     /**
