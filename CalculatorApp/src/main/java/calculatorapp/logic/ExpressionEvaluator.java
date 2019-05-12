@@ -268,8 +268,7 @@ public class ExpressionEvaluator {
      * @see #executeTheRightFunction2(java.lang.String, double)
      */
     protected double executeTheRightFunction1(String function, double x) {
-        double[] arguments = new double[]{x};
-        return this.calculator.execute(function, arguments);
+        return this.calculator.execute(function, new double[]{x});
     }
 
     /**
@@ -282,8 +281,7 @@ public class ExpressionEvaluator {
      * @return a double value or NaN
      */
     protected double executeTheRightOperation(char operator, double x1, double x2) {
-        double[] arguments = new double[]{x1, x2};
-        return this.calculator.execute(Character.toString(operator), arguments);
+        return this.calculator.execute(Character.toString(operator), new double[]{x1, x2});
     }
 
     /**
