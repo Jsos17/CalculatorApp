@@ -1,5 +1,9 @@
 # Ohjelmistotekniikan menetelmät project work: CalculatorApp
 
+[![Build Status](https://travis-ci.com/Jsos17/CalculatorApp.svg?branch=master)](https://travis-ci.com/Jsos17/CalculatorApp)   [![codecov](https://codecov.io/gh/Jsos17/CalculatorApp/branch/master/graph/badge.svg)](https://codecov.io/gh/Jsos17/CalculatorApp)
+
+
+
 Here is the **README-file** for the project work **CalculatorApp**. This project is part of the course *Ohjelmistotekniikan menetelmät (Software engineering methods (unofficial translation))*
 
 The CalculatorApp is, as the name suggests, a calculator. See [user manual](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/kayttoohje.md) for what operations are supported. The CalculatorApp uses double precision. Therefore, it is intended mainly to be a demonstration of certain programming skills, and is not suited for calculations requiring absolute precision.
