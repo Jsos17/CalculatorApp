@@ -1,6 +1,6 @@
 # Ohjelmistotekniikan menetelmät project work: CalculatorApp
 
-[![Build Status](https://travis-ci.com/Jsos17/CalculatorApp.svg?branch=master)](https://travis-ci.com/Jsos17/CalculatorApp)   [![codecov](https://codecov.io/gh/Jsos17/CalculatorApp/branch/master/graph/badge.svg)](https://codecov.io/gh/Jsos17/CalculatorApp)
+[![Build Status](https://travis-ci.com/Jsos17/CalculatorApp.svg?branch=master)](https://travis-ci.com/Jsos17/CalculatorApp)   [![codecov](https://codecov.io/gh/Jsos17/CalculatorApp/branch/master/graph/badge.svg)](https://codecov.io/gh/Jsos17/CalculatorApp) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0f0b3e2add074934912c4ec280ce04de)](https://www.codacy.com/app/Jsos17/CalculatorApp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Jsos17/CalculatorApp&amp;utm_campaign=Badge_Grade)
 
 
 
