@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package calculatorapp.dao;
 
 import calculatorapp.logic.Expression;
@@ -79,7 +74,7 @@ public class ExpressionDaoTest {
     public void tooLongExpressionIsNotSaved() throws SQLException {
         assertFalse(eDao.save(tooLong));
     }
-    
+
     @Test
     public void tooLongExpressionIsNotSavedInSaveAll() throws SQLException {
         ArrayList<String> testEs = new ArrayList<>();
