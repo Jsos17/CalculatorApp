@@ -4,7 +4,7 @@
 
 This programming project was part of the University of Helsinki course *Ohjelmistotekniikan menetelmät (Software engineering methods (unofficial translation))*. It was done between late March and early May of the year 2018. Since then, some modest refactoring has been implemented, but the bulk of the project was done during those March, April and May months of 2018. 
 
-This was my first solo programming project, after I had learned to program with Java during the previous autumn. While I was working on this project, I was also taking the course Data Structures and Algorithms. Therefore, an overzealous obsession with algorithmic efficiency can undoubtedly be seen in the code, and also in the documentation. Consequently, very little thought was given to how easy and fun it would be to use the graphical user interface. If I were to do this project today, it would probably be the number one priority, since usability is a crucial property in a calculator.
+This was my first solo programming project, after I had learned to program with Java during the previous autumn. While I was working on this project, I was also taking the course Data Structures and Algorithms. Therefore, an overzealous obsession with algorithmic efficiency can undoubtedly be seen in the code, and also in the documentation. Consequently, very little thought was given to how easy and fun it would be to use the graphical user interface. If I were to do this project today, it would probably be the number one priority, since usability is *the crucial property* in a calculator.
 
 The CalculatorApp is, as the name suggests, a calculator. See [user manual](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/kayttoohje.md) for what operations are supported. The CalculatorApp uses double precision. Therefore, it is intended mainly to be a demonstration of certain programming skills, and is not suited for calculations requiring absolute precision.
 
@@ -44,12 +44,6 @@ The user can save expressions in a database and re-use them later.
 Tests can be run with the command:
 
     mvn test
-
-Test coverage report can be run with the command:
-
-    mvn jacoco:report
-
-And it can be examined by opening the file *target/site/jacoco/index.html* in the chromium-browser for example.
 
 ### Generating an executable jar-file
 
