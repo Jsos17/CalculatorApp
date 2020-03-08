@@ -14,13 +14,13 @@
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
-        <action>
+<!--        <action>
             <actionName>CUSTOM-testikattavuus</actionName>
             <displayName>testikattavuus</displayName>
             <goals>
                 <goal>jacoco:report</goal>
             </goals>
-        </action>
+        </action>-->
         <action>
             <actionName>CUSTOM-checkstyle</actionName>
             <displayName>checkstyle</displayName>
