@@ -6,7 +6,7 @@ This programming project was part of the University of Helsinki course *Ohjelmis
 
 This was my first solo programming project, after I had learned to program with Java during the previous autumn. While I was working on this project, I was also taking the course Data Structures and Algorithms. Therefore, an overzealous obsession with algorithmic efficiency can undoubtedly be seen in the code, and also in the documentation. Consequently, very little thought was given to how easy and fun it would be to use the graphical user interface. If I were to do this project today, it would probably be the number one priority.
 
-The CalculatorApp is, as the name suggests, a calculator. See [user manual](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/kayttoohje.md) for what operations are supported. The CalculatorApp uses double precision. Therefore, it is intended mainly to be a demonstration of certain programming skills, and is not suited for calculations requiring absolute precision.
+The CalculatorApp is, as the name suggests, a calculator. See the [user manual](https://github.com/Jsos17/CalculatorApp/blob/master/dokumentointi/kayttoohje.md) for what operations are supported. The CalculatorApp uses double precision. Therefore, it is intended mainly to be a demonstration of certain programming skills, and is not suited for calculations requiring absolute precision.
 
 The mathematical expressions are processed with my own implementation of Edsger Djikstra's [Shunting-Yard Algorithm](https://en.wikipedia.org/wiki/Shunting-yard_algorithm).
 
