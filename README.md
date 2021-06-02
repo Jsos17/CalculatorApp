@@ -1,8 +1,8 @@
-# Software engineering project work: CalculatorApp
+# Methods for Software Engineering Project: Spring 2018
 
 [![Build Status](https://travis-ci.com/Jsos17/CalculatorApp.svg?branch=master)](https://travis-ci.com/Jsos17/CalculatorApp)   [![codecov](https://codecov.io/gh/Jsos17/CalculatorApp/branch/master/graph/badge.svg)](https://codecov.io/gh/Jsos17/CalculatorApp) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0f0b3e2add074934912c4ec280ce04de)](https://www.codacy.com/app/Jsos17/CalculatorApp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Jsos17/CalculatorApp&amp;utm_campaign=Badge_Grade)
 
-This programming project was part of the University of Helsinki course *Ohjelmistotekniikan menetelmät (Software engineering methods (unofficial translation))*. It was done between late March and early May of the year 2018. Since then, some modest refactoring has been implemented, but the bulk of the project was done during those March, April and May months of 2018. 
+This programming project was part of the University of Helsinki course *Methods for Software Engineering* (*Ohjelmistotekniikan menetelmät*). It was done between late March and early May of the year 2018. Since then, some modest refactoring has been implemented, but the bulk of the project was done during those March, April and May months of 2018. 
 
 This was my first solo programming project, after I had learned to program with Java during the previous autumn. While I was working on this project, I was also taking the course Data Structures and Algorithms. Therefore, an overzealous obsession with algorithmic efficiency can undoubtedly be seen in the code, and also in the documentation. Consequently, very little thought was given to how easy and fun it would be to use the graphical user interface. If I were to do this project today, it would probably be the number one priority.
 
